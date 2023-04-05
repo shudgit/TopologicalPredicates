@@ -12,7 +12,7 @@ class ParallelObjT
     std::vector<int> SelectNext();
 
     public:
-    int elementOf;
-    int endOf;
+    int object = 0;
+    int status = 0;
     ParallelObjT(std::vector obj1, std::vector obj2);
 }
