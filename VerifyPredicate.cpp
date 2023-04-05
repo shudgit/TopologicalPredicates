@@ -227,3 +227,15 @@
     {
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
+
+    std::vector<bool> LineLineAlgorithm(Line2D line1, Line2D line2)
+    {
+        PlaneSweep newSweep;
+
+    }
+
+    std::vector<bool> PointRegionAlgorithm(Point2D points, Region2D region)
+    {
+        PlaneSweep newSweep;
+
+    }
