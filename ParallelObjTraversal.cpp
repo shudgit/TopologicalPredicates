@@ -43,6 +43,7 @@ SimplePoint2D ParallelObjT::SelectNext()
                 obj1Dynamic.pop_front();
             }
             elementOf = 1;
+            
             return obj1NextPoint;
         }
         else if(obj1NextPoint > obj2NextPoint)
