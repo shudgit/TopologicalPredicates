@@ -42,8 +42,20 @@ SimplePoint2D ParallelObjT::SelectNext()
             {
                 obj1Dynamic.pop_front();
             }
-            elementOf = 1;
-            
+            object = 1;
+
+            if(obj1Queue.empty() && obj1Dynamic.empty()) 
+            {
+                if(status == 0) 
+                {
+                    status = 1;
+                }
+                else if(status == 2)
+                {
+                    status = 3;
+                }
+            }
+
             return obj1NextPoint;
         }
         else if(obj1NextPoint > obj2NextPoint)
@@ -56,7 +68,20 @@ SimplePoint2D ParallelObjT::SelectNext()
             {
                 obj2Dynamic.pop_front();
             }
-            elementOf = 2;
+            object = 2;
+
+            if(obj2Queue.empty() && obj2Dynamic.empty()) 
+            {
+                if(status == 0) 
+                {
+                    status = 2;
+                }
+                else if(status == 1)
+                {
+                    status = 3;
+                }
+            }
+
             return obj2NextPoint;
         }
         else
@@ -77,7 +102,32 @@ SimplePoint2D ParallelObjT::SelectNext()
             {
                 obj2Dynamic.pop_front();
             }
-            elementOf = 3;
+            object = 3;
+
+            if(obj1Queue.empty() && obj1Dynamic.empty()) 
+            {
+                if(status == 0) 
+                {
+                    status = 1;
+                }
+                else if(status == 2)
+                {
+                    status = 3;
+                }
+            }
+
+             if(obj2Queue.empty() && obj2Dynamic.empty()) 
+            {
+                if(status == 0) 
+                {
+                    status = 2;
+                }
+                else if(status == 1)
+                {
+                    status = 3;
+                }
+            }
+            
             return obj1NextPoint;
         }
     }
