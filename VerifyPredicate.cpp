@@ -1,4 +1,8 @@
 #include "VerifyPredicate.h"
+#include "ParallelObjTraversal.h"
+#include "HalfSegment2D.h"
+#include "AttributedHalfSegment2D.h"
+#include "SimplePoint2D.h"
 #include <vector>
 
 
@@ -230,12 +234,62 @@
 
     std::vector<bool> LineLineAlgorithm(Line2D line1, Line2D line2)
     {
+        std::vector<HalfSegment2D> line1Vector;
+        std::vector<HalfSegment2D> line2Vector;
+        std::vector<SimplePoint2D> line1Points;
+        std::vector<SimplePoint2D> line2Points;
+
+        for(Line2D::Iterator ptr = line1.begin(); ptr != line1.end(); ptr++) {
+            line1Vector.push_back(*ptr);
+            if(line1Vector.back().isDominatingPointLeft) 
+            {
+                line1Points.push_back(line1Vector.back().s.leftEndPoint);
+            }
+            else
+            {
+                line1Points.push_back(line1Vector.back().s.rightEndPoint);
+            }
+        }
+        for(Line2D::Iterator ptr = line2.begin(); ptr != line2.end(); ptr++) {
+            line2Vector.push_back(*ptr);
+            if(line2Vector.back().isDominatingPointLeft) 
+            {
+                line2Points.push_back(line2Vector.back().s.leftEndPoint);
+            }
+            else
+            {
+                line2Points.push_back(line2Vector.back().s.rightEndPoint);
+            }
+        }
+        
         PlaneSweep newSweep;
+        ParallelObjT objT(line1Points, line2Points);
+        SimplePoint2D eventPoint = objT.SelectNext();
 
     }
 
     std::vector<bool> PointRegionAlgorithm(Point2D points, Region2D region)
     {
-        PlaneSweep newSweep;
+        std::vector<SimplePoint2D> pointVector;
+        std::vector<AttributedHalfSegment2D> regionVector;
+        std::vector<SimplePoint2D> regionPoints;
 
+        for(Point2D::Iterator ptr = points.begin(); ptr != points.end(); ptr++) {
+            pointVector.push_back(*ptr);
+        }
+        for(Region2D::Iterator ptr = region.begin(); ptr != region.end(); ptr++) {
+            regionVector.push_back(*ptr);
+            if(regionVector.back().hs.isDominatingPointLeft) 
+            {
+                regionPoints.push_back(regionVector.back().hs.s.leftEndPoint);
+            }
+            else
+            {
+                regionPoints.push_back(regionVector.back().hs.s.rightEndPoint);
+            }
+        }
+
+        PlaneSweep newSweep;
+        ParallelObjT objT(pointVector, regionPoints);
+        SimplePoint2D eventPoint = objT.SelectNext();
     }
