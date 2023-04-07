@@ -1,6 +1,6 @@
 #include "ParallelObjTraversal.h"
 
-ParallelObjT::ParallelObjT(std::vector obj1, std::vector obj2) 
+ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePoint2D> obj2) 
 {
     for(int i = 0; i < obj1.size(); i++) {
         obj1Queue.push_back(obj1[i]);
