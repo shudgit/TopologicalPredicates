@@ -69,6 +69,17 @@ Segment2D PlaneSweep::pred_of_p(Segment2D segment)
     return *itr;
 }
 
+bool PlaneSweep::poi_on_seg(SimplePoint2D point) {
+    for(int i = 0; i < sweepStatus.size(); i++) 
+    {
+        if(sweepStatus[i].poiOnSeg(point))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg) 
 {
     SimplePoint2D dp = segToAdd.leftEndPoint;

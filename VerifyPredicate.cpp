@@ -238,8 +238,11 @@
         std::vector<HalfSegment2D> line2Vector;
         std::vector<SimplePoint2D> line1Points;
         std::vector<SimplePoint2D> line2Points;
+        std::vector<bool> featureVector;
+        featureVector.resize(9, false);
 
-        for(Line2D::Iterator ptr = line1.begin(); ptr != line1.end(); ptr++) {
+        for(Line2D::Iterator ptr = line1.begin(); ptr != line1.end(); ptr++)
+         {
             line1Vector.push_back(*ptr);
             if(line1Vector.back().isDominatingPointLeft) 
             {
@@ -250,7 +253,8 @@
                 line1Points.push_back(line1Vector.back().s.rightEndPoint);
             }
         }
-        for(Line2D::Iterator ptr = line2.begin(); ptr != line2.end(); ptr++) {
+        for(Line2D::Iterator ptr = line2.begin(); ptr != line2.end(); ptr++) 
+        {
             line2Vector.push_back(*ptr);
             if(line2Vector.back().isDominatingPointLeft) 
             {
@@ -265,7 +269,6 @@
         PlaneSweep newSweep;
         ParallelObjT objT(line1Points, line2Points);
         SimplePoint2D eventPoint = objT.SelectNext();
-
     }
 
     std::vector<bool> PointRegionAlgorithm(Point2D points, Region2D region)
@@ -274,10 +277,15 @@
         std::vector<AttributedHalfSegment2D> regionVector;
         std::vector<SimplePoint2D> regionPoints;
 
-        for(Point2D::Iterator ptr = points.begin(); ptr != points.end(); ptr++) {
+        std::vector<bool> featureVector;
+        featureVector.resize(3, false);
+
+        for(Point2D::Iterator ptr = points.begin(); ptr != points.end(); ptr++) 
+        {
             pointVector.push_back(*ptr);
         }
-        for(Region2D::Iterator ptr = region.begin(); ptr != region.end(); ptr++) {
+        for(Region2D::Iterator ptr = region.begin(); ptr != region.end(); ptr++) 
+        {
             regionVector.push_back(*ptr);
             if(regionVector.back().hs.isDominatingPointLeft) 
             {
@@ -292,4 +300,54 @@
         PlaneSweep newSweep;
         ParallelObjT objT(pointVector, regionPoints);
         SimplePoint2D eventPoint = objT.SelectNext();
+
+        while(objT.status == 0 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false)) 
+        {
+            if(objT.object == 1) //object is a point
+            {
+                if(newSweep.poi_on_seg(evenPoint))
+                {
+                    //Point on bound = true
+                    featureVector[1] = true;
+                }
+                else if(newSweep.pred_exists(eventPoint))
+                {
+                    Segment2D newBound = newSweep.pred_of_p(eventPoint);
+                    //get attribute of segment
+
+                    if() //attribute = above 
+                    {
+                        featureVector[0] = true; //point on inside
+                    }
+                    else //attribute below
+                    {
+                        featureVector[2] = true; //point on outside
+                    }
+                }
+                else //point below region
+                {
+                    featureVector[2] = true;
+                }
+            }
+            else //object is the region or object is both
+            {
+                //get half segment from event point
+                
+                if(objT.object == 3)
+                {
+                    featureVector[1] = true; //point on boundary
+                }
+            }
+
+            eventPoint = objT.SelectNext(); //call select next
+        }
+
+        if(objT.status == 2) //status = end of second
+        {
+            featureVector[2] = true;
+        }
+
+        return featureVector;
     }
+
+    
