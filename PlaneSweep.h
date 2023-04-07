@@ -20,5 +20,5 @@ class PlaneSweep {
         //bool get_pred_attr(); 
         bool pred_exists(Segment2D segment);
         Segment2D pred_of_p(Segment2D segment);
-        //bool poi_on_seg();  
+        bool poi_on_seg(SimplePoint2D point);  
 };
