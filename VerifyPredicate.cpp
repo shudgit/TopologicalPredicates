@@ -305,7 +305,7 @@
         {
             if(objT.object == 1) //object is a point
             {
-                if(newSweep.poi_on_seg(evenPoint))
+                if(newSweep.poi_on_seg(eventPoint))
                 {
                     //Point on bound = true
                     featureVector[1] = true;
@@ -350,4 +350,3 @@
         return featureVector;
     }
 
-    
