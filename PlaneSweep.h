@@ -1,5 +1,6 @@
 #include "Segment2D.h"
 #include "SimplePoint2D.h"
+#include "HalfSegment2D.h"
 #include <vector>
 #include <queue>
 #include <map>

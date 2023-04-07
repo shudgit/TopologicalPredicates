@@ -60,11 +60,14 @@ bool PlaneSweep::pred_exists(Segment2D segment)
     }
 }
 
+bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
+{
+    
+}
+
 Segment2D PlaneSweep::pred_of_p(SimplePoint2D point) 
 {
-    auto itr = std::find(sweepStatus.begin(), sweepStatus.end(), segment);
-    itr = itr--;
-    return *itr;
+    
 }
 
 bool PlaneSweep::poi_on_seg(SimplePoint2D point) {
@@ -76,11 +79,6 @@ bool PlaneSweep::poi_on_seg(SimplePoint2D point) {
         }
     }
     return false;
-}
-
-bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
-{
-
 }
 
 bool PlaneSweep::get_attr(Segment2D segment)
