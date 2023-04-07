@@ -42,11 +42,10 @@ void PlaneSweep::add_left(Segment2D segment)
 void PlaneSweep::del_right(Segment2D segment)
 {
     sweepStatus.erase(std::find(sweepStatus.begin(), sweepStatus.end(), segment));
-}
-
-SimplePoint2D PlaneSweep::get_event() //Not sure if this is needed
-{
-    return currentEventPoint; 
+    if(attributes.find(segment) != attributes.end())
+    {
+        attributes.erase(segment);
+    }
 }
 
 bool PlaneSweep::pred_exists(Segment2D segment)
@@ -61,9 +60,8 @@ bool PlaneSweep::pred_exists(Segment2D segment)
     }
 }
 
-Segment2D PlaneSweep::pred_of_p(Segment2D segment) 
+Segment2D PlaneSweep::pred_of_p(SimplePoint2D point) 
 {
-    //find segment in vector and return that index - 1;
     auto itr = std::find(sweepStatus.begin(), sweepStatus.end(), segment);
     itr = itr--;
     return *itr;
@@ -75,6 +73,37 @@ bool PlaneSweep::poi_on_seg(SimplePoint2D point) {
         if(sweepStatus[i].poiOnSeg(point))
         {
             return true;
+        }
+    }
+    return false;
+}
+
+bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
+{
+
+}
+
+bool PlaneSweep::get_attr(Segment2D segment)
+{
+    bool attr = attributes[segment];
+    return attr;
+}
+
+void PlaneSweep::set_attr(Segment2D segment, bool attr)
+{
+    attributes[segment] = attr;
+}
+
+bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfSegs)
+{
+    for (int i = 0; i < halfSegs.size(); i++)
+    {
+        if (halfSegs[i] == half)
+        {
+            if (halfSegs[i].getDP() == halfSegs[i+1].getDP())
+            {
+                return true;
+            }
         }
     }
     return false;
