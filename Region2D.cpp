@@ -134,6 +134,7 @@ void Region2D::Impl::setFlags()
             {
                 regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg,true));
                 regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), true));
+                sweepStatus.emplace(sweepStatus.begin(), currentHalfSeg);
             }
             else //add halfsegment to sweep status somewhere in the middle
             {
