@@ -90,7 +90,7 @@ bool Region2D::Impl::CheckLessThan(SimplePoint2D dp, HalfSegment2D halfSeg)
 
     // handle infinite slope
     if (right.x == left.x) {
-        return dp < left;
+        return dp.y < left.y;
     }
 
     Number slope = (right.y - left.y) / (right.x - left.x);
@@ -120,37 +120,32 @@ void Region2D::Impl::setFlags()
         if(currentHalfSeg.isDominatingPointLeft) {
             if(sweepStatus.empty())
             {
-                sweepStatus.push_back(currentHalfSeg); //add half segment to sweep status at beginning
                 regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg,true));
                 regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), true));
+                sweepStatus.push_back(currentHalfSeg); //add half segment to sweep status at beginning
             }
             else if(GetDominatePoint(currentHalfSeg) == GetDominatePoint(sweepStatus.back())) //add half segment to sweep status at end
             {
-                sweepStatus.push_back(currentHalfSeg);
                 regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg, !(GetAboveFlag(sweepStatus.back()))));
                 regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), !(GetAboveFlag(sweepStatus.back()))));
+                sweepStatus.push_back(currentHalfSeg);
+            }
+            else if(CheckLessThan(GetDominatePoint(currentHalfSeg), sweepStatus[0]))
+            {
+                regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg,true));
+                regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), true));
             }
             else //add halfsegment to sweep status somewhere in the middle
             {
-                int index = sweepStatus.size() - 1;
-                while(!CheckLessThan(GetDominatePoint(currentHalfSeg), sweepStatus[index])) //find index
+                int index = 0;
+                while((index < sweepStatus.size()) && !CheckLessThan(GetDominatePoint(currentHalfSeg), sweepStatus[index])) //find index
                 {
-                    if(index == 0) {
-                        break;
-                    }
-                    index -= 1;
+                    index++;
                 }
                 sweepStatus.emplace(sweepStatus.begin() + index, currentHalfSeg); //emplace at index
-                if(index > 0) 
-                {
-                    regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg, !(GetAboveFlag(sweepStatus[index - 1]))));
-                    regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), !(GetAboveFlag(sweepStatus[index - 1]))));
-                }
-                else 
-                {
-                    regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg,true));
-                    regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), true));
-                }
+                regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg, !(GetAboveFlag(sweepStatus[index - 1]))));
+                regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), !(GetAboveFlag(sweepStatus[index - 1]))));
+                
             }
         }
         else {
