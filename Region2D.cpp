@@ -51,7 +51,6 @@ Region2D::Impl::Impl(std::vector<Segment2D> _regionSegments)
 
     this->halfSegments = HalfSegVec;
     setFlags();
-    std::cout << regionSegments.size() << std::endl;
 }
 
 SimplePoint2D Region2D::Impl::GetDominatePoint(HalfSegment2D inputHalfSegment)
@@ -136,11 +135,22 @@ void Region2D::Impl::setFlags()
                 int index = sweepStatus.size() - 1;
                 while(!CheckLessThan(GetDominatePoint(currentHalfSeg), sweepStatus[index])) //find index
                 {
+                    if(index == 0) {
+                        break;
+                    }
                     index -= 1;
                 }
                 sweepStatus.emplace(sweepStatus.begin() + index, currentHalfSeg); //emplace at index
-                regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg, !(GetAboveFlag(sweepStatus[index - 1]))));
-                regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), !(GetAboveFlag(sweepStatus[index - 1]))));
+                if(index > 0) 
+                {
+                    regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg, !(GetAboveFlag(sweepStatus[index - 1]))));
+                    regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), !(GetAboveFlag(sweepStatus[index - 1]))));
+                }
+                else 
+                {
+                    regionSegments.push_back(AttributedHalfSegment2D(currentHalfSeg,true));
+                    regionSegments.push_back(AttributedHalfSegment2D(GetBrotherSeg(currentHalfSeg), true));
+                }
             }
         }
         else {
