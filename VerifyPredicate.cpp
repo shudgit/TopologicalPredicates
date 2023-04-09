@@ -274,7 +274,7 @@
         std::vector<bool> featureVector;
         featureVector.resize(9, false);
 
-        for(Line2D::Iterator ptr = line1.begin(); ptr != line1.end(); ptr++)
+        for(Line2D::iterator ptr = line1.begin(); ptr != line1.end(); ptr++)
          {
             line1Vector.push_back(*ptr);
             if(line1Vector.back().isDominatingPointLeft) 
@@ -286,7 +286,7 @@
                 line1Points.push_back(line1Vector.back().s.rightEndPoint);
             }
         }
-        for(Line2D::Iterator ptr = line2.begin(); ptr != line2.end(); ptr++) 
+        for(Line2D::iterator ptr = line2.begin(); ptr != line2.end(); ptr++) 
         {
             line2Vector.push_back(*ptr);
             if(line2Vector.back().isDominatingPointLeft) 
@@ -434,7 +434,7 @@
         {
             pointVector.push_back(*ptr);
         }
-        for(Region2D::Iterator ptr = region.begin(); ptr != region.end(); ptr++) 
+        for(Region2D::iterator ptr = region.begin(); ptr != region.end(); ptr++) 
         {
             regionVector.push_back(*ptr);
             if(regionVector.back().hs.isDominatingPointLeft) 
@@ -595,6 +595,124 @@
                 {
                     return halfSegVec[i];
                 }
+            }
+        }
+    }
+
+    std::vector<bool> VerifyPredicate::PointLineAlgorithm(Point2D obj1, Line2D obj2)
+    {
+        vector<bool> features {false, false, false, false};
+        PlaneSweep S = PlaneSweep();
+        SimplePoint2D last_dp;
+        Point2D::Iterator ptr;
+        Line2D::iterator ptr2;
+        vector<SimplePoint2D> obj1V; 
+        vector<HalfSegment2D> obj2HV;
+        vector<SimplePoint2D> obj2PV;
+
+
+        for (ptr = obj1.begin(); ptr < obj1.end(); ptr++)
+        {
+            obj1V.push_back(*ptr);
+        }
+
+        for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
+        {
+            obj2HV.push_back(*ptr2);
+            if (obj2HV.back().isDominatingPointLeft)
+            {
+                obj2PV.push_back(obj2HV.back().s.leftEndPoint);
+            }
+            else
+            {
+                obj2PV.push_back(obj2HV.back().s.rightEndPoint);
+            }
+        }
+
+        ParallelObjT pt(obj1V, obj2PV);
+        SimplePoint2D eventPoint = pt.SelectNext();
+
+        do
+        {
+            if (pt.object == 1)
+            {
+                if (S.poi_on_seg(eventPoint))
+                {
+                    features[1] = true;
+                }
+                else
+                {
+                    features[0] = true;
+                }
+            }
+            else if (pt.object = 2)
+            {
+                HalfSegment2D half = findHS(obj2HV, eventPoint);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                }
+                else
+                {
+                    S.del_right(half.s);
+                }
+                if (eventPoint != last_dp)
+                {
+                    last_dp = eventPoint;
+                }
+                if (!S.look_ahead(half, obj2HV))
+                {
+                    features[3] == true;
+                }
+            }
+            else
+            {
+                HalfSegment2D half = findHS(obj2HV, eventPoint);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                }
+                else
+                {
+                    S.del_right(half.s);
+                }
+                last_dp = eventPoint;
+                if (S.look_ahead(half,obj2HV))
+                {
+                    features[1] = true;
+                }
+                else
+                {
+                    features[2] = true;
+                }
+            }
+            eventPoint = pt.SelectNext();
+        }
+        while (pt.status != 2 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3]));
+        if (pt.status == 2)
+        {
+            features[0] = true;
+        }
+        return features;
+    }
+
+    std::vector<bool> VerifyPredicate::LineRegionAlgorithm(Line2D obj1, Region2D obj2)
+    {
+        vector<bool> features{false, false, false, false, false, false, false, false};
+        PlaneSweep S = PlaneSweep();
+        SimplePoint2D last_bound_in_F;
+        Line2D::iterator ptr1;
+        Region2D::iterator ptr2;
+        
+    }
+
+    HalfSegment2D VerifyPredicate::findHS(vector<HalfSegment2D> HS, SimplePoint2D point)
+    {
+        for (int i = 0; i < HS.size(); i++)
+        {
+            if (HS[i].getDP() == point)
+            {
+                return HS[i];
             }
         }
     }
