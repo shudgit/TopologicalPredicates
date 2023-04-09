@@ -125,3 +125,23 @@ bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg)
     return dp.y < halfSegY;
  
 }
+
+// Region Region Functions
+
+std::pair<int, int> PlaneSweep::get_attr_2(Segment2D segment)
+{
+    return attributes2[segment];
+}
+
+void PlaneSweep::set_attr_2(Segment2D segment, std::pair<int, int> p)
+{
+    attributes2[segment] = p;
+}
+
+std::pair<int, int> PlaneSweep::get_pred_attr(Segment2D segment)
+{
+    for(int i = 0; i < sweepStatus.size() - 1; ++i)
+        if(sweepStatus[i + 1] == segment)
+            return get_attr_2(sweepStatus[i]);
+    return std::make_pair(0, 0);
+}

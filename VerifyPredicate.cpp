@@ -418,6 +418,7 @@
             if(pot.object == 1)      // if f
             {
                 // h is the halfsegment of the event, set last_dp_in_f to h's dp
+                
             }
             else if(pot.object == 2) // if g
             {
