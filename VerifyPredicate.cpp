@@ -232,6 +232,37 @@
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
 
+    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2)
+    {
+        vector<bool> flags; // poi_shared, poi_disjoint p1, poi_disjoint p2
+        vector<SimplePoint2D> p1Points;
+        vector<SimplePoint2D> p2Points;
+        for(Point2D::Iterator iter = p1.begin(); iter != p1.end(); iter++) 
+            p1Points.push_back(*iter);
+        for(Point2D::Iterator iter = p2.begin(); iter != p2.end(); iter++) 
+            p2Points.push_back(*iter);
+        
+        ParallelObjT pot(p1Points, p2Points);   // start of parallel object traversal
+        SimplePoint2D next = pot.SelectNext();
+        while(pot.status == 0 && !(flags[0] && flags[1] && flags[2]))       // while not end of either and not all flags have been set
+        {
+            if(pot.object == 1)         // if p1, then p1 has a disjoint point
+                flags[1] = true;
+            else if(pot.object == 2)    // if p2, then p2 has a disjoint point
+                flags[2] = true;
+            else                        // if both, they have a shared point
+                flags[0] = true;
+            next = pot.SelectNext();
+        }
+        
+        if(pot.status == 1)             // ended early on p1 means p2 still has points which are disjoint
+            flags[2] = true;
+        else if(pot.status == 2)        // ended early on p2 means p1 still has points which are disjoint
+            flags[1] = true;
+
+        return flags;
+    }
+    
     std::vector<bool> LineLineAlgorithm(Line2D line1, Line2D line2)
     {
         std::vector<HalfSegment2D> line1Vector;
