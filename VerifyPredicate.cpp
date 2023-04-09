@@ -232,6 +232,38 @@
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
 
+    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2)
+    {
+        std::vector<bool> flags; // poi_shared, poi_disjoint p1, poi_disjoint p2
+        flags.resize(3, false);
+        std::vector<SimplePoint2D> p1Points;
+        std::vector<SimplePoint2D> p2Points;
+        for(Point2D::Iterator iter = p1.begin(); iter != p1.end(); iter++) 
+            p1Points.push_back(*iter);
+        for(Point2D::Iterator iter = p2.begin(); iter != p2.end(); iter++) 
+            p2Points.push_back(*iter);
+        
+        ParallelObjT pot(p1Points, p2Points);   // start of parallel object traversal
+        SimplePoint2D next = pot.SelectNext();
+        while(pot.status == 0 && !(flags[0] && flags[1] && flags[2]))       // while not end of either and not all flags have been set
+        {
+            if(pot.object == 1)         // if p1, then p1 has a disjoint point
+                flags[1] = true;
+            else if(pot.object == 2)    // if p2, then p2 has a disjoint point
+                flags[2] = true;
+            else                        // if both, they have a shared point
+                flags[0] = true;
+            next = pot.SelectNext();
+        }
+
+        if(pot.status == 1)             // ended early on p1 means p2 still has points which are disjoint
+            flags[2] = true;
+        else if(pot.status == 2)        // ended early on p2 means p1 still has points which are disjoint
+            flags[1] = true;
+
+        return flags;
+    }
+    
     //Line || Line
     std::vector<bool> LineLineAlgorithm(Line2D line1, Line2D line2)
     {
@@ -477,6 +509,51 @@
         return featureVector;
     }
 
+    std::vector<bool> RegionRegionAlgorithm(Region2D f, Region2D g)
+    {
+        std::vector<bool> flags; // 0/1, 1/0, 1/2, 2/1, 0/2, 2/0, 1/1, bound_poi_shared, 0/1g, 1/0g, 1/2g, 2/1g
+        flags.resize(12, false);
+        std::vector<AttributedHalfSegment2D> fahs;
+        std::vector<AttributedHalfSegment2D> gahs;
+        std::vector<SimplePoint2D> fPoints;
+        std::vector<SimplePoint2D> gPoints;
+        for(Region2D::iterator iter = f.begin(); iter != f.end(); iter++)
+        {
+            fahs.push_back(*iter);
+            if((*iter).hs.isDominatingPointLeft)
+                fPoints.push_back((*iter).hs.s.leftEndPoint);
+            else
+                fPoints.push_back((*iter).hs.s.rightEndPoint);
+        }
+        for(Region2D::iterator iter = g.begin(); iter != g.end(); iter++) 
+        {
+            gahs.push_back(*iter);
+            if((*iter).hs.isDominatingPointLeft)
+                gPoints.push_back((*iter).hs.s.leftEndPoint);
+            else
+                gPoints.push_back((*iter).hs.s.rightEndPoint);
+        }
+
+        PlaneSweep sweep;
+        ParallelObjT pot(fPoints, gPoints);   // start of parallel object traversal
+        SimplePoint2D next = pot.SelectNext();
+        SimplePoint2D last_dp_in_f;
+        SimplePoint2D last_dp_in_g;
+
+        while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
+        {
+            if(pot.object == 1)      // if f
+            {
+                // h is the halfsegment of the event, set last_dp_in_f to h's dp
+            }
+            else if(pot.object == 2) // if g
+            {
+                // h is the halfsegment of the event, set last_dp_in_g to h's dp
+            }
+            else                     // if from both
+            {
+                // h is the halfsegment of the event, set last_dp_in_f and g to h's dp
+            }
     AttributedHalfSegment2D GetAttrHalfSeg(std::vector<AttributedHalfSegment2D> halfSegVec, SimplePoint2D point)
     {
         for(int i = 0; i < halfSegVec.size(); i++)
@@ -519,3 +596,6 @@
         }
     }
 
+
+        }
+    }
