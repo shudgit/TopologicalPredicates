@@ -554,6 +554,9 @@
             {
                 // h is the halfsegment of the event, set last_dp_in_f and g to h's dp
             }
+        }
+    }
+    
     AttributedHalfSegment2D GetAttrHalfSeg(std::vector<AttributedHalfSegment2D> halfSegVec, SimplePoint2D point)
     {
         for(int i = 0; i < halfSegVec.size(); i++)
@@ -593,9 +596,5 @@
                     return halfSegVec[i];
                 }
             }
-        }
-    }
-
-
         }
     }
