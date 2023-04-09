@@ -10,6 +10,8 @@ class VerifyPredicate
 {
     private:
 
+    HalfSegment2D findHS(vector<HalfSegment2D> HS, SimplePoint2D point);
+
     public:
 
     // This function creates a features vector, then manipulates it in parallel object traversal
@@ -76,5 +78,8 @@ class VerifyPredicate
     bool verify(Line2D obj1, Line2D obj2, int predicateNumber);
     bool verify(Line2D obj1, Region2D obj2, int predicateNumber);
     bool verify(Region2D obj1, Region2D obj2, int predicateNumber);
+
+    std::vector<bool> LineRegionAlgorithm(Line2D obj1, Region2D obj2);
+    std::vector<bool> PointLineAlgorithm(Point2D obj1, Line2D obj2);
 
 };
