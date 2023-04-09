@@ -193,3 +193,22 @@ std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
             return get_attr_2(sweepStatus[i]);
     return std::make_pair(0, 0);
 }
+
+SimplePoint2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
+{
+    for (int i = 0; i < segments.size() - 1; ++i)
+        if (segments[i] == ahs)
+        {
+            AttributedHalfSegment2D ans = segments[i + 1];
+            if(ans.hs.isDominatingPointLeft)
+                return ans.hs.s.leftEndPoint;
+            else
+                return ans.hs.s.rightEndPoint;
+        }
+    // if it was not found in the for loop, it must be the last segment
+    // if last segment just return its own point as it is checked before the look_ahead call anyway so will not impact the result.
+    if(ahs.hs.isDominatingPointLeft)
+                return ahs.hs.s.leftEndPoint;
+            else
+                return ahs.hs.s.rightEndPoint;
+}

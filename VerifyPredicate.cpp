@@ -542,19 +542,18 @@
 
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
         {
-            if(pot.object == 1)      // if f
+            if(pot.object == 1)      // if f, set last_dp_in_f
+                last_dp_in_f = next;
+            else if(pot.object == 2) // if g, set last_dp_in_g
             {
-                // h is the halfsegment of the event, set last_dp_in_f to h's dp
-                
+                last_dp_in_g = next;
             }
-            else if(pot.object == 2) // if g
+            else                     // if both, set both
             {
-                // h is the halfsegment of the event, set last_dp_in_g to h's dp
+                last_dp_in_f = next;
+                last_dp_in_g = next;
             }
-            else                     // if from both
-            {
-                // h is the halfsegment of the event, set last_dp_in_f and g to h's dp
-            }
+            // find the ahs corresponding 
         }
     }
     
