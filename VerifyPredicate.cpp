@@ -232,7 +232,7 @@
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
 
-    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2)
+    std::vector<bool> VerifyPredicate::PointPointAlgorithm(Point2D p1, Point2D p2)
     {
         std::vector<bool> flags; // poi_shared, poi_disjoint p1, poi_disjoint p2
         flags.resize(3, false);
@@ -509,17 +509,17 @@
         return featureVector;
     }
 
-    std::vector<bool> RegionRegionAlgorithm(Region2D f, Region2D g)
+    std::vector<bool> VerifyPredicate::RegionRegionAlgorithm(Region2D f, Region2D g)
     {
         std::vector<bool> flags; // 0/1, 1/0, 1/2, 2/1, 0/2, 2/0, 1/1, bound_poi_shared, 0/1g, 1/0g, 1/2g, 2/1g
         flags.resize(12, false);
-        std::vector<AttributedHalfSegment2D> fahs;
-        std::vector<AttributedHalfSegment2D> gahs;
+        std::vector<AttributedHalfSegment2D> fSegments;
+        std::vector<AttributedHalfSegment2D> gSegments;
         std::vector<SimplePoint2D> fPoints;
         std::vector<SimplePoint2D> gPoints;
         for(Region2D::iterator iter = f.begin(); iter != f.end(); iter++)
         {
-            fahs.push_back(*iter);
+            fSegments.push_back(*iter);
             if((*iter).hs.isDominatingPointLeft)
                 fPoints.push_back((*iter).hs.s.leftEndPoint);
             else
@@ -527,7 +527,7 @@
         }
         for(Region2D::iterator iter = g.begin(); iter != g.end(); iter++) 
         {
-            gahs.push_back(*iter);
+            gSegments.push_back(*iter);
             if((*iter).hs.isDominatingPointLeft)
                 gPoints.push_back((*iter).hs.s.leftEndPoint);
             else

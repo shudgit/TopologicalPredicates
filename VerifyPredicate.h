@@ -79,7 +79,8 @@ class VerifyPredicate
     bool verify(Line2D obj1, Region2D obj2, int predicateNumber);
     bool verify(Region2D obj1, Region2D obj2, int predicateNumber);
 
+    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2);
     std::vector<bool> LineRegionAlgorithm(Line2D obj1, Region2D obj2);
     std::vector<bool> PointLineAlgorithm(Point2D obj1, Line2D obj2);
-
+    std::vector<bool> RegionRegionAlgorithm(Region2D f, Region2D g);
 };
