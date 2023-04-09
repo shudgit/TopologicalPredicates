@@ -186,7 +186,7 @@ void PlaneSweep::set_attr_2(Segment2D segment, std::pair<int, int> p)
     attributes2[segment] = p;
 }
 
-std::pair<int, int> PlaneSweep::get_pred_attr(Segment2D segment)
+std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
 {
     for(int i = 0; i < sweepStatus.size() - 1; ++i)
         if(sweepStatus[i + 1] == segment)
