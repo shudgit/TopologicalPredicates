@@ -26,12 +26,15 @@ void PlaneSweep::add_left(Segment2D segment)
             auto itr = sweepStatus.end();
             segment.findIntersection(*(itr--));
         }
+        else if(CheckLessThan(segment, sweepStatus[0])) {
+            sweepStatus.emplace(sweepStatus.begin(), segment);
+        }
         else //add halfsegment to sweep status somewhere in the middle
         {
-            int index = sweepStatus.size() - 1;
-            while(!CheckLessThan(segment, sweepStatus[index])) //find index
+            int index = 0;
+            while((index < sweepStatus.size()) && !CheckLessThan(segment, sweepStatus[index])) //find index
             {
-                index -= 1;
+                index++;
             }
             sweepStatus.emplace(sweepStatus.begin() + index, segment); //emplace at index
             segment.findIntersection(sweepStatus[index]);
@@ -62,12 +65,35 @@ bool PlaneSweep::pred_exists(Segment2D segment)
 
 bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
 {
-    
+    SimplePoint2D left = sweepStatus[0].leftEndPoint;
+    SimplePoint2D right = sweepStatus[0].rightEndPoint;
+
+    // handle infinite slope
+    if (right.x == left.x) {
+        return point.y > left.y;
+    }
+
+    Number slope = (right.y - left.y) / (right.x - left.x);
+    Number b = left.y - (slope * left.x);   
+    Number SegY = (point.x * slope) + b;
+
+    return point.y > SegY;
 }
 
 Segment2D PlaneSweep::pred_of_p(SimplePoint2D point) 
 {
-    
+    Segment2D returnSeg;
+    for(int i = 0; i < sweepStatus.size(); i++)
+    {
+        if(pointGreaterThan(point, sweepStatus[i]))
+        {
+            returnSeg = sweepStatus[i];
+        }
+        else {
+            break;
+        }
+    }
+    return returnSeg;
 }
 
 bool PlaneSweep::poi_on_seg(SimplePoint2D point) {
@@ -92,6 +118,11 @@ void PlaneSweep::set_attr(Segment2D segment, bool attr)
     attributes[segment] = attr;
 }
 
+bool PlaneSweep::get_pred_attr(SimplePoint2D point)
+{
+    Segment2D seg = pred_of_p(point);
+    return attributes[seg];
+}
 bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfSegs)
 {
     for (int i = 0; i < halfSegs.size(); i++)
@@ -124,4 +155,21 @@ bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg)
 
     return dp.y < halfSegY;
  
+}
+
+bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
+{
+    SimplePoint2D left = segment.leftEndPoint;
+    SimplePoint2D right = segment.rightEndPoint;
+
+    // handle infinite slope
+    if (right.x == left.x) {
+        return point.y > left.y;
+    }
+
+    Number slope = (right.y - left.y) / (right.x - left.x);
+    Number b = left.y - (slope * left.x);   
+    Number SegY = (point.x * slope) + b;
+
+    return point.y > SegY;
 }
