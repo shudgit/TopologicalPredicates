@@ -1,4 +1,5 @@
 #include "PlaneSweep.h"
+#include <algorithm>
 
 //constructor
 PlaneSweep::PlaneSweep() {
@@ -44,7 +45,7 @@ void PlaneSweep::add_left(Segment2D segment)
 
 void PlaneSweep::del_right(Segment2D segment)
 {
-    sweepStatus.erase(std::find(sweepStatus.begin(), sweepStatus.end(), segment));
+    sweepStatus.erase(find(sweepStatus.begin(), sweepStatus.end(), segment));
     if(attributes.find(segment) != attributes.end())
     {
         attributes.erase(segment);
