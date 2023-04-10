@@ -197,6 +197,7 @@ std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
 
 SimplePoint2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
 {
+
     for (int i = 0; i < segments.size() - 1; ++i)
         if (segments[i] == ahs)
         {
@@ -213,3 +214,32 @@ SimplePoint2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<
             else
                 return ahs.hs.s.rightEndPoint;
 }
+
+bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
+{
+    for (int i = 0; i < segments.size(); i++)
+    {
+        if (segments[i] == ahs)
+        {
+            if (segments[i].hs.getDP() == segments[i+1].hs.getDP())
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/*
+    for (int i = 0; i < halfSegs.size(); i++)
+    {
+        if (halfSegs[i] == half)
+        {
+            if (halfSegs[i].getDP() == halfSegs[i+1].getDP())
+            {
+                return true;
+            }
+        }
+    }
+    return false; 
+    */

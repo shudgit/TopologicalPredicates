@@ -768,9 +768,47 @@
                     }
                     S.del_right(half.s);
                 }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_F)
+                {
+                    last_dp_in_F = p;
+                    if (!S.look_ahead(half, obj1HV))
+                    {
+                        last_bound_in_F = p;
+                        AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+                        if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(halfA, obj2HV))
+                        {
+                            features[5] = true;
+                        }
+                        else
+                        {
+                            if (S.pred_exists(half.s))
+                            {
+                                pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                                if (MpOverNp.second == 1)
+                                {
+                                    features[4] = true;
+                                }
+                                else
+                                {
+                                    features[6] = true;
+                                }
+                            }
+                            else 
+                            {
+                                features[6] = true;
+                            }
+                        }
+                    }
+                }
+                AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+                if (p != last_bound_in_F && (p == last_dp_in_G || S.look_ahead_3(halfA, obj2HV)))
+                {
+                    features[3];
+                }
             }
         }
-        while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]))
+        while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]));
     }
 
     /* for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)

@@ -29,4 +29,5 @@ class PlaneSweep {
         void set_attr_2(Segment2D segment, std::pair<int, int> p);
         std::pair<int, int> get_pred_attr_2(Segment2D segment);
         SimplePoint2D look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
+        bool look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
 };
