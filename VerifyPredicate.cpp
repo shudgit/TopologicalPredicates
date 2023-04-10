@@ -806,8 +806,69 @@
                     features[3];
                 }
             }
+            else if (pt.object == 2)
+            {
+                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                bool ia = S.get_attr(half.s);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                    S.set_attr(half.s, ia);
+                }
+                else 
+                {
+                    S.del_right(half.s);
+                    features[7] = true;
+                }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_G)
+                {
+                    last_dp_in_G = p;
+                }
+            }
+            else
+            {
+                features[1] = true;
+                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                bool ia = S.get_attr(half.s);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                    S.set_attr(half.s, ia);
+                }
+                else
+                {
+                    S.del_right(half.s);
+                }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_F)
+                {
+                    last_dp_in_F = p;
+                    if (!S.look_ahead(half, obj1HV))
+                    {
+                        features[5] = true;
+                    }
+                    else
+                    {
+                        features[3] = true;
+                    }
+                }
+                if (p != last_dp_in_G)
+                {
+                    last_dp_in_G = p;
+                }
+            }
+            if (pt.status == 2)
+            {
+                features[2] = true;
+            }
+            eventPoint = pt.SelectNext();
         }
         while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]));
+        if (pt.status = 1)
+        {
+            features[7] = true;
+        }
     }
 
     /* for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
