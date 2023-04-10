@@ -752,7 +752,7 @@
                 {
                     if (S.pred_exists(half.s))
                     {
-                        bool np = S.get_pred_attr2(half.s);
+                        bool np = S.get_attr2(half.s);
                     }
                 }
             }
