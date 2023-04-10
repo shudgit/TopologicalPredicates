@@ -24,10 +24,11 @@ class PlaneSweep {
         bool pred_of_p_exists(SimplePoint2D point);
         Segment2D pred_of_p(SimplePoint2D point);
         bool poi_on_seg(SimplePoint2D point);
+        bool look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
         // Region Region
         std::pair<int, int> get_attr_2(Segment2D segment);
         void set_attr_2(Segment2D segment, std::pair<int, int> p);
         std::pair<int, int> get_pred_attr_2(Segment2D segment);
         SimplePoint2D look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
-        bool look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
+        bool coincident(Segment2D segment);
 };

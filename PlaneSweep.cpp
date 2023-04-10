@@ -158,6 +158,35 @@ bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
     return point.y > SegY;
 }
 
+bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
+{
+    for (int i = 0; i < segments.size(); i++)
+    {
+        if (segments[i] == ahs)
+        {
+            if (segments[i].hs.getDP() == segments[i+1].hs.getDP())
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/*
+    for (int i = 0; i < halfSegs.size(); i++)
+    {
+        if (halfSegs[i] == half)
+        {
+            if (halfSegs[i].getDP() == halfSegs[i+1].getDP())
+            {
+                return true;
+            }
+        }
+    }
+    return false; 
+    */
+
 // Region Region Functions
 
 std::pair<int, int> PlaneSweep::get_attr_2(Segment2D segment)
@@ -198,31 +227,18 @@ SimplePoint2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<
                 return ahs.hs.s.rightEndPoint;
 }
 
-bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
+bool PlaneSweep::coincident(Segment2D segment)
 {
-    for (int i = 0; i < segments.size(); i++)
+    for(int i = 0; i < sweepStatus.size(); ++i)
     {
-        if (segments[i] == ahs)
+        if(sweepStatus[i] == segment)               // technically cannot intersect with a segment from its own object
         {
-            if (segments[i].hs.getDP() == segments[i+1].hs.getDP())
-            {
-                return true;
-            }
+            if(i > 0)                               //check intersect with sweepStatus[i - 1]
+                if(segment.findIntersection(sweepStatus[i - 1]).first)
+                    return true;
+            else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
+                if(segment.findIntersection(sweepStatus[i + 1]).first)
+                    return true;
         }
     }
-    return false;
 }
-
-/*
-    for (int i = 0; i < halfSegs.size(); i++)
-    {
-        if (halfSegs[i] == half)
-        {
-            if (halfSegs[i].getDP() == halfSegs[i+1].getDP())
-            {
-                return true;
-            }
-        }
-    }
-    return false; 
-    */

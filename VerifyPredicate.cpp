@@ -3,6 +3,7 @@
 #include "AttributedHalfSegment2D.h"
 #include "SimplePoint2D.h"
 #include <vector>
+#include <unordered_map>
 
 
     bool disjoint(Point2D obj1, Point2D obj2)
@@ -539,10 +540,14 @@
         SimplePoint2D last_dp_in_f;
         SimplePoint2D last_dp_in_g;
 
+        unordered_map<pair<int, int>, bool> vf;
+        unordered_map<pair<int, int>, bool> vg;
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
         {
             if(pot.object == 1)      // if f, set last_dp_in_f
+            {
                 last_dp_in_f = next;
+            }
             else if(pot.object == 2) // if g, set last_dp_in_g
             {
                 last_dp_in_g = next;
@@ -553,7 +558,69 @@
                 last_dp_in_g = next;
             }
             // find the ahs corresponding 
+            /*if(!ahs.hs.isDominatingPointLeft)
+            {
+                pair<int, int> overlap_numbers = get_attr_2(seg)
+                if(pot.object == 1)      // if f, add to vf
+                    if(vf.find(overlap_numbers) == vf.end())
+                        vf.insert(make_pair(overlap_numbers, true));
+                else if(pot.object == 2) // if g, add to vg
+                    if(vg.find(overlap_numbers) == vg.end())
+                        vg.insert(make_pair(overlap_numbers, true));
+                else                     // if both, set both
+                {
+                    if(vf.find(overlap_numbers) == vf.end())
+                        vf.insert(make_pair(overlap_numbers, true));
+                    if(vg.find(overlap_numbers) == vg.end())
+                        vg.insert(make_pair(overlap_numbers, true));
+                }
+                sweep.del_right(seg);
+            }
+            else
+            {
+                pair<int, int> mn_pred;
+                sweep.add_left(seg);
+                if(sweep.coincident(seg))
+                    pot.object = 3;
+                if(!sweep.pred_exists(seg))
+                    mn_pred = make_pair(3, 0);       // 3 = *
+                else
+                    mn_pred = get_pred_attr_2(seg);
+                pair<int, int> mn = make_pair(mn_pred.second, mn_pred.second);
+                if(pot.object == 1 || pot.object == 3)
+                {
+                    if(get_attr_2())
+                        mn.second += 1;
+                    else
+                        mn.second -= 1;
+                }
+                if(pot.object == 2 || pot.object == 3)
+                {
+                    if(get_attr_2())
+                        mn.second += 1;
+                    else
+                        mn.second -= 1;
+                }
+                set_attr_2(seg, mn);
+            }
+            next = pot.SelectNext();
+            */
         }
+        if(pot.status == 1)
+        {
+            if(vg.find(make_pair(0, 1)) == vg.end())
+                vg.insert(make_pair(make_pair(0, 1), true));
+            if(vg.find(make_pair(1, 0)) == vg.end())
+                vg.insert(make_pair(make_pair(1, 0), true));
+        }
+        else if(pot.status == 2)
+        {
+            if(vf.find(make_pair(0, 1)) == vf.end())
+                vf.insert(make_pair(make_pair(0, 1), true));
+            if(vf.find(make_pair(1, 0)) == vf.end())
+                vf.insert(make_pair(make_pair(1, 0), true));
+        }
+        // convert vf and vg to bool vector
     }
     
     AttributedHalfSegment2D GetAttrHalfSeg(std::vector<AttributedHalfSegment2D> halfSegVec, SimplePoint2D point)
@@ -806,8 +873,69 @@
                     features[3];
                 }
             }
+            else if (pt.object == 2)
+            {
+                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                bool ia = S.get_attr(half.s);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                    S.set_attr(half.s, ia);
+                }
+                else 
+                {
+                    S.del_right(half.s);
+                    features[7] = true;
+                }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_G)
+                {
+                    last_dp_in_G = p;
+                }
+            }
+            else
+            {
+                features[1] = true;
+                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                bool ia = S.get_attr(half.s);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                    S.set_attr(half.s, ia);
+                }
+                else
+                {
+                    S.del_right(half.s);
+                }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_F)
+                {
+                    last_dp_in_F = p;
+                    if (!S.look_ahead(half, obj1HV))
+                    {
+                        features[5] = true;
+                    }
+                    else
+                    {
+                        features[3] = true;
+                    }
+                }
+                if (p != last_dp_in_G)
+                {
+                    last_dp_in_G = p;
+                }
+            }
+            if (pt.status == 2)
+            {
+                features[2] = true;
+            }
+            eventPoint = pt.SelectNext();
         }
         while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]));
+        if (pt.status = 1)
+        {
+            features[7] = true;
+        }
     }
 
     /* for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
