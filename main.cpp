@@ -71,12 +71,16 @@ int main ()
     SimplePoint2D top_mid = SimplePoint2D(b, c);
     SimplePoint2D top_right = SimplePoint2D(c, c);
 
-    // disjoint: 
     vector<SimplePoint2D> bottomPoints;
     bottomPoints.push_back(bottom_left);
     bottomPoints.push_back(bottom_mid);
     bottomPoints.push_back(bottom_right);
     Point2D bottom = Point2D(bottomPoints);
+
+    bottomPoints.push_back(mid_left);
+    bottomPoints.push_back(mid_mid);
+    bottomPoints.push_back(mid_right);
+    Point2D bottom_and_mid = Point2D(bottomPoints);
 
     vector<SimplePoint2D> topPoints;
     topPoints.push_back(top_left);
@@ -84,10 +88,181 @@ int main ()
     topPoints.push_back(top_right);
     Point2D top = Point2D(topPoints);
 
+    topPoints.push_back(mid_left);
+    topPoints.push_back(mid_mid);
+    topPoints.push_back(mid_right);
+    Point2D top_and_mid = Point2D(topPoints);
+
+    // point-point disjoint: 
     if(vp.disjoint(bottom, top))
-        cout << "Point Disjoint Passed Test" << endl;
+        cout << "Point Disjoint Passed Test 1" << endl;
     else
-        cout << "Point Disjoint Failed Test" << endl;
-        
+        cout << "Point Disjoint Failed Test 1" << endl;
+
+    if(vp.disjoint(bottom, bottom))
+        cout << "Point Disjoint Failed Test 2" << endl;
+    else
+        cout << "Point Disjoint Passed Test 2" << endl;
+
+    if(vp.disjoint(bottom_and_mid, bottom))
+        cout << "Point Disjoint Failed Test 2" << endl;
+    else
+        cout << "Point Disjoint Passed Test 2" << endl;
+
+    // point-point meets: points have no boundary
+
+    // point-point equal:
+    if(vp.equal(bottom, bottom))
+        cout << "Point Equal Passed Test 1" << endl;
+    else
+        cout << "Point Equal Failed Test 1" << endl;
+
+    if(vp.equal(bottom, top))
+        cout << "Point Equal Failed Test 2" << endl;
+    else
+        cout << "Point Equal Passed Test 2" << endl;
+
+    if(vp.equal(bottom_and_mid, bottom))
+        cout << "Point Equal Failed Test 3" << endl;
+    else
+        cout << "Point Equal Passed Test 3" << endl;
+
+    // point-point inside:
+    if(vp.inside(bottom, bottom_and_mid))
+        cout << "Point Inside Passed Test 1" << endl;
+    else
+        cout << "Point Inside Failed Test 1" << endl;
+
+    if(vp.inside(bottom, top))
+        cout << "Point Inside Failed Test 2" << endl;
+    else
+        cout << "Point Inside Passed Test 2" << endl;
+
+    if(vp.inside(bottom_and_mid, bottom))
+        cout << "Point Inside Failed Test 3" << endl;
+    else
+        cout << "Point Inside Passed Test 3" << endl;
+
+    // point-point covered by: points have no boundary
+
+    // point-point contains:
+    if(vp.contains(bottom, bottom_and_mid))
+        cout << "Point Contains Failed Test 1" << endl;
+    else
+        cout << "Point Contains Passed Test 1" << endl;
+
+    if(vp.contains(bottom, top))
+        cout << "Point Contains Failed Test 2" << endl;
+    else
+        cout << "Point Contains Passed Test 2" << endl;
+
+    if(vp.contains(bottom_and_mid, bottom))
+        cout << "Point Contains Passed Test 3" << endl;
+    else
+        cout << "Point Contains Failed Test 3" << endl;
+
+    // point-point covers: points have no boundary
+
+    // point-point overlaps:    also points have no boundary? not sure if this counts as overlapping
+    if(vp.overlap(bottom, bottom_and_mid))
+        cout << "Point Overlap Passed Test 1" << endl;
+    else
+        cout << "Point Overlap Failed Test 1" << endl;
+
+    if(vp.overlap(bottom, top))
+        cout << "Point Overlap Failed Test 2" << endl;
+    else
+        cout << "Point Overlap Passed Test 2" << endl;
+
+    if(vp.overlap(bottom_and_mid, bottom))
+        cout << "Point Overlap Passed Test 3" << endl;
+    else
+        cout << "Point Overlap Failed Test 3" << endl;
+    
+
+    // point-line disjoint: 
+
+    // point-line meets:
+
+    // point-line equal:
+
+    // point-line inside:
+
+    // point-line covered by:
+
+    // point-line contains:
+
+    // point-line covers:
+    
+    // point-line overlaps:
+
+
+    // point-region disjoint: 
+
+    // point-region meets:
+
+    // point-region equal:
+
+    // point-region inside:
+
+    // point-region covered by:
+
+    // point-region contains:
+
+    // point-region covers:
+    
+    // point-region overlaps:
+
+
+    // line-line disjoint: 
+
+    // line-line meets:
+
+    // line-line equal:
+
+    // line-line inside:
+
+    // line-line covered by:
+
+    // line-line contains:
+
+    // line-line covers:
+    
+    // line-line overlaps:
+
+
+    // line-region disjoint: 
+
+    // line-region meets:
+
+    // line-region equal:
+
+    // line-region inside:
+
+    // line-region covered by:
+
+    // line-region contains:
+
+    // line-region covers:
+
+    // line-region overlaps:
+
+
+    // region-region disjoint: 
+
+    // region-region meets:
+
+    // region-region equal:
+
+    // region-region inside:
+
+    // region-region covered by:
+
+    // region-region contains:
+
+    // region-region covers:
+    
+    // region-region overlaps:
+
     return 0;
 }
