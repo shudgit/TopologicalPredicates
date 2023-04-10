@@ -10,124 +10,124 @@ ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePo
     }
 }
 SimplePoint2D ParallelObjT::SelectNext() 
+{
+    SimplePoint2D obj1NextPoint;
+    if(obj1Dynamic.empty() || obj1Queue.front() < obj1Dynamic.front()) 
     {
-        SimplePoint2D obj1NextPoint;
-        if(obj1Dynamic.empty() || obj1Queue.front() < obj1Dynamic.front()) 
+        obj1NextPoint = obj1Queue.front();
+    }
+    else if (obj1Queue.front() > obj1Dynamic.front()) 
+    {
+        obj1NextPoint = obj1Dynamic.front();
+    }
+
+    SimplePoint2D obj2NextPoint;
+    if(obj2Dynamic.empty() || obj2Queue.front() < obj2Dynamic.front()) 
+    {
+        obj2NextPoint = obj2Queue.front();
+    }
+    else if (obj2Queue.front() > obj2Dynamic.front()) 
+    {
+        obj2NextPoint = obj2Dynamic.front();
+    }
+
+    
+    if(obj1NextPoint < obj2NextPoint) 
+    {
+        if(obj1NextPoint == obj1Queue.front())
         {
-            obj1NextPoint = obj1Queue.front();
+            obj1Queue.pop();
         }
-        else if (obj1Queue.front() > obj1Dynamic.front()) 
+        else 
         {
-            obj1NextPoint = obj1Dynamic.front();
+            obj1Dynamic.pop();
+        }
+        object = 1;
+
+        if(obj1Queue.empty() && obj1Dynamic.empty()) 
+        {
+            if(status == 0) 
+            {
+                status = 1;
+            }
+            else if(status == 2)
+            {
+                status = 3;
+            }
         }
 
-        SimplePoint2D obj2NextPoint;
-        if(obj2Dynamic.empty() || obj2Queue.front() < obj2Dynamic.front()) 
+        return obj1NextPoint;
+    }
+    else if(obj1NextPoint > obj2NextPoint)
+    {
+        if(obj2NextPoint == obj2Queue.front())
         {
-            obj2NextPoint = obj2Queue.front();
+            obj2Queue.pop();
         }
-        else if (obj2Queue.front() > obj2Dynamic.front()) 
+        else 
         {
-            obj2NextPoint = obj2Dynamic.front();
+            obj2Dynamic.pop();
+        }
+        object = 2;
+
+        if(obj2Queue.empty() && obj2Dynamic.empty()) 
+        {
+            if(status == 0) 
+            {
+                status = 2;
+            }
+            else if(status == 1)
+            {
+                status = 3;
+            }
         }
 
-        
-        if(obj1NextPoint < obj2NextPoint) 
+        return obj2NextPoint;
+    }
+    else
+    {
+        if(obj1NextPoint == obj1Queue.front())
         {
-            if(obj1NextPoint == obj1Queue.front())
-            {
-                obj1Queue.pop();
-            }
-            else 
-            {
-                obj1Dynamic.pop();
-            }
-            object = 1;
-
-            if(obj1Queue.empty() && obj1Dynamic.empty()) 
-            {
-                if(status == 0) 
-                {
-                    status = 1;
-                }
-                else if(status == 2)
-                {
-                    status = 3;
-                }
-            }
-
-            return obj1NextPoint;
+            obj1Queue.pop();
         }
-        else if(obj1NextPoint > obj2NextPoint)
+        else 
         {
-            if(obj2NextPoint == obj2Queue.front())
+            obj1Dynamic.pop();
+        }
+        if(obj2NextPoint == obj2Queue.front())
+        {
+            obj2Queue.pop();
+        }
+        else 
+        {
+            obj2Dynamic.pop();
+        }
+        object = 3;
+
+        if(obj1Queue.empty() && obj1Dynamic.empty()) 
+        {
+            if(status == 0) 
             {
-                obj2Queue.pop();
+                status = 1;
             }
-            else 
+            else if(status == 2)
             {
-                obj2Dynamic.pop();
+                status = 3;
             }
-            object = 2;
+        }
 
             if(obj2Queue.empty() && obj2Dynamic.empty()) 
-            {
-                if(status == 0) 
-                {
-                    status = 2;
-                }
-                else if(status == 1)
-                {
-                    status = 3;
-                }
-            }
-
-            return obj2NextPoint;
-        }
-        else
         {
-            if(obj1NextPoint == obj1Queue.front())
+            if(status == 0) 
             {
-                obj1Queue.pop();
+                status = 2;
             }
-            else 
+            else if(status == 1)
             {
-                obj1Dynamic.pop();
+                status = 3;
             }
-            if(obj2NextPoint == obj2Queue.front())
-            {
-                obj2Queue.pop();
-            }
-            else 
-            {
-                obj2Dynamic.pop();
-            }
-            object = 3;
-
-            if(obj1Queue.empty() && obj1Dynamic.empty()) 
-            {
-                if(status == 0) 
-                {
-                    status = 1;
-                }
-                else if(status == 2)
-                {
-                    status = 3;
-                }
-            }
-
-             if(obj2Queue.empty() && obj2Dynamic.empty()) 
-            {
-                if(status == 0) 
-                {
-                    status = 2;
-                }
-                else if(status == 1)
-                {
-                    status = 3;
-                }
-            }
-            
-            return obj1NextPoint;
         }
+        
+        return obj1NextPoint;
     }
+}

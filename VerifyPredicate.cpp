@@ -1,5 +1,4 @@
 #include "VerifyPredicate.h"
-#include "ParallelObjTraversal.h"
 #include "HalfSegment2D.h"
 #include "AttributedHalfSegment2D.h"
 #include "SimplePoint2D.h"
@@ -525,7 +524,7 @@
             else
                 fPoints.push_back((*iter).hs.s.rightEndPoint);
         }
-        for(Region2D::iterator iter = g.begin(); iter != g.end(); iter++) 
+        for(Region2D::iterator iter = g.begin(); iter != g.end(); iter++)
         {
             gSegments.push_back(*iter);
             if((*iter).hs.isDominatingPointLeft)

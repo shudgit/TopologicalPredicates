@@ -3,6 +3,7 @@
 #include "Line2D.h"
 #include "Region2D.h"
 #include "PlaneSweep.h"
+#include "ParallelObjTraversal.h"
 
 
 
