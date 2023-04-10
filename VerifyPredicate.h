@@ -4,16 +4,23 @@
 #include "Region2D.h"
 #include "PlaneSweep.h"
 #include "ParallelObjTraversal.h"
-
+#include <unordered_map>
 
 
 class VerifyPredicate
 {
-    private:
+private:
 
     HalfSegment2D findHS(vector<HalfSegment2D> HS, SimplePoint2D point);
+    std::unordered_map<int, vector<bool>> predicates;
+    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2);
+    std::vector<bool> PointLineAlgorithm(Point2D obj1, Line2D obj2);
+    std::vector<bool> PointRegionAlgorithm(Point2D obj1, Region2D obj2);
+    std::vector<bool> LineLineAlgorithm(Line2D obj1, Line2D obj2);
+    std::vector<bool> LineRegionAlgorithm(Line2D obj1, Region2D obj2);
+    std::vector<bool> RegionRegionAlgorithm(Region2D f, Region2D g);
 
-    public:
+public:
 
     // This function creates a features vector, then manipulates it in parallel object traversal
     // It then evaluates that vector and returns true. 
@@ -79,9 +86,4 @@ class VerifyPredicate
     bool verify(Line2D obj1, Line2D obj2, int predicateNumber);
     bool verify(Line2D obj1, Region2D obj2, int predicateNumber);
     bool verify(Region2D obj1, Region2D obj2, int predicateNumber);
-
-    std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2);
-    std::vector<bool> LineRegionAlgorithm(Line2D obj1, Region2D obj2);
-    std::vector<bool> PointLineAlgorithm(Point2D obj1, Line2D obj2);
-    std::vector<bool> RegionRegionAlgorithm(Region2D f, Region2D g);
 };
