@@ -752,8 +752,21 @@
                 {
                     if (S.pred_exists(half.s))
                     {
-                        bool np = S.get_attr2(half.s);
+                        pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                        if (MpOverNp.second == 1)
+                        {
+                            features[0] = true;
+                        }
+                        else
+                        {
+                            features[2] = true;
+                        }
                     }
+                    else
+                    {
+                        features[2] = true;
+                    }
+                    S.del_right(half.s);
                 }
             }
         }
