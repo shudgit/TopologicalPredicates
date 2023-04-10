@@ -350,6 +350,7 @@ EventPoint ParallelObjT::PointLineNext()
         }
         
         newEvent.point = obj1NextPoint;
+        newEvent.halfSeg = obj2NextHalfSeg;
         return newEvent;
     }
 }
@@ -477,6 +478,7 @@ EventPoint ParallelObjT::PointRegionNext()
         }
         
         newEvent.point = obj1NextPoint;
+        newEvent.attrHalfSeg = obj2NextHalfSeg;
         return newEvent;
     }
 }
@@ -731,6 +733,7 @@ EventPoint ParallelObjT::LineRegionNext()
         }
         
         newEvent.halfSeg = obj1NextHalfSeg;
+        newEvent.attrHalfSeg = obj2NextHalfSeg;
         return newEvent;
     }
 }
