@@ -697,13 +697,132 @@
 
     std::vector<bool> VerifyPredicate::LineRegionAlgorithm(Line2D obj1, Region2D obj2)
     {
+        // 0 seg_inside, 1 seg_shared, 2 seg_outside, 3 poi_shared, 4 bound_inside, 5 bound_shared, 6 bound_disjoint, 7 seg_unshared
         vector<bool> features{false, false, false, false, false, false, false, false};
         PlaneSweep S = PlaneSweep();
+        SimplePoint2D last_dp_in_F;
+        SimplePoint2D last_dp_in_G;
         SimplePoint2D last_bound_in_F;
         Line2D::iterator ptr1;
         Region2D::iterator ptr2;
-        
+        vector<HalfSegment2D> obj1HV;
+        vector<SimplePoint2D> obj1PV;
+        vector<AttributedHalfSegment2D> obj2HV;
+        vector<SimplePoint2D> obj2PV;
+
+        for (ptr1 = obj1.begin(); ptr1 < obj1.end(); ptr1++)
+        {
+            obj1HV.push_back(*ptr1);
+            if (obj1HV.back().isDominatingPointLeft)
+            {
+                obj1PV.push_back(obj1HV.back().s.leftEndPoint);
+            }
+            else
+            {
+                obj1PV.push_back(obj1HV.back().s.rightEndPoint);
+            }
+        }
+
+        for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
+        {
+            obj2HV.push_back(*ptr2);
+            if (obj2HV.back().hs.isDominatingPointLeft)
+            {
+                obj2PV.push_back(obj2HV.back().hs.s.leftEndPoint);
+            }
+            else
+            {
+                obj2PV.push_back(obj2HV.back().hs.s.rightEndPoint);
+            }
+        }
+
+        ParallelObjT pt(obj1PV, obj2PV);
+        SimplePoint2D eventPoint = pt.SelectNext();
+        do 
+        {
+            if (pt.object == 1)
+            {
+                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                if (half.isDominatingPointLeft)
+                {
+                    S.add_left(half.s);
+                }
+                else
+                {
+                    if (S.pred_exists(half.s))
+                    {
+                        pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                        if (MpOverNp.second == 1)
+                        {
+                            features[0] = true;
+                        }
+                        else
+                        {
+                            features[2] = true;
+                        }
+                    }
+                    else
+                    {
+                        features[2] = true;
+                    }
+                    S.del_right(half.s);
+                }
+                SimplePoint2D p = half.getDP();
+                if (p != last_dp_in_F)
+                {
+                    last_dp_in_F = p;
+                    if (!S.look_ahead(half, obj1HV))
+                    {
+                        last_bound_in_F = p;
+                        AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+                        if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(halfA, obj2HV))
+                        {
+                            features[5] = true;
+                        }
+                        else
+                        {
+                            if (S.pred_exists(half.s))
+                            {
+                                pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                                if (MpOverNp.second == 1)
+                                {
+                                    features[4] = true;
+                                }
+                                else
+                                {
+                                    features[6] = true;
+                                }
+                            }
+                            else 
+                            {
+                                features[6] = true;
+                            }
+                        }
+                    }
+                }
+                AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+                if (p != last_bound_in_F && (p == last_dp_in_G || S.look_ahead_3(halfA, obj2HV)))
+                {
+                    features[3];
+                }
+            }
+        }
+        while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]));
     }
+
+    /* for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
+        {
+            obj2HV.push_back(*ptr2);
+            if (obj2HV.back().isDominatingPointLeft)
+            {
+                obj2PV.push_back(obj2HV.back().s.leftEndPoint);
+            }
+            else
+            {
+                obj2PV.push_back(obj2HV.back().s.rightEndPoint);
+            }
+        }
+    */
 
     HalfSegment2D VerifyPredicate::findHS(vector<HalfSegment2D> HS, SimplePoint2D point)
     {
