@@ -715,13 +715,13 @@
         }
 
         ParallelObjT pt(obj1V, obj2PV);
-        SimplePoint2D eventPoint = pt.SelectNext();
+        EventPoint eventPoint = pt.SelectNext();
 
         do
         {
             if (pt.object == 1)
             {
-                if (S.poi_on_seg(eventPoint))
+                if (S.poi_on_seg(eventPoint.point))
                 {
                     features[1] = true;
                 }
@@ -732,7 +732,7 @@
             }
             else if (pt.object = 2)
             {
-                HalfSegment2D half = findHS(obj2HV, eventPoint);
+                HalfSegment2D half = findHS(obj2HV, eventPoint.point);
                 if (half.isDominatingPointLeft)
                 {
                     S.add_left(half.s);
@@ -741,9 +741,9 @@
                 {
                     S.del_right(half.s);
                 }
-                if (eventPoint != last_dp)
+                if (eventPoint.point != last_dp)
                 {
-                    last_dp = eventPoint;
+                    last_dp = eventPoint.point;
                 }
                 if (!S.look_ahead(half, obj2HV))
                 {
@@ -752,7 +752,7 @@
             }
             else
             {
-                HalfSegment2D half = findHS(obj2HV, eventPoint);
+                HalfSegment2D half = findHS(obj2HV, eventPoint.point);
                 if (half.isDominatingPointLeft)
                 {
                     S.add_left(half.s);
@@ -761,7 +761,7 @@
                 {
                     S.del_right(half.s);
                 }
-                last_dp = eventPoint;
+                last_dp = eventPoint.point;
                 if (S.look_ahead(half,obj2HV))
                 {
                     features[1] = true;
@@ -823,12 +823,12 @@
         }
 
         ParallelObjT pt(obj1PV, obj2PV);
-        SimplePoint2D eventPoint = pt.SelectNext();
+        EventPoint eventPoint = pt.SelectNext();
         do 
         {
             if (pt.object == 1)
             {
-                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
                 if (half.isDominatingPointLeft)
                 {
                     S.add_left(half.s);
@@ -894,7 +894,7 @@
             }
             else if (pt.object == 2)
             {
-                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
                 bool ia = S.get_attr(half.s);
                 if (half.isDominatingPointLeft)
                 {
@@ -915,7 +915,7 @@
             else
             {
                 features[1] = true;
-                HalfSegment2D half = findHS(obj1HV, eventPoint);
+                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
                 bool ia = S.get_attr(half.s);
                 if (half.isDominatingPointLeft)
                 {
@@ -955,6 +955,7 @@
         {
             features[7] = true;
         }
+        return features;
     }
 
     /* for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
