@@ -75,126 +75,183 @@ int main ()
     bottomPoints.push_back(bottom_left);
     bottomPoints.push_back(bottom_mid);
     bottomPoints.push_back(bottom_right);
-    Point2D bottom = Point2D(bottomPoints);
+    Point2D bottom_points = Point2D(bottomPoints);
 
     bottomPoints.push_back(mid_left);
     bottomPoints.push_back(mid_mid);
     bottomPoints.push_back(mid_right);
-    Point2D bottom_and_mid = Point2D(bottomPoints);
+    Point2D bottom_and_mid_points = Point2D(bottomPoints);
 
     vector<SimplePoint2D> topPoints;
     topPoints.push_back(top_left);
     topPoints.push_back(top_mid);
     topPoints.push_back(top_right);
-    Point2D top = Point2D(topPoints);
+    Point2D top_points = Point2D(topPoints);
 
     topPoints.push_back(mid_left);
     topPoints.push_back(mid_mid);
     topPoints.push_back(mid_right);
-    Point2D top_and_mid = Point2D(topPoints);
+    Point2D top_and_mid_points = Point2D(topPoints);
 
     // point-point disjoint: 
-    if(vp.disjoint(bottom, top))
-        cout << "Point Disjoint Passed Test 1" << endl;
+    if(vp.disjoint(bottom_points, top_points))
+        cout << "Point-Point Disjoint Passed Test 1" << endl;
     else
-        cout << "Point Disjoint Failed Test 1" << endl;
+        cout << "Point-Point Disjoint Failed Test 1" << endl;
 
-    if(vp.disjoint(bottom, bottom))
-        cout << "Point Disjoint Failed Test 2" << endl;
+    if(vp.disjoint(bottom_points, bottom_points))
+        cout << "Point-Point Disjoint Failed Test 2" << endl;
     else
-        cout << "Point Disjoint Passed Test 2" << endl;
+        cout << "Point-Point Disjoint Passed Test 2" << endl;
 
-    if(vp.disjoint(bottom_and_mid, bottom))
-        cout << "Point Disjoint Failed Test 2" << endl;
+    if(vp.disjoint(bottom_and_mid_points, bottom_points))
+        cout << "Point-Point Disjoint Failed Test 2" << endl;
     else
-        cout << "Point Disjoint Passed Test 2" << endl;
+        cout << "Point-Point Disjoint Passed Test 2" << endl;
 
     // point-point meets: points have no boundary
 
     // point-point equal:
-    if(vp.equal(bottom, bottom))
-        cout << "Point Equal Passed Test 1" << endl;
+    if(vp.equal(bottom_points, bottom_points))
+        cout << "Point-Point Equal Passed Test 1" << endl;
     else
-        cout << "Point Equal Failed Test 1" << endl;
+        cout << "Point-Point Equal Failed Test 1" << endl;
 
-    if(vp.equal(bottom, top))
-        cout << "Point Equal Failed Test 2" << endl;
+    if(vp.equal(bottom_points, top_points))
+        cout << "Point-Point Equal Failed Test 2" << endl;
     else
-        cout << "Point Equal Passed Test 2" << endl;
+        cout << "Point-Point Equal Passed Test 2" << endl;
 
-    if(vp.equal(bottom_and_mid, bottom))
-        cout << "Point Equal Failed Test 3" << endl;
+    if(vp.equal(bottom_and_mid_points, bottom_points))
+        cout << "Point-Point Equal Failed Test 3" << endl;
     else
-        cout << "Point Equal Passed Test 3" << endl;
+        cout << "Point-Point Equal Passed Test 3" << endl;
 
     // point-point inside:
-    if(vp.inside(bottom, bottom_and_mid))
-        cout << "Point Inside Passed Test 1" << endl;
+    if(vp.inside(bottom_points, bottom_and_mid_points))
+        cout << "Point-Point Inside Passed Test 1" << endl;
     else
-        cout << "Point Inside Failed Test 1" << endl;
+        cout << "Point-Point Inside Failed Test 1" << endl;
 
-    if(vp.inside(bottom, top))
-        cout << "Point Inside Failed Test 2" << endl;
+    if(vp.inside(bottom_points, top_points))
+        cout << "Point-Point Inside Failed Test 2" << endl;
     else
-        cout << "Point Inside Passed Test 2" << endl;
+        cout << "Point-Point Inside Passed Test 2" << endl;
 
-    if(vp.inside(bottom_and_mid, bottom))
-        cout << "Point Inside Failed Test 3" << endl;
+    if(vp.inside(bottom_and_mid_points, bottom_points))
+        cout << "Point-Point Inside Failed Test 3" << endl;
     else
-        cout << "Point Inside Passed Test 3" << endl;
+        cout << "Point-Point Inside Passed Test 3" << endl;
 
     // point-point covered by: points have no boundary
 
     // point-point contains:
-    if(vp.contains(bottom, bottom_and_mid))
-        cout << "Point Contains Failed Test 1" << endl;
+    if(vp.contains(bottom_points, bottom_and_mid_points))
+        cout << "Point-Point Contains Failed Test 1" << endl;
     else
-        cout << "Point Contains Passed Test 1" << endl;
+        cout << "Point-Point Contains Passed Test 1" << endl;
 
-    if(vp.contains(bottom, top))
-        cout << "Point Contains Failed Test 2" << endl;
+    if(vp.contains(bottom_points, top_points))
+        cout << "Point-Point Contains Failed Test 2" << endl;
     else
-        cout << "Point Contains Passed Test 2" << endl;
+        cout << "Point-Point Contains Passed Test 2" << endl;
 
-    if(vp.contains(bottom_and_mid, bottom))
-        cout << "Point Contains Passed Test 3" << endl;
+    if(vp.contains(bottom_and_mid_points, bottom_points))
+        cout << "Point-Point Contains Passed Test 3" << endl;
     else
-        cout << "Point Contains Failed Test 3" << endl;
+        cout << "Point-Point Contains Failed Test 3" << endl;
 
     // point-point covers: points have no boundary
 
     // point-point overlaps:    also points have no boundary? not sure if this counts as overlapping
-    if(vp.overlap(bottom, bottom_and_mid))
-        cout << "Point Overlap Passed Test 1" << endl;
+    if(vp.overlap(bottom_points, bottom_and_mid_points))
+        cout << "Point-Point Overlap Passed Test 1" << endl;
     else
-        cout << "Point Overlap Failed Test 1" << endl;
+        cout << "Point-Point Overlap Failed Test 1" << endl;
 
-    if(vp.overlap(bottom, top))
-        cout << "Point Overlap Failed Test 2" << endl;
+    if(vp.overlap(bottom_points, top_points))
+        cout << "Point-Point Overlap Failed Test 2" << endl;
     else
-        cout << "Point Overlap Passed Test 2" << endl;
+        cout << "Point-Point Overlap Passed Test 2" << endl;
 
-    if(vp.overlap(bottom_and_mid, bottom))
-        cout << "Point Overlap Passed Test 3" << endl;
+    if(vp.overlap(bottom_and_mid_points, bottom_points))
+        cout << "Point-Point Overlap Passed Test 3" << endl;
     else
-        cout << "Point Overlap Failed Test 3" << endl;
+        cout << "Point-Point Overlap Failed Test 3" << endl;
     
+    Segment2D left_long = Segment2D(bottom_left, top_left);
+    Segment2D left_short = Segment2D(bottom_left, mid_left);
+    Segment2D top_long = Segment2D(top_left, top_right);
+    Segment2D right_long = Segment2D(top_right, bottom_right);
+    Segment2D bottom_long = Segment2D(bottom_left, bottom_right);
+
+    vector<Segment2D> left_and_bottom_segs;
+    left_and_bottom_segs.push_back(left_long);
+    left_and_bottom_segs.push_back(bottom_long);
+    Line2D left_and_bottom_segments = Line2D(left_and_bottom_segs);
+
+    vector<Segment2D> short_left_and_bottom_segs;
+    short_left_and_bottom_segs.push_back(left_short);
+    short_left_and_bottom_segs.push_back(bottom_long);
+    Line2D short_left_and_bottom_segments = Line2D(short_left_and_bottom_segs);
+
+    vector<Segment2D> left_and_top_segs;
+    left_and_top_segs.push_back(left_short);
+    left_and_top_segs.push_back(bottom_long);
+    Line2D left_and_top_segments = Line2D(left_and_top_segs);
+
+    vector<Segment2D> top_and_right_segs;
+    top_and_right_segs.push_back(top_long);
+    top_and_right_segs.push_back(right_long);
+    Line2D top_and_right_segments = Line2D(top_and_right_segs);
+
+    vector<Segment2D> right_segs;
+    right_segs.push_back(right_long);
+    Line2D right_segments = Line2D(right_segs);
 
     // point-line disjoint: 
+    if(vp.disjoint(bottom_points, top_and_right_segments))
+        cout << "Point-Line Disjoint Passed Test 1" << endl;
+    else
+        cout << "Point-Line Disjoint Failed Test 1" << endl;
 
-    // point-line meets:
+    if(vp.disjoint(bottom_points, left_and_bottom_segments))
+        cout << "Point-Line Disjoint Failed Test 2" << endl;
+    else
+        cout << "Point-Line Disjoint Passed Test 2" << endl;
 
-    // point-line equal:
+    if(vp.disjoint(bottom_points, right_segments))
+        cout << "Point-Line Disjoint Passed Test 3" << endl;
+    else
+        cout << "Point-Line Disjoint Failed Test 3" << endl;
+
+    // point-line meets: don't think it applies
+
+    // point-line equal: N/A
 
     // point-line inside:
+    if(vp.inside(bottom_points, top_and_right_segments))
+        cout << "Point-Line Inside Failed Test 1" << endl;
+    else
+        cout << "Point-Line Inside Passed Test 1" << endl;
 
-    // point-line covered by:
+    if(vp.inside(bottom_points, left_and_bottom_segments))
+        cout << "Point-Line Inside Passed Test 2" << endl;
+    else
+        cout << "Point-Line Inside Failed Test 2" << endl;
 
-    // point-line contains:
+    if(vp.inside(bottom_points, right_segments))
+        cout << "Point-Line Inside Failed Test 3" << endl;
+    else
+        cout << "Point-Line Inside Passed Test 3" << endl;
 
-    // point-line covers:
+    // point-line covered by: N/A
+
+    // point-line contains: N/A
+
+    // point-line covers: N/A
     
-    // point-line overlaps:
+    // point-line overlaps: N/A?
 
 
     // point-region disjoint: 
