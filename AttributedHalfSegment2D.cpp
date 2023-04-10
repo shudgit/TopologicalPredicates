@@ -2,6 +2,8 @@
 #include "AttributedHalfSegment2D.h"
 #include <climits>
 
+AttributedHalfSegment2D::AttributedHalfSegment2D()
+{}
 AttributedHalfSegment2D::AttributedHalfSegment2D(HalfSegment2D hs, bool above)
 {
 	this->hs = hs;

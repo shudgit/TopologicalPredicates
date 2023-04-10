@@ -5,6 +5,7 @@ struct AttributedHalfSegment2D
 {
 	HalfSegment2D hs;
 	bool above;
+	AttributedHalfSegment2D();
 	AttributedHalfSegment2D(HalfSegment2D hs, bool above);
 	AttributedHalfSegment2D(const AttributedHalfSegment2D& ahs);
 	AttributedHalfSegment2D(AttributedHalfSegment2D&& ahs);
