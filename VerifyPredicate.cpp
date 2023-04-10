@@ -2,6 +2,7 @@
 #include "HalfSegment2D.h"
 #include "AttributedHalfSegment2D.h"
 #include "SimplePoint2D.h"
+#include "EventPoint.h"
 #include <vector>
 #include <unordered_map>
 
@@ -269,39 +270,20 @@
     {
         std::vector<HalfSegment2D> line1Vector;
         std::vector<HalfSegment2D> line2Vector;
-        std::vector<SimplePoint2D> line1Points;
-        std::vector<SimplePoint2D> line2Points;
         std::vector<bool> featureVector;
         featureVector.resize(9, false);
 
         for(Line2D::iterator ptr = line1.begin(); ptr != line1.end(); ptr++)
          {
             line1Vector.push_back(*ptr);
-            if(line1Vector.back().isDominatingPointLeft) 
-            {
-                line1Points.push_back(line1Vector.back().s.leftEndPoint);
-            }
-            else
-            {
-                line1Points.push_back(line1Vector.back().s.rightEndPoint);
-            }
         }
         for(Line2D::iterator ptr = line2.begin(); ptr != line2.end(); ptr++) 
         {
             line2Vector.push_back(*ptr);
-            if(line2Vector.back().isDominatingPointLeft) 
-            {
-                line2Points.push_back(line2Vector.back().s.leftEndPoint);
-            }
-            else
-            {
-                line2Points.push_back(line2Vector.back().s.rightEndPoint);
-            }
         }
         
         PlaneSweep newSweep;
-        ParallelObjT objT(line1Points, line2Points);
-        SimplePoint2D eventPoint = objT.SelectNext();
+        ParallelObjT objT(line1Vector, line2Vector);
 
         std::vector<bool> featureVector;
         featureVector.resize(9, false);
@@ -312,12 +294,12 @@
         SimplePoint2D lastBoundPointG;
 
         
-        SimplePoint2D eventPoint = objT.SelectNext();
+        EventPoint eventPoint = objT.SelectNext();
         while(objT.status != 3 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false || featureVector[3] == false || featureVector[4] == false || featureVector[5] == false || featureVector[6] == false || featureVector[7] == false || featureVector[8] == false))
         {
             if(objT.object == 1)
             {
-                HalfSegment2D halfSeg = GetHalfSeg(line1Vector, eventPoint);
+                HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
                 {
                     newSweep.add_left(halfSeg.s);
@@ -363,7 +345,7 @@
             }
             else if(objT.object == 2)
             {
-                HalfSegment2D halfSeg = GetHalfSeg(line1Vector, eventPoint);
+                HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
                 {
                     newSweep.add_left(halfSeg.s);
@@ -409,14 +391,59 @@
             }
             else
             {
-                HalfSegment2D halfSegF = GetHalfSeg(line1Vector, eventPoint);
-                HalfSegment2D halfSegG = GetHalfSeg(line2Vector, eventPoint);
-                if(halfSegF == halfSegG)
+                featureVector[0] = true;
+                HalfSegment2D halfSeg = eventPoint.halfSeg;
+                if(halfSeg.isDominatingPointLeft)
                 {
-                    featureVector[0] = true;
-                    
+                    newSweep.add_left(halfSeg.s);
+                }
+                else
+                {
+                    newSweep.del_right(halfSeg.s);
+                }
+                if(halfSeg.getDP() != lastDpF)
+                {
+                    lastDpF = halfSeg.getDP();
+
+                    if(!newSweep.look_ahead(halfSeg, line2Vector))
+                    {
+                        lastBoundPointF = halfSeg.getDP();
+                    }
+                }
+                if(halfSeg.getDP() != lastDpG)
+                {
+                    lastDpG = halfSeg.getDP();
+
+                    if(!newSweep.look_ahead(halfSeg, line2Vector))
+                    {
+                        lastBoundPointG = halfSeg.getDP();
+                    }
+                }
+                if(lastBoundPointF == lastBoundPointG)
+                {
+                    featureVector[4] = true;
+                }
+                else
+                {
+                    if(lastBoundPointF == lastDpG)
+                    {
+                        featureVector[3] = true;
+                    }
+                    if(lastBoundPointG == lastDpF)
+                    {
+                        featureVector[7] = true;
+                    }
                 }
             }
+            if(objT.status == 1)
+            {
+                featureVector[6] = true;
+            }
+            else if(objT.status == 2)
+            {
+                featureVector[2] = true;
+            }
+            eventPoint = objT.SelectNext();
         }
     }
 
@@ -425,7 +452,6 @@
     {
         std::vector<SimplePoint2D> pointVector;
         std::vector<AttributedHalfSegment2D> regionVector;
-        std::vector<SimplePoint2D> regionPoints;
 
         std::vector<bool> featureVector;
         featureVector.resize(3, false);
@@ -437,32 +463,25 @@
         for(Region2D::iterator ptr = region.begin(); ptr != region.end(); ptr++) 
         {
             regionVector.push_back(*ptr);
-            if(regionVector.back().hs.isDominatingPointLeft) 
-            {
-                regionPoints.push_back(regionVector.back().hs.s.leftEndPoint);
-            }
-            else
-            {
-                regionPoints.push_back(regionVector.back().hs.s.rightEndPoint);
-            }
         }
 
         PlaneSweep newSweep;
-        ParallelObjT objT(pointVector, regionPoints);
-        SimplePoint2D eventPoint = objT.SelectNext();
+        ParallelObjT objT(pointVector, regionVector);
+        EventPoint eventPoint = objT.SelectNext();
 
         while(objT.status == 0 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false)) 
         {
             if(objT.object == 1) //object is a point
             {
-                if(newSweep.poi_on_seg(eventPoint))
+                SimplePoint2D point = eventPoint.point;
+                if(newSweep.poi_on_seg(point))
                 {
                     //Point on bound = true
                     featureVector[1] = true;
                 }
-                else if(newSweep.pred_of_p_exists(eventPoint))
+                else if(newSweep.pred_of_p_exists(point))
                 {
-                    Segment2D newBound = newSweep.pred_of_p(eventPoint);
+                    Segment2D newBound = newSweep.pred_of_p(point);
                     bool isAbove = newSweep.get_attr(newBound);
                     if(isAbove) //attribute = above 
                     {
@@ -481,7 +500,7 @@
             else //object is the region or object is both
             {
                 //get half segment from event point
-                AttributedHalfSegment2D attrHalfSeg = GetAttrHalfSeg(regionVector, eventPoint);
+                AttributedHalfSegment2D attrHalfSeg = eventPoint.attrHalfSeg;
                 if(attrHalfSeg.hs.isDominatingPointLeft) 
                 {
                     newSweep.add_left(attrHalfSeg.hs.s);
