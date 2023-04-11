@@ -376,6 +376,12 @@ int main ()
     vector<SimplePoint2D> ll_points;
     ll_points.push_back(bottom_left);
     Point2D origin = Point2D(ll_points);
+
+    vector<Segment2D> shorter_left_and_bottom_segs;
+    shorter_left_and_bottom_segs.push_back(left_short_lower);
+    shorter_left_and_bottom_segs.push_back(bottom_short_left);
+    Line2D shorter_left_and_bottom_segments = Line2D(shorter_left_and_bottom_segs);
+
     // point-region disjoint: 
     if(vp.disjoint(bottom_points, lower_rectangle_region))
         cout << "Point-Region Disjoint Failed Test 1" << endl;
@@ -466,18 +472,116 @@ int main ()
         cout << "Line-Line Disjoint Failed Test 3" << endl;
 
     // line-line meets:
+    if(vp.meet(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Meet Failed Test 1" << endl;
+    else
+        cout << "Line-Line Meet Passed Test 1" << endl;
+
+    if(vp.meet(left_and_bottom_segments, top_and_right_segments))
+        cout << "Line-Line Meet Passed Test 2" << endl;
+    else
+        cout << "Line-Line Meet Failed Test 2" << endl;
+
+    if(vp.meet(left_and_bottom_segments, short_left_and_bottom_segments))
+        cout << "Line-Line Meet Failed Test 3" << endl;
+    else
+        cout << "Line-Line Meet Passed Test 3" << endl;
 
     // line-line equal:
+    if(vp.equal(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Equal Passed Test 1" << endl;
+    else
+        cout << "Line-Line Equal Failed Test 1" << endl;
+
+    if(vp.equal(left_and_bottom_segments, top_and_right_segments))
+        cout << "Line-Line Equal Failed Test 2" << endl;
+    else
+        cout << "Line-Line Equal Passed Test 2" << endl;
+
+    if(vp.equal(left_and_bottom_segments, short_left_and_bottom_segments))
+        cout << "Line-Line Equal Failed Test 3" << endl;
+    else
+        cout << "Line-Line Equal Passed Test 3" << endl;
 
     // line-line inside:
+    if(vp.inside(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Inside Failed Test 1" << endl;
+    else
+        cout << "Line-Line Inside Passed Test 1" << endl;
+
+    if(vp.inside(shorter_left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Inside Passed Test 2" << endl;
+    else
+        cout << "Line-Line Inside Failed Test 2" << endl;
+
+    if(vp.inside(left_and_bottom_segments, shorter_left_and_bottom_segments))
+        cout << "Line-Line Inside Failed Test 3" << endl;
+    else
+        cout << "Line-Line Inside Passed Test 3" << endl;
 
     // line-line covered by:
+    if(vp.covered_by(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Covered By Failed Test 1" << endl;
+    else
+        cout << "Line-Line Covered By Passed Test 1" << endl;
+
+    if(vp.covered_by(shorter_left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Covered By Failed Test 2" << endl;
+    else
+        cout << "Line-Line Covered By Passed Test 2" << endl;
+
+    if(vp.covered_by(short_left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Covered By Passed Test 3" << endl;
+    else
+        cout << "Line-Line Covered By Failed Test 3" << endl;
 
     // line-line contains:
+    if(vp.contains(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Contains Failed Test 1" << endl;
+    else
+        cout << "Line-Line Contains Passed Test 1" << endl;
+
+    if(vp.contains(shorter_left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Contains Failed Test 2" << endl;
+    else
+        cout << "Line-Line Contains Passed Test 2" << endl;
+
+    if(vp.contains(left_and_bottom_segments, shorter_left_and_bottom_segments))
+        cout << "Line-Line Contains Passed Test 3" << endl;
+    else
+        cout << "Line-Line Contains Failed Test 3" << endl;
 
     // line-line covers:
-    
+    if(vp.covers(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Covers Failed Test 1" << endl;
+    else
+        cout << "Line-Line Covers Passed Test 1" << endl;
+
+    if(vp.covers(left_and_bottom_segments, shorter_left_and_bottom_segments))
+        cout << "Line-Line Covers Failed Test 2" << endl;
+    else
+        cout << "Line-Line Covers Passed Test 2" << endl;
+
+    if(vp.covers(left_and_bottom_segments, short_left_and_bottom_segments))
+        cout << "Line-Line Covers Passed Test 3" << endl;
+    else
+        cout << "Line-Line Covers Failed Test 3" << endl;
+
     // line-line overlaps:
+    if(vp.overlap(left_and_bottom_segments, left_and_bottom_segments))
+        cout << "Line-Line Overlap Failed Test 1" << endl;
+    else
+        cout << "Line-Line Overlap Passed Test 1" << endl;
+
+    if(vp.overlap(left_and_bottom_segments, shorter_left_and_bottom_segments))
+        cout << "Line-Line Overlap Failed Test 2" << endl;
+    else
+        cout << "Line-Line Overlap Passed Test 2" << endl;
+
+    if(vp.overlap(left_and_top_segments, top_and_right_segments))
+        cout << "Line-Line Overlap Passed Test 3" << endl;
+    else
+        cout << "Line-Line Overlap Failed Test 3" << endl;
 
 
     // line-region disjoint: 
