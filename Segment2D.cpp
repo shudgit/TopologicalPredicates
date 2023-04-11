@@ -116,6 +116,16 @@ std::pair<bool, SimplePoint2D> Segment2D::findIntersection(Segment2D s)
 	return std::make_pair(false, empty);
 }
 
+std::pair<bool, SimplePoint2D> Segment2D::findIntersection_excludeEndpoints(Segment2D s)
+{
+	std::pair<bool, SimplePoint2D> p = findIntersection(s);
+	if(p.first)
+	{
+		if(p.second == leftEndPoint || p.second == rightEndPoint)
+			return std::make_pair(false, p.second);
+	}
+}
+
 bool Segment2D::poiOnSeg(SimplePoint2D p)
 {
 	Number dis = (rightEndPoint.x - leftEndPoint.x) * (rightEndPoint.x - leftEndPoint.x) + (rightEndPoint.y - leftEndPoint.y) * (rightEndPoint.y - leftEndPoint.y);

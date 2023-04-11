@@ -207,24 +207,26 @@ std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
     return std::make_pair(0, 0);
 }
 
-SimplePoint2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
+AttributedHalfSegment2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
 {
 
     for (int i = 0; i < segments.size() - 1; ++i)
         if (segments[i] == ahs)
         {
             AttributedHalfSegment2D ans = segments[i + 1];
-            if(ans.hs.isDominatingPointLeft)
+            /*if(ans.hs.isDominatingPointLeft)
                 return ans.hs.s.leftEndPoint;
             else
-                return ans.hs.s.rightEndPoint;
+                return ans.hs.s.rightEndPoint;*/
+            return ans;
         }
     // if it was not found in the for loop, it must be the last segment
     // if last segment just return its own point as it is checked before the look_ahead call anyway so will not impact the result.
-    if(ahs.hs.isDominatingPointLeft)
+    /*if(ahs.hs.isDominatingPointLeft)
                 return ahs.hs.s.leftEndPoint;
             else
-                return ahs.hs.s.rightEndPoint;
+                return ahs.hs.s.rightEndPoint;*/
+    return ahs;
 }
 
 bool PlaneSweep::coincident(Segment2D segment)
@@ -234,10 +236,10 @@ bool PlaneSweep::coincident(Segment2D segment)
         if(sweepStatus[i] == segment)               // technically cannot intersect with a segment from its own object
         {
             if(i > 0)                               //check intersect with sweepStatus[i - 1]
-                if(segment.findIntersection(sweepStatus[i - 1]).first)
+                if(segment.findIntersection_excludeEndpoints(sweepStatus[i - 1]).first)
                     return true;
             else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
-                if(segment.findIntersection(sweepStatus[i + 1]).first)
+                if(segment.findIntersection_excludeEndpoints(sweepStatus[i + 1]).first)
                     return true;
         }
     }

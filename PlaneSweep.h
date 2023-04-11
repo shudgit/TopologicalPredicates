@@ -29,6 +29,6 @@ class PlaneSweep {
         std::pair<int, int> get_attr_2(Segment2D segment);
         void set_attr_2(Segment2D segment, std::pair<int, int> p);
         std::pair<int, int> get_pred_attr_2(Segment2D segment);
-        SimplePoint2D look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
+        AttributedHalfSegment2D look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
         bool coincident(Segment2D segment);
 };

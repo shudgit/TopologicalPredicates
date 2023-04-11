@@ -245,7 +245,7 @@
             p2Points.push_back(*iter);
         
         ParallelObjT pot(p1Points, p2Points);   // start of parallel object traversal
-        SimplePoint2D next = pot.SelectNext();
+        SimplePoint2D next = pot.SelectNext().point;
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2]))       // while not end of either and not all flags have been set
         {
             if(pot.object == 1)         // if p1, then p1 has a disjoint point
@@ -254,7 +254,7 @@
                 flags[2] = true;
             else                        // if both, they have a shared point
                 flags[0] = true;
-            next = pot.SelectNext();
+            next = pot.SelectNext().point;
         }
 
         if(pot.status == 1)             // ended early on p1 means p2 still has points which are disjoint
@@ -534,30 +534,30 @@
         flags.resize(12, false);
         std::vector<AttributedHalfSegment2D> fSegments;
         std::vector<AttributedHalfSegment2D> gSegments;
-        std::vector<SimplePoint2D> fPoints;
-        std::vector<SimplePoint2D> gPoints;
+        //std::vector<SimplePoint2D> fPoints;
+        //std::vector<SimplePoint2D> gPoints;
         for(Region2D::iterator iter = f.begin(); iter != f.end(); iter++)
         {
             fSegments.push_back(*iter);
-            if((*iter).hs.isDominatingPointLeft)
+            /*if((*iter).hs.isDominatingPointLeft)
                 fPoints.push_back((*iter).hs.s.leftEndPoint);
             else
-                fPoints.push_back((*iter).hs.s.rightEndPoint);
+                fPoints.push_back((*iter).hs.s.rightEndPoint);*/
         }
         for(Region2D::iterator iter = g.begin(); iter != g.end(); iter++)
         {
             gSegments.push_back(*iter);
-            if((*iter).hs.isDominatingPointLeft)
+            /*if((*iter).hs.isDominatingPointLeft)
                 gPoints.push_back((*iter).hs.s.leftEndPoint);
             else
-                gPoints.push_back((*iter).hs.s.rightEndPoint);
+                gPoints.push_back((*iter).hs.s.rightEndPoint);*/
         }
 
         PlaneSweep sweep;
-        ParallelObjT pot(fPoints, gPoints);   // start of parallel object traversal
-        SimplePoint2D next = pot.SelectNext();
-        SimplePoint2D last_dp_in_f;
-        SimplePoint2D last_dp_in_g;
+        ParallelObjT pot(fSegments, gSegments);   // start of parallel object traversal
+        AttributedHalfSegment2D next = pot.SelectNext().attrHalfSeg;
+        AttributedHalfSegment2D last_dp_in_f;
+        AttributedHalfSegment2D last_dp_in_g;
 
         unordered_map<pair<int, int>, bool> vf;
         unordered_map<pair<int, int>, bool> vg;
@@ -576,10 +576,11 @@
                 last_dp_in_f = next;
                 last_dp_in_g = next;
             }
-            // find the ahs corresponding 
-            /*if(!ahs.hs.isDominatingPointLeft)
+            if(last_dp_in_f == last_dp_in_g || last_dp_in_f == sweep.look_ahead_2(last_dp_in_g, gSegments) || last_dp_in_g == sweep.look_ahead_2(last_dp_in_f, fSegments))
+                flags[7] = true; // bound_poi_shared
+            if(!next.hs.isDominatingPointLeft)
             {
-                pair<int, int> overlap_numbers = get_attr_2(seg)
+                pair<int, int> overlap_numbers = sweep.get_attr_2(next.hs.s);
                 if(pot.object == 1)      // if f, add to vf
                     if(vf.find(overlap_numbers) == vf.end())
                         vf.insert(make_pair(overlap_numbers, true));
@@ -593,37 +594,36 @@
                     if(vg.find(overlap_numbers) == vg.end())
                         vg.insert(make_pair(overlap_numbers, true));
                 }
-                sweep.del_right(seg);
+                sweep.del_right(next.hs.s);
             }
             else
             {
                 pair<int, int> mn_pred;
-                sweep.add_left(seg);
-                if(sweep.coincident(seg))
+                sweep.add_left(next.hs.s);
+                if(sweep.coincident(next.hs.s))
                     pot.object = 3;
-                if(!sweep.pred_exists(seg))
+                if(!sweep.pred_exists(next.hs.s))
                     mn_pred = make_pair(3, 0);       // 3 = *
                 else
-                    mn_pred = get_pred_attr_2(seg);
+                    mn_pred = sweep.get_pred_attr_2(next.hs.s);
                 pair<int, int> mn = make_pair(mn_pred.second, mn_pred.second);
                 if(pot.object == 1 || pot.object == 3)
                 {
-                    if(get_attr_2())
+                    if(next.above)
                         mn.second += 1;
                     else
                         mn.second -= 1;
                 }
                 if(pot.object == 2 || pot.object == 3)
                 {
-                    if(get_attr_2())
+                    if(next.above)
                         mn.second += 1;
                     else
                         mn.second -= 1;
                 }
-                set_attr_2(seg, mn);
+                sweep.set_attr_2(next.hs.s, mn);
             }
-            next = pot.SelectNext();
-            */
+            next = pot.SelectNext().attrHalfSeg;
         }
         if(pot.status == 1)
         {
@@ -639,7 +639,30 @@
             if(vf.find(make_pair(1, 0)) == vf.end())
                 vf.insert(make_pair(make_pair(1, 0), true));
         }
+
         // convert vf and vg to bool vector
+        if(vf.find(make_pair(0, 1)) != vf.end())
+            flags[0] = true;
+        if(vf.find(make_pair(1, 0)) != vf.end())
+            flags[1] = true;
+        if(vf.find(make_pair(1, 2)) != vf.end())
+            flags[2] = true;
+        if(vf.find(make_pair(2, 1)) != vf.end())
+            flags[3] = true;
+        if(vf.find(make_pair(0, 2)) != vf.end())
+            flags[4] = true;
+        if(vf.find(make_pair(2, 0)) != vf.end())
+            flags[5] = true;
+        if(vf.find(make_pair(1, 1)) != vf.end())
+            flags[6] = true;
+        if(vg.find(make_pair(0, 1)) != vg.end())
+            flags[8] = true;
+        if(vg.find(make_pair(1, 0)) != vg.end())
+            flags[9] = true;
+        if(vg.find(make_pair(1, 2)) != vg.end())
+            flags[10] = true;
+        if(vg.find(make_pair(2, 1)) != vg.end())
+            flags[11] = true;
     }
     
     AttributedHalfSegment2D GetAttrHalfSeg(std::vector<AttributedHalfSegment2D> halfSegVec, SimplePoint2D point)

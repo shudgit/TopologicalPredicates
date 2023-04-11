@@ -163,7 +163,7 @@ int main ()
 
     // point-point covers: points have no boundary
 
-    // point-point overlaps:    also points have no boundary? not sure if this counts as overlapping
+    // point-point overlaps:
     if(vp.overlap(bottom_points, bottom_and_mid_points))
         cout << "Point-Point Overlap Passed Test 1" << endl;
     else
@@ -225,7 +225,8 @@ int main ()
     else
         cout << "Point-Line Disjoint Failed Test 3" << endl;
 
-    // point-line meets: don't think it applies
+    // point-line meets:
+    
 
     // point-line equal: N/A
 
@@ -251,7 +252,8 @@ int main ()
 
     // point-line covers: N/A
     
-    // point-line overlaps: N/A?
+    // point-line overlaps:
+
 
 
     // point-region disjoint: 
