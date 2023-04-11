@@ -47,7 +47,10 @@
     }
     bool VerifyPredicate::meet(Point2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if (!flags[1] && flags[2])
+            return true;
+        return false;
     }
     bool VerifyPredicate::meet(Point2D obj1, Region2D obj2)
     {
@@ -76,9 +79,11 @@
             return false;
         return true;
     }
+
+    // Point object and Line cannot be equal
     bool VerifyPredicate::equal(Point2D obj1, Line2D obj2)
     {
-
+       return false;
     }
     bool VerifyPredicate::equal(Point2D obj1, Region2D obj2)
     {
@@ -109,7 +114,10 @@
     }
     bool VerifyPredicate::inside(Point2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if (flags[1] && !flags[0])
+            return true;
+        return false;
     }
     bool VerifyPredicate::inside(Point2D obj1, Region2D obj2)
     {
@@ -134,7 +142,10 @@
     }
     bool VerifyPredicate::covered_by(Point2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if ((flags[1] && !flags[0]) || (flags[2] && !flags[0]))
+            return true;
+        return false;
     }
     bool VerifyPredicate::covered_by(Point2D obj1, Region2D obj2)
     {
@@ -163,9 +174,11 @@
             return false;
         return true;
     }
+
+    // cannot happen because the exterior of a point always intersects the interior of a line
     bool VerifyPredicate::contains(Point2D obj1, Line2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::contains(Point2D obj1, Region2D obj2)
     {
@@ -188,9 +201,11 @@
     {
         return false;
     }
+
+    // cannot happen for same reasoning as contains
     bool VerifyPredicate::covers(Point2D obj1, Line2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::covers(Point2D obj1, Region2D obj2)
     {
@@ -218,7 +233,10 @@
     }
     bool VerifyPredicate::overlap(Point2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if (flags[1] && flags[0])
+            return true;
+        return false;
     }
     bool VerifyPredicate::overlap(Point2D obj1, Region2D obj2)
     {
