@@ -368,6 +368,14 @@ int main ()
     right_overlap_rectangle.push_back(Segment2D(four_four, bottom_mid));
     Region2D right_overlap_rectangle_region = Region2D(right_overlap_rectangle);
 
+    vector<SimplePoint2D> middle_points;
+    middle_points.push_back(mid_mid);
+    middle_points.push_back(mid_right);
+    Point2D middle_point_set = Point2D(middle_points);
+
+    vector<SimplePoint2D> ll_points;
+    ll_points.push_back(bottom_left);
+    Point2D origin = Point2D(ll_points);
     // point-region disjoint: 
     if(vp.disjoint(bottom_points, lower_rectangle_region))
         cout << "Point-Region Disjoint Failed Test 1" << endl;
@@ -385,10 +393,38 @@ int main ()
         cout << "Point-Region Disjoint Failed Test 3" << endl;
 
     // point-region meets:
+    if(vp.meet(bottom_points, lower_rectangle_region))
+        cout << "Point-Region Meet Passed Test 1" << endl;
+    else
+        cout << "Point-Region Meet Failed Test 1" << endl;
+
+    if(vp.meet(bottom_points, upper_rectangle_region))
+        cout << "Point-Region Meet Failed Test 2" << endl;
+    else
+        cout << "Point-Region Meet Passed Test 2" << endl;
+
+    if(vp.meet(middle_point_set, giant_square_region))
+        cout << "Point-Region Meet Failed Test 3" << endl;
+    else
+        cout << "Point-Region Meet Passed Test 3" << endl;
 
     // point-region equal: N/A
 
     // point-region inside:
+    if(vp.inside(bottom_points, lower_rectangle_region))
+        cout << "Point-Region Inside Failed Test 1" << endl;
+    else
+        cout << "Point-Region Inside Passed Test 1" << endl;
+
+    if(vp.inside(bottom_points, upper_rectangle_region))
+        cout << "Point-Region Inside Failed Test 2" << endl;
+    else
+        cout << "Point-Region Inside Passed Test 2" << endl;
+
+    if(vp.inside(middle_point_set, giant_square_region))
+        cout << "Point-Region Inside Passed Test 3" << endl;
+    else
+        cout << "Point-Region Inside Failed Test 3" << endl;
 
     // point-region covered by: N/A
 
@@ -397,6 +433,20 @@ int main ()
     // point-region covers: N/A
     
     // point-region overlaps:
+    if(vp.overlap(bottom_points, lower_rectangle_region))
+        cout << "Point-Region Overlap Failed Test 1" << endl;
+    else
+        cout << "Point-Region Overlap Passed Test 1" << endl;
+
+    if(vp.overlap(bottom_points, upper_rectangle_region))
+        cout << "Point-Region Overlap Failed Test 2" << endl;
+    else
+        cout << "Point-Region Overlap Passed Test 2" << endl;
+
+    if(vp.overlap(bottom_points, lower_right_square_region))
+        cout << "Point-Region Overlap Passed Test 3" << endl;
+    else
+        cout << "Point-Region Overlap Failed Test 3" << endl;
 
 
     // line-line disjoint: 
