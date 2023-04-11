@@ -693,9 +693,8 @@
         Line2D::iterator ptr2;
         vector<SimplePoint2D> obj1V; 
         vector<HalfSegment2D> obj2HV;
-        vector<SimplePoint2D> obj2PV;
 
-
+        // Pushing event points into the vectors.
         for (ptr = obj1.begin(); ptr < obj1.end(); ptr++)
         {
             obj1V.push_back(*ptr);
@@ -704,78 +703,98 @@
         for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
         {
             obj2HV.push_back(*ptr2);
-            if (obj2HV.back().isDominatingPointLeft)
-            {
-                obj2PV.push_back(obj2HV.back().s.leftEndPoint);
-            }
-            else
-            {
-                obj2PV.push_back(obj2HV.back().s.rightEndPoint);
-            }
         }
 
-        ParallelObjT pt(obj1V, obj2PV);
+        // Creating parallel object traverssal object
+        ParallelObjT pt(obj1V, obj2HV);
         EventPoint eventPoint = pt.SelectNext();
 
         do
         {
+
+            // If the current event point we are considering is from the Point2D
             if (pt.object == 1)
             {
+                // We check that this point is contained in the Line2D object
                 if (S.poi_on_seg(eventPoint.point))
                 {
+                    // If it is, then the poi_on_interior flag is flipped
                     features[1] = true;
                 }
                 else
                 {
+                    // If it is not, then the poi_disjoint flag is flipped
                     features[0] = true;
                 }
             }
+            
+            // If the current event point we are considering is from the Line2D
             else if (pt.object = 2)
             {
-                HalfSegment2D half = findHS(obj2HV, eventPoint.point);
-                if (half.isDominatingPointLeft)
+                // if this halfsegment is a left dominant halfsegment
+                if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
-                    S.add_left(half.s);
+                    // add it to the planesweep
+                    S.add_left(eventPoint.halfSeg.s);
                 }
                 else
                 {
-                    S.del_right(half.s);
+                    // delete it from the planesweep
+                    S.del_right(eventPoint.halfSeg.s);
                 }
-                if (eventPoint.point != last_dp)
+
+                // if the current halfsegment's dominating point is not equal to the last dominating point. 
+                if (eventPoint.halfSeg.getDP() != last_dp)
                 {
-                    last_dp = eventPoint.point;
+                    // change that
+                    last_dp = eventPoint.halfSeg.getDP();
                 }
-                if (!S.look_ahead(half, obj2HV))
+
+                // if the current halfSegment does not share a dominating point with the next half segment
+                if (!S.look_ahead(eventPoint.halfSeg, obj2HV))
                 {
+                    // the flag bound_point_disjoint is flipped
                     features[3] == true;
                 }
             }
+
+            // from both objects
             else
             {
-                HalfSegment2D half = findHS(obj2HV, eventPoint.point);
-                if (half.isDominatingPointLeft)
+                // if the halfseg is left dominant
+                if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
-                    S.add_left(half.s);
+                    // add it to the planesweep
+                    S.add_left(eventPoint.halfSeg.s);
                 }
                 else
                 {
-                    S.del_right(half.s);
+                    // delete it from the planesweep
+                    S.del_right(eventPoint.halfSeg.s);
                 }
-                last_dp = eventPoint.point;
-                if (S.look_ahead(half,obj2HV))
+                // the last dominating point is set equal to the event point's dominating point
+                last_dp = eventPoint.halfSeg.getDP();
+
+                // if the halfsegment's dominating point is the same as the next one's
+                if (S.look_ahead(eventPoint.halfSeg, obj2HV))
                 {
+                    // poi_on_interior is flipped
                     features[1] = true;
                 }
                 else
                 {
+                    // poi_on_bound is flipped
                     features[2] = true;
                 }
             }
+            // parallel object traverssal chooses the next event point
             eventPoint = pt.SelectNext();
         }
         while (pt.status != 2 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3]));
+        // if the status is end of second
         if (pt.status == 2)
         {
+            // poi_disjoint is true
             features[0] = true;
         }
         return features;
@@ -792,167 +811,222 @@
         Line2D::iterator ptr1;
         Region2D::iterator ptr2;
         vector<HalfSegment2D> obj1HV;
-        vector<SimplePoint2D> obj1PV;
         vector<AttributedHalfSegment2D> obj2HV;
-        vector<SimplePoint2D> obj2PV;
 
         for (ptr1 = obj1.begin(); ptr1 < obj1.end(); ptr1++)
         {
             obj1HV.push_back(*ptr1);
-            if (obj1HV.back().isDominatingPointLeft)
-            {
-                obj1PV.push_back(obj1HV.back().s.leftEndPoint);
-            }
-            else
-            {
-                obj1PV.push_back(obj1HV.back().s.rightEndPoint);
-            }
         }
 
         for (ptr2 = obj2.begin(); ptr2 < obj2.end(); ptr2++)
         {
             obj2HV.push_back(*ptr2);
-            if (obj2HV.back().hs.isDominatingPointLeft)
-            {
-                obj2PV.push_back(obj2HV.back().hs.s.leftEndPoint);
-            }
-            else
-            {
-                obj2PV.push_back(obj2HV.back().hs.s.rightEndPoint);
-            }
         }
 
-        ParallelObjT pt(obj1PV, obj2PV);
+        ParallelObjT pt(obj1HV, obj2HV);
         EventPoint eventPoint = pt.SelectNext();
         do 
         {
+            // if the current object is the Line2D, this means that the event point 
+            // is a halfsegment
             if (pt.object == 1)
             {
-                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
-                if (half.isDominatingPointLeft)
+                // if this halfsegment is left dominant
+                if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
-                    S.add_left(half.s);
+                    // add it to the sweep
+                    S.add_left(eventPoint.halfSeg.s);
                 }
                 else
                 {
-                    if (S.pred_exists(half.s))
+                    // check if there is a predisesor in the plane sweep
+                    if (S.pred_exists(eventPoint.halfSeg.s))
                     {
-                        pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                        // if there is, find the attr values and store them in this pair
+                        pair<bool, bool> MpOverNp = S.get_pred_attr_2(eventPoint.halfSeg.s);
+
+                        // if MpOverNp is true
                         if (MpOverNp.second == 1)
                         {
+                            // seg_inside is true
                             features[0] = true;
                         }
                         else
                         {
+                            // seg_outside is true
                             features[2] = true;
                         }
                     }
                     else
                     {
+                        // seg_outside is true
                         features[2] = true;
                     }
-                    S.del_right(half.s);
+                    // delete the halfsegment from the sweep
+                    S.del_right(eventPoint.halfSeg.s);
                 }
-                SimplePoint2D p = half.getDP();
+                // get the dominating point from the eventPoint.
+                SimplePoint2D p = eventPoint.halfSeg.getDP();
+
+                // if this dominating point is not the last dp in F
                 if (p != last_dp_in_F)
                 {
+                    // make it so
                     last_dp_in_F = p;
-                    if (!S.look_ahead(half, obj1HV))
+
+                    // if the current halfseg and the next one in the POT do not share a dp
+                    if (!S.look_ahead(eventPoint.halfSeg, obj1HV))
                     {
+                        // last_bound_in_F is now p
                         last_bound_in_F = p;
+
+                        // We find the Attributed halfsegment version of eventPoint so we can use look_ahead_3
                         AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+
+                        // if the last boundary point in F is equal to the last dominating point in G
+                        // or the halfsegment exists in G and shares a dominating point with the next one
                         if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(halfA, obj2HV))
                         {
+                            // bound_shared is true
                             features[5] = true;
                         }
                         else
                         {
-                            if (S.pred_exists(half.s))
+                            // if the current event point has a predecessor in the planesweep
+                            if (S.pred_exists(eventPoint.halfSeg.s))
                             {
-                                pair<bool, bool> MpOverNp = S.get_pred_attr_2(half.s);
+                                // calculate the attr for this event point, store it in the pair
+                                pair<bool, bool> MpOverNp = S.get_pred_attr_2(eventPoint.halfSeg.s);
                                 if (MpOverNp.second == 1)
                                 {
+                                    // bound_inside is flipped to true
                                     features[4] = true;
                                 }
                                 else
                                 {
+                                    // bound_disjoint is flipped to true
                                     features[6] = true;
                                 }
                             }
                             else 
                             {
+                                // bound_disjoint is flipped to true
                                 features[6] = true;
                             }
                         }
                     }
                 }
+
+                // same thing as earlier, getting the attrhalfsegment
                 AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
+
                 if (p != last_bound_in_F && (p == last_dp_in_G || S.look_ahead_3(halfA, obj2HV)))
                 {
+                    // poi_shared is flipped
                     features[3];
                 }
             }
+
+            // if the event point is from the region
             else if (pt.object == 2)
             {
-                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
-                bool ia = S.get_attr(half.s);
-                if (half.isDominatingPointLeft)
+                // ia gets the attribute of the current attrhalfseg
+                bool ia = S.get_attr(eventPoint.attrHalfSeg.hs.s);
+
+                // if this attrhalfseg is left dominant
+                if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
-                    S.add_left(half.s);
-                    S.set_attr(half.s, ia);
+                    // add it to the planesweep
+                    S.add_left(eventPoint.halfSeg.s);
+                    // set the attr of the segment we added to the planesweep
+                    S.set_attr(eventPoint.halfSeg.s, ia);
                 }
                 else 
                 {
-                    S.del_right(half.s);
+                    // delete from plansweep
+                    S.del_right(eventPoint.halfSeg.s);
+                    // seg_unshared flipped to true
                     features[7] = true;
                 }
-                SimplePoint2D p = half.getDP();
+
+                // get the dominating point of the halfsegment
+                SimplePoint2D p = eventPoint.attrHalfSeg.hs.getDP();
+
+                // if it is not the last dominating point in G
                 if (p != last_dp_in_G)
                 {
+                    // make it so
                     last_dp_in_G = p;
                 }
             }
+
             else
             {
+                // seg_shared is true
                 features[1] = true;
-                HalfSegment2D half = findHS(obj1HV, eventPoint.point);
-                bool ia = S.get_attr(half.s);
-                if (half.isDominatingPointLeft)
+
+                // get the attr from the attrhalfseg
+                bool ia = S.get_attr(eventPoint.attrHalfSeg.hs.s);
+
+                // if it is a left dominant halfsegment
+                if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
-                    S.add_left(half.s);
-                    S.set_attr(half.s, ia);
+                    // add the segment to the sweep and set its attr
+                    S.add_left(eventPoint.attrHalfSeg.hs.s);
+                    S.set_attr(eventPoint.attrHalfSeg.hs.s, ia);
                 }
                 else
                 {
-                    S.del_right(half.s);
+                    // delete it from the sweep
+                    S.del_right(eventPoint.attrHalfSeg.hs.s);
                 }
-                SimplePoint2D p = half.getDP();
+
+                // get the dominating point of the hs
+                SimplePoint2D p = eventPoint.attrHalfSeg.hs.getDP();
+
+                // if this point is not the last dp in F
                 if (p != last_dp_in_F)
                 {
+                    // make it so
                     last_dp_in_F = p;
-                    if (!S.look_ahead(half, obj1HV))
+
+                    // if the current halfsegment does not share a dp with the next in line
+                    if (!S.look_ahead(eventPoint.attrHalfSeg.hs, obj1HV))
                     {
+                        // bound_shared is flipped to true
                         features[5] = true;
                     }
                     else
                     {
+                        // poi_shared is flipped to true
                         features[3] = true;
                     }
                 }
+
+                // if this point is not the last dp in G
                 if (p != last_dp_in_G)
                 {
+                    // make it so
                     last_dp_in_G = p;
                 }
             }
+
+            // if the POT is at the end of the second object
             if (pt.status == 2)
             {
+                // seg_outside is flipped to true
                 features[2] = true;
             }
+
+            // POT gets the next event point
             eventPoint = pt.SelectNext();
         }
         while (pt.status != 1 && pt.status != 3 && !(features[0] && features[1] && features[2] && features[3] && features[4] && features[5] && features[6] && features[7]));
+
+        // if POT is at the end of the first object
         if (pt.status = 1)
         {
+            // seg_unshared flipped to true
             features[7] = true;
         }
         return features;
