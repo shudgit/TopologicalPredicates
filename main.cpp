@@ -344,6 +344,30 @@ int main ()
     far_square.push_back(Segment2D(top_right, four_three));
     Region2D far_square_region = Region2D(far_square);
 
+    SimplePoint2D four_zero = SimplePoint2D(e, a);
+    SimplePoint2D zero_four = SimplePoint2D(a, e);
+
+    vector<Segment2D> giant_square;
+    giant_square.push_back(Segment2D(bottom_left, zero_four));
+    giant_square.push_back(Segment2D(bottom_left, four_zero));
+    giant_square.push_back(Segment2D(four_four, four_zero));
+    giant_square.push_back(Segment2D(four_four, zero_four));
+    Region2D giant_square_region = Region2D(giant_square);
+
+    vector<Segment2D> left_overlap_rectangle;
+    left_overlap_rectangle.push_back(Segment2D(bottom_left, mid_left));
+    left_overlap_rectangle.push_back(Segment2D(mid_left, mid_right));
+    left_overlap_rectangle.push_back(Segment2D(mid_right, bottom_right));
+    left_overlap_rectangle.push_back(Segment2D(bottom_right, bottom_left));
+    Region2D left_overlap_rectangle_region = Region2D(left_overlap_rectangle);
+
+    vector<Segment2D> right_overlap_rectangle;
+    right_overlap_rectangle.push_back(Segment2D(bottom_mid, zero_four));
+    right_overlap_rectangle.push_back(Segment2D(zero_four, four_zero));
+    right_overlap_rectangle.push_back(Segment2D(four_zero, four_four));
+    right_overlap_rectangle.push_back(Segment2D(four_four, bottom_mid));
+    Region2D right_overlap_rectangle_region = Region2D(right_overlap_rectangle);
+
     // point-region disjoint: 
     if(vp.disjoint(bottom_points, lower_rectangle_region))
         cout << "Point-Region Disjoint Failed Test 1" << endl;
@@ -454,18 +478,126 @@ int main ()
         cout << "Region-Region Disjoint Failed Test 3" << endl;
 
     // region-region meets:
+    if(vp.meet(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Meet Failed Test 1" << endl;
+    else
+        cout << "Region-Region Meet Passed Test 1" << endl;
+
+    if(vp.meet(lower_left_square_region, upper_right_square_region))
+        cout << "Region-Region Meet Passed Test 2" << endl;
+    else
+        cout << "Region-Region Meet Failed Test 2" << endl;
+
+    if(vp.meet(lower_left_square_region, far_square_region))
+        cout << "Region-Region Meet Failed Test 3" << endl;
+    else
+        cout << "Region-Region Meet Passed Test 3" << endl;
 
     // region-region equal:
+    if(vp.equal(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Equal Failed Test 1" << endl;
+    else
+        cout << "Region-Region Equal Passed Test 1" << endl;
+
+    if(vp.equal(lower_left_square_region, lower_left_square_region))
+        cout << "Region-Region Equal Passed Test 2" << endl;
+    else
+        cout << "Region-Region Equal Failed Test 2" << endl;
+
+    if(vp.equal(lower_left_square_region, far_square_region))
+        cout << "Region-Region Equal Failed Test 3" << endl;
+    else
+        cout << "Region-Region Equal Passed Test 3" << endl;
 
     // region-region inside:
+    if(vp.inside(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Inside Failed Test 1" << endl;
+    else
+        cout << "Region-Region Inside Passed Test 1" << endl;
+
+    if(vp.inside(upper_left_square_region, giant_square_region))
+        cout << "Region-Region Inside Passed Test 2" << endl;
+    else
+        cout << "Region-Region Inside Failed Test 2" << endl;
+
+    if(vp.inside(lower_left_square_region, far_square_region))
+        cout << "Region-Region Inside Failed Test 3" << endl;
+    else
+        cout << "Region-Region Inside Passed Test 3" << endl;
 
     // region-region covered by:
+    if(vp.covered_by(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Covered By Passed Test 1" << endl;
+    else
+        cout << "Region-Region Covered By Failed Test 1" << endl;
+
+    if(vp.covered_by(upper_left_square_region, giant_square_region))
+        cout << "Region-Region Covered By Failed Test 2" << endl;
+    else
+        cout << "Region-Region Covered By Passed Test 2" << endl;
+
+    if(vp.covered_by(lower_left_square_region, far_square_region))
+        cout << "Region-Region Covered By Failed Test 3" << endl;
+    else
+        cout << "Region-Region Covered By Passed Test 3" << endl;
 
     // region-region contains:
+    if(vp.contains(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Contains Failed Test 1" << endl;
+    else
+        cout << "Region-Region Contains Passed Test 1" << endl;
+
+    if(vp.contains(giant_square_region, upper_left_square_region))
+        cout << "Region-Region Contains Passed Test 2" << endl;
+    else
+        cout << "Region-Region Contains Failed Test 2" << endl;
+
+    if(vp.contains(lower_left_square_region, far_square_region))
+        cout << "Region-Region Contains Failed Test 3" << endl;
+    else
+        cout << "Region-Region Contains Passed Test 3" << endl;
+
+    if(vp.contains(upper_rectangle_region, upper_left_square_region))
+        cout << "Region-Region Contains Failed Test 4" << endl;
+    else
+        cout << "Region-Region Contains Passed Test 4" << endl;
 
     // region-region covers:
-    
+    if(vp.covers(upper_rectangle_region, upper_left_square_region))
+        cout << "Region-Region Covers Passed Test 1" << endl;
+    else
+        cout << "Region-Region Covers Failed Test 1" << endl;
+
+    if(vp.covers(upper_left_square_region, giant_square_region))
+        cout << "Region-Region Covers Failed Test 2" << endl;
+    else
+        cout << "Region-Region Covers Passed Test 2" << endl;
+
+    if(vp.covers(lower_left_square_region, far_square_region))
+        cout << "Region-Region Covers Failed Test 3" << endl;
+    else
+        cout << "Region-Region Covers Passed Test 3" << endl;
+
+    if(vp.covers(giant_square_region, upper_left_square_region))
+        cout << "Region-Region Covers Failed Test 4" << endl;
+    else
+        cout << "Region-Region Covers Passed Test 4" << endl;
+
     // region-region overlaps:
+    if(vp.overlap(upper_left_square_region, upper_rectangle_region))
+        cout << "Region-Region Overlap Failed Test 1" << endl;
+    else
+        cout << "Region-Region Overlap Passed Test 1" << endl;
+
+    if(vp.overlap(lower_left_square_region, far_square_region))
+        cout << "Region-Region Overlap Failed Test 2" << endl;
+    else
+        cout << "Region-Region Overlap Passed Test 2" << endl;
+
+    if(vp.overlap(left_overlap_rectangle_region, right_overlap_rectangle_region))
+        cout << "Region-Region Overlap Passed Test 3" << endl;
+    else
+        cout << "Region-Region Overlap Failed Test 3" << endl;
 
     return 0;
 }
