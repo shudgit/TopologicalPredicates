@@ -7,228 +7,228 @@
 #include <unordered_map>
 
 
-    bool disjoint(Point2D obj1, Point2D obj2)
+    bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
+    {
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+    }
+    bool VerifyPredicate::disjoint(Point2D obj1, Line2D obj2)
     {
 
     }
-    bool disjoint(Point2D obj1, Line2D obj2)
+    bool VerifyPredicate::disjoint(Point2D obj1, Region2D obj2)
     {
 
     }
-    bool disjoint(Point2D obj1, Region2D obj2)
+    bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
 
     }
-    bool disjoint(Line2D obj1, Line2D obj2)
+    bool VerifyPredicate::disjoint(Line2D obj1, Region2D obj2)
     {
 
     }
-    bool disjoint(Line2D obj1, Region2D obj2)
-    {
-
-    }
-    bool disjoint(Region2D obj1, Region2D obj2)
+    bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
 
     }
 
-    bool meet(Point2D obj1, Point2D obj2)
+    bool VerifyPredicate::meet(Point2D obj1, Point2D obj2)
     {
 
     }
-    bool meet(Point2D obj1, Line2D obj2)
+    bool VerifyPredicate::meet(Point2D obj1, Line2D obj2)
     {
 
     }
-    bool meet(Point2D obj1, Region2D obj2)
+    bool VerifyPredicate::meet(Point2D obj1, Region2D obj2)
     {
 
     }
-    bool meet(Line2D obj1, Line2D obj2)
+    bool VerifyPredicate::meet(Line2D obj1, Line2D obj2)
     {
 
     }
-    bool meet(Line2D obj1, Region2D obj2)
+    bool VerifyPredicate::meet(Line2D obj1, Region2D obj2)
     {
 
     }
-    bool meet(Region2D obj1, Region2D obj2)
-    {
-        
-    }
-
-    bool equal(Point2D obj1, Point2D obj2)
-    {
-
-    }
-    bool equal(Point2D obj1, Line2D obj2)
-    {
-
-    }
-    bool equal(Point2D obj1, Region2D obj2)
-    {
-
-    }
-    bool equal(Line2D obj1, Line2D obj2)
-    {
-
-    }
-    bool equal(Line2D obj1, Region2D obj2)
-    {
-
-    }
-    bool equal(Region2D obj1, Region2D obj2)
+    bool VerifyPredicate::meet(Region2D obj1, Region2D obj2)
     {
         
     }
 
-    bool inside(Point2D obj1, Point2D obj2)
+    bool VerifyPredicate::equal(Point2D obj1, Point2D obj2)
     {
 
     }
-    bool inside(Point2D obj1, Line2D obj2)
+    bool VerifyPredicate::equal(Point2D obj1, Line2D obj2)
     {
 
     }
-    bool inside(Point2D obj1, Region2D obj2)
+    bool VerifyPredicate::equal(Point2D obj1, Region2D obj2)
     {
 
     }
-    bool inside(Line2D obj1, Line2D obj2)
+    bool VerifyPredicate::equal(Line2D obj1, Line2D obj2)
     {
 
     }
-    bool inside(Line2D obj1, Region2D obj2)
+    bool VerifyPredicate::equal(Line2D obj1, Region2D obj2)
     {
 
     }
-    bool inside(Region2D obj1, Region2D obj2)
-    {
-        
-    }
-
-    bool covered_by(Point2D obj1, Point2D obj2)
-    {
-
-    }
-    bool covered_by(Point2D obj1, Line2D obj2)
-    {
-
-    }
-    bool covered_by(Point2D obj1, Region2D obj2)
-    {
-
-    }
-    bool covered_by(Line2D obj1, Line2D obj2)
-    {
-
-    }
-    bool covered_by(Line2D obj1, Region2D obj2)
-    {
-
-    }
-    bool covered_by(Region2D obj1, Region2D obj2)
+    bool VerifyPredicate::equal(Region2D obj1, Region2D obj2)
     {
         
     }
 
-    bool contains(Point2D obj1, Point2D obj2)
+    bool VerifyPredicate::inside(Point2D obj1, Point2D obj2)
     {
 
     }
-    bool contains(Point2D obj1, Line2D obj2)
+    bool VerifyPredicate::inside(Point2D obj1, Line2D obj2)
     {
 
     }
-    bool contains(Point2D obj1, Region2D obj2)
+    bool VerifyPredicate::inside(Point2D obj1, Region2D obj2)
     {
 
     }
-    bool contains(Line2D obj1, Line2D obj2)
+    bool VerifyPredicate::inside(Line2D obj1, Line2D obj2)
     {
 
     }
-    bool contains(Line2D obj1, Region2D obj2)
+    bool VerifyPredicate::inside(Line2D obj1, Region2D obj2)
     {
 
     }
-    bool contains(Region2D obj1, Region2D obj2)
-    {
-        
-    }
-
-    bool covers(Point2D obj1, Point2D obj2)
-    {
-
-    }
-    bool covers(Point2D obj1, Line2D obj2)
-    {
-
-    }
-    bool covers(Point2D obj1, Region2D obj2)
-    {
-
-    }
-    bool covers(Line2D obj1, Line2D obj2)
-    {
-
-    }
-    bool covers(Line2D obj1, Region2D obj2)
-    {
-
-    }
-    bool covers(Region2D obj1, Region2D obj2)
+    bool VerifyPredicate::inside(Region2D obj1, Region2D obj2)
     {
         
     }
 
-    bool overlap(Point2D obj1, Point2D obj2)
+    bool VerifyPredicate::covered_by(Point2D obj1, Point2D obj2)
     {
 
     }
-    bool overlap(Point2D obj1, Line2D obj2)
+    bool VerifyPredicate::covered_by(Point2D obj1, Line2D obj2)
     {
 
     }
-    bool overlap(Point2D obj1, Region2D obj2)
+    bool VerifyPredicate::covered_by(Point2D obj1, Region2D obj2)
     {
 
     }
-    bool overlap(Line2D obj1, Line2D obj2)
+    bool VerifyPredicate::covered_by(Line2D obj1, Line2D obj2)
     {
 
     }
-    bool overlap(Line2D obj1, Region2D obj2)
+    bool VerifyPredicate::covered_by(Line2D obj1, Region2D obj2)
     {
 
     }
-    bool overlap(Region2D obj1, Region2D obj2)
+    bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
+    {
+        
+    }
+
+    bool VerifyPredicate::contains(Point2D obj1, Point2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::contains(Point2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::contains(Point2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::contains(Line2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::contains(Line2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::contains(Region2D obj1, Region2D obj2)
+    {
+        
+    }
+
+    bool VerifyPredicate::covers(Point2D obj1, Point2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::covers(Point2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::covers(Point2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::covers(Line2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::covers(Line2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::covers(Region2D obj1, Region2D obj2)
+    {
+        
+    }
+
+    bool VerifyPredicate::overlap(Point2D obj1, Point2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::overlap(Point2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::overlap(Point2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::overlap(Line2D obj1, Line2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::overlap(Line2D obj1, Region2D obj2)
+    {
+
+    }
+    bool VerifyPredicate::overlap(Region2D obj1, Region2D obj2)
     {
         
     }
 
 
-    bool verify(Point2D obj1, Point2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Point2D obj1, Point2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false};
     } 
-    bool verify(Point2D obj1, Line2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false, false};
     }
-    bool verify(Point2D obj1, Region2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Point2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false, false};
     }
-    bool verify(Line2D obj1, Line2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Line2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false, false, false, false, false, false, false};
     }
-    bool verify(Line2D obj1, Region2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
-    bool verify(Region2D obj1, Region2D obj2, int predicateNumber)
+    bool VerifyPredicate::verify(Region2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> features {false, false, false, false, false, false, false, false};
     }
@@ -266,7 +266,7 @@
     }
     
     //Line || Line
-    std::vector<bool> LineLineAlgorithm(Line2D line1, Line2D line2)
+    std::vector<bool> VerifyPredicate::LineLineAlgorithm(Line2D line1, Line2D line2)
     {
         std::vector<HalfSegment2D> line1Vector;
         std::vector<HalfSegment2D> line2Vector;
@@ -448,7 +448,7 @@
     }
 
     //Point || Region
-    std::vector<bool> PointRegionAlgorithm(Point2D points, Region2D region)
+    std::vector<bool> VerifyPredicate::PointRegionAlgorithm(Point2D points, Region2D region)
     {
         std::vector<SimplePoint2D> pointVector;
         std::vector<AttributedHalfSegment2D> regionVector;
