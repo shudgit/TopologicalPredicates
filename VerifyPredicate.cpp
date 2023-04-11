@@ -10,6 +10,9 @@
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if(flags[0])
+            return false;
+        return true;
     }
     bool VerifyPredicate::disjoint(Point2D obj1, Line2D obj2)
     {
@@ -29,12 +32,15 @@
     }
     bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
+            return false;
+        return true;
     }
 
     bool VerifyPredicate::meet(Point2D obj1, Point2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::meet(Point2D obj1, Line2D obj2)
     {
@@ -54,12 +60,18 @@
     }
     bool VerifyPredicate::meet(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if(!(flags[2] || flags[3] || flags[4] || flags[5] || flags[10] || flags[11]) && (flags[6] || flags[7]))
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::equal(Point2D obj1, Point2D obj2)
     {
-
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if(flags[1] && flags[2])
+            return false;
+        return true;
     }
     bool VerifyPredicate::equal(Point2D obj1, Line2D obj2)
     {
@@ -79,12 +91,18 @@
     }
     bool VerifyPredicate::equal(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
+            return false;
+        return true;
     }
 
     bool VerifyPredicate::inside(Point2D obj1, Point2D obj2)
     {
-
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if(flags[1])
+            return false;
+        return true;
     }
     bool VerifyPredicate::inside(Point2D obj1, Line2D obj2)
     {
@@ -109,7 +127,7 @@
 
     bool VerifyPredicate::covered_by(Point2D obj1, Point2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::covered_by(Point2D obj1, Line2D obj2)
     {
@@ -129,12 +147,18 @@
     }
     bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])  // not correct
+            return false;
+        return true;
     }
 
     bool VerifyPredicate::contains(Point2D obj1, Point2D obj2)
     {
-
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if(flags[2])
+            return false;
+        return true;
     }
     bool VerifyPredicate::contains(Point2D obj1, Line2D obj2)
     {
@@ -159,7 +183,7 @@
 
     bool VerifyPredicate::covers(Point2D obj1, Point2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::covers(Point2D obj1, Line2D obj2)
     {
@@ -184,7 +208,10 @@
 
     bool VerifyPredicate::overlap(Point2D obj1, Point2D obj2)
     {
-
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if(flags[0] && flags[1] && flags[2])
+            return true;
+        return false;
     }
     bool VerifyPredicate::overlap(Point2D obj1, Line2D obj2)
     {

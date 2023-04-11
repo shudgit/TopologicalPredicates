@@ -109,7 +109,7 @@ int main ()
     else
         cout << "Point-Point Disjoint Passed Test 2" << endl;
 
-    // point-point meets: points have no boundary
+    // point-point meets: N/A
 
     // point-point equal:
     if(vp.equal(bottom_points, bottom_points))
@@ -143,7 +143,7 @@ int main ()
     else
         cout << "Point-Point Inside Passed Test 3" << endl;
 
-    // point-point covered by: points have no boundary
+    // point-point covered by: N/A
 
     // point-point contains:
     if(vp.contains(bottom_points, bottom_and_mid_points))
@@ -161,7 +161,7 @@ int main ()
     else
         cout << "Point-Point Contains Failed Test 3" << endl;
 
-    // point-point covers: points have no boundary
+    // point-point covers: N/A
 
     // point-point overlaps:
     if(vp.overlap(bottom_points, bottom_and_mid_points))
