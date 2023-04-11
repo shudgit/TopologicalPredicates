@@ -16,7 +16,10 @@
     }
     bool VerifyPredicate::disjoint(Point2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if (!(flags[1] && flags[2]))
+            return true;
+        return false;
     }
     bool VerifyPredicate::disjoint(Point2D obj1, Region2D obj2)
     {
