@@ -259,10 +259,8 @@ EventPoint ParallelObjT::PointLineNext()
         }
     }
 
-    std::cout << point1Queue.size() << " " << line2Queue.size() << std::endl;
     if((!point1Queue.empty()) && (line2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.getDP())) 
     {
-        std::cout << "1" << std::endl;
         if(obj1NextPoint == point1Queue.front())
         {
             point1Queue.pop();
@@ -290,7 +288,6 @@ EventPoint ParallelObjT::PointLineNext()
     }
     else if((!line2Queue.empty()) && (point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.getDP()))
     {
-        std::cout << "2" << std::endl;
         if(obj2NextHalfSeg == line2Queue.front())
         {
             line2Queue.pop();
@@ -318,7 +315,6 @@ EventPoint ParallelObjT::PointLineNext()
     }
     else if(!point1Queue.empty() && !line2Queue.empty())
     {
-        std::cout << "3" << std::endl;
         if(obj1NextPoint == point1Queue.front())
         {
             point1Queue.pop();
@@ -382,21 +378,16 @@ EventPoint ParallelObjT::PointRegionNext()
         }
     }
     AttributedHalfSegment2D obj2NextHalfSeg;
-    std::cout << point1Queue.size() << " " << region2Queue.size() << std::endl;
     if(!region2Queue.empty()) {
-        std::cout << "enters" << std::endl;
         if(region2Dynamic.empty() || region2Queue.front() < region2Dynamic.front()) 
         {
-            std::cout << "enters1" << std::endl;
             obj2NextHalfSeg = region2Queue.front();
         }
         else if (region2Queue.front() > region2Dynamic.front()) 
         {
-            std::cout << "enters2" << std::endl;
             obj2NextHalfSeg = region2Dynamic.front();
         }
     }
-    std::cout << point1Queue.size() << " " << region2Queue.size() << std::endl;
     if((!point1Queue.empty()) && (region2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.hs.getDP())) 
     {
         if(obj1NextPoint == point1Queue.front())
@@ -517,7 +508,8 @@ EventPoint ParallelObjT::LineLineNext()
     }
 
     HalfSegment2D obj2NextHalfSeg;
-    if(!line2Queue.empty()) {
+    if(!line2Queue.empty()) 
+    {
         if(line2Dynamic.empty() || line2Queue.front() < line2Dynamic.front()) 
         {
             obj2NextHalfSeg = line2Queue.front();
@@ -615,7 +607,7 @@ EventPoint ParallelObjT::LineLineNext()
             }
         }
 
-            if(line2Queue.empty() && line2Queue.empty()) 
+        if(line2Queue.empty() && line2Queue.empty()) 
         {
             if(status == 0) 
             {

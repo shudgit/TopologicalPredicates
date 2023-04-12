@@ -63,12 +63,10 @@ void PlaneSweep::add_left(Segment2D segment)
             sweepStatus.emplace(sweepStatus.begin(), segment);
         else //add halfsegment to sweep status somewhere in the middle
         {
-            std::cout << "Plane Sweep :: else" << std::endl;
             int index = 0;
             while((index < sweepStatus.size()) && !CheckLessThan(segment, sweepStatus[index])) //find index
                 index++;
             sweepStatus.emplace(sweepStatus.begin() + index, segment); //emplace at index
-            std::cout << "Plane Sweep :: else exits" << std::endl;
         } 
     }   
 }
@@ -149,7 +147,7 @@ bool PlaneSweep::get_pred_attr(SimplePoint2D point)
 
 bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfSegs)
 {
-    for (int i = 0; i < halfSegs.size(); i++)
+    for (int i = 0; i < halfSegs.size() - 1; i++)
     {
         if (halfSegs[i] == half)
         {
@@ -164,7 +162,7 @@ bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfS
 
 bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
 {
-    for (int i = 0; i < segments.size(); i++)
+    for (int i = 0; i < segments.size() - 1; i++)
     {
         if (segments[i] == ahs)
         {
