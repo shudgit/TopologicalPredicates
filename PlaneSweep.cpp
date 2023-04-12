@@ -7,6 +7,43 @@ PlaneSweep::PlaneSweep() {
 }
 
 //functions
+
+bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg) 
+{
+    SimplePoint2D dp = segToAdd.leftEndPoint;
+    SimplePoint2D left = prevSeg.leftEndPoint;
+    SimplePoint2D right = prevSeg.rightEndPoint;
+
+    // handle infinite slope
+    if (right.x == left.x) {
+        return dp < left;
+    }
+
+    Number slope = (right.y - left.y) / (right.x - left.x);
+    Number b = left.y - (slope * left.x);   // The minus '-' was originally a '/'. I think this is supposed to be based on y=mx+b, which rewrites into b=y-mx.
+    Number halfSegY = (dp.x * slope) + b;
+
+    return dp.y < halfSegY;
+ 
+}
+
+bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
+{
+    SimplePoint2D left = segment.leftEndPoint;
+    SimplePoint2D right = segment.rightEndPoint;
+
+    // handle infinite slope
+    if (right.x == left.x) {
+        return point.y > left.y;
+    }
+
+    Number slope = (right.y - left.y) / (right.x - left.x);
+    Number b = left.y - (slope * left.x);   
+    Number SegY = (point.x * slope) + b;
+
+    return point.y > SegY;
+}
+
 void PlaneSweep::add_left(Segment2D segment)
 {
     if(sweepStatus.empty())
@@ -120,42 +157,6 @@ bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfS
         }
     }
     return false;
-}
-
-bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg) 
-{
-    SimplePoint2D dp = segToAdd.leftEndPoint;
-    SimplePoint2D left = prevSeg.leftEndPoint;
-    SimplePoint2D right = prevSeg.rightEndPoint;
-
-    // handle infinite slope
-    if (right.x == left.x) {
-        return dp < left;
-    }
-
-    Number slope = (right.y - left.y) / (right.x - left.x);
-    Number b = left.y - (slope * left.x);   // The minus '-' was originally a '/'. I think this is supposed to be based on y=mx+b, which rewrites into b=y-mx.
-    Number halfSegY = (dp.x * slope) + b;
-
-    return dp.y < halfSegY;
- 
-}
-
-bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
-{
-    SimplePoint2D left = segment.leftEndPoint;
-    SimplePoint2D right = segment.rightEndPoint;
-
-    // handle infinite slope
-    if (right.x == left.x) {
-        return point.y > left.y;
-    }
-
-    Number slope = (right.y - left.y) / (right.x - left.x);
-    Number b = left.y - (slope * left.x);   
-    Number SegY = (point.x * slope) + b;
-
-    return point.y > SegY;
 }
 
 bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)

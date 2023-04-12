@@ -38,22 +38,22 @@ HalfSegment2D& HalfSegment2D::operator=(HalfSegment2D&& hs)
 	return *this;
 }
 
-bool HalfSegment2D::operator==(const HalfSegment2D& hs)
+bool HalfSegment2D::operator==(const HalfSegment2D& hs) const
 {
 	return ((*this).s == hs.s && (*this).isDominatingPointLeft == hs.isDominatingPointLeft);
 }
 
-bool HalfSegment2D::operator>=(const HalfSegment2D& hs)
+bool HalfSegment2D::operator>=(const HalfSegment2D& hs) const
 {
 	return !((*this) < hs);
 }
 
-bool HalfSegment2D::operator>(const HalfSegment2D& hs)
+bool HalfSegment2D::operator>(const HalfSegment2D& hs) const
 {
 	return !((*this) <= hs);
 }
 
-bool HalfSegment2D::operator<(const HalfSegment2D& hs)
+bool HalfSegment2D::operator<(const HalfSegment2D& hs) const
 {
 	// getDP() is not working for const hs so getting it this way
 	SimplePoint2D hsdp;
@@ -61,10 +61,17 @@ bool HalfSegment2D::operator<(const HalfSegment2D& hs)
 		hsdp = hs.s.leftEndPoint;
 	else
 		hsdp = hs.s.rightEndPoint;
+
+	SimplePoint2D thisdp;
+	if(this->isDominatingPointLeft)
+		thisdp = this->s.leftEndPoint;
+	else
+		thisdp = this->s.rightEndPoint;
+
 	// Case 1: 
-	if (this->getDP() < hsdp)
+	if (thisdp < hsdp)
 		return true;
-	else if (this->getDP() > hsdp)
+	else if (thisdp > hsdp)
 		return false;
 	// if equal, move onto case 2a
 
@@ -136,12 +143,12 @@ bool HalfSegment2D::operator<(const HalfSegment2D& hs)
 	return (l1 < l2);
 }
 
-bool HalfSegment2D::operator<=(const HalfSegment2D& hs)
+bool HalfSegment2D::operator<=(const HalfSegment2D& hs) const
 {
 	return (*this < hs || *this == hs);
 }
 
-bool HalfSegment2D::operator!=(const HalfSegment2D& hs)
+bool HalfSegment2D::operator!=(const HalfSegment2D& hs) const
 {
 	return !((*this) == hs);
 }

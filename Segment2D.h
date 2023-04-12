@@ -10,12 +10,12 @@ struct Segment2D
 	Segment2D(Segment2D&& s);
 	Segment2D& operator=(const Segment2D& s);
 	Segment2D& operator=(Segment2D&& s);
-	bool operator<(const Segment2D& s);
-	bool operator<=(const Segment2D& s);
-	bool operator==(const Segment2D& s);
-	bool operator>=(const Segment2D& s);
-	bool operator>(const Segment2D& s);
-	bool operator!=(const Segment2D& s);
+	bool operator<(const Segment2D& s) const;
+	bool operator<=(const Segment2D& s) const;
+	bool operator==(const Segment2D& s) const;
+	bool operator>=(const Segment2D& s) const;
+	bool operator>(const Segment2D& s) const;
+	bool operator!=(const Segment2D& s) const;
 	std::pair<bool, SimplePoint2D> findIntersection(Segment2D s);
 	std::pair<bool, SimplePoint2D> findIntersection_excludeEndpoints(Segment2D s);
 	bool poiOnSeg(SimplePoint2D p);
