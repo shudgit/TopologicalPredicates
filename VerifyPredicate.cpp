@@ -392,27 +392,45 @@
 
     bool VerifyPredicate::verify(Point2D obj1, Point2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false};
+        vector<bool> flags = PointPointAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false;
     } 
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false, false};
+        vector<bool> flags = PointLineAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false;
     }
     bool VerifyPredicate::verify(Point2D obj1, Region2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false, false};
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false;
     }
     bool VerifyPredicate::verify(Line2D obj1, Line2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false, false, false, false, false, false, false};
+        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false
     }
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false, false, false, false, false, false};
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false
     }
     bool VerifyPredicate::verify(Region2D obj1, Region2D obj2, int predicateNumber)
     {
-        vector<bool> features {false, false, false, false, false, false, false, false};
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if (flags == predicates[predicateNumber])
+            return true;
+        return false
     }
 
     std::vector<bool> VerifyPredicate::PointPointAlgorithm(Point2D p1, Point2D p2)
