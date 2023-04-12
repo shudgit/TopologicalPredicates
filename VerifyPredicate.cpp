@@ -26,6 +26,87 @@
     VerifyPredicate::VerifyPredicate()
     {
         predicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(3, {false, false, true, false, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(4, {false, false, true, false, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(5, {false, false, true, false, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(6, {false, false, true, false, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(7, {false, false, true, false, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(8, {false, false, true, false, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(9, {false, false, true, true, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(10, {false, false, true, true, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(11, {false, false, true, true, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(12, {false, false, true, true, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(13, {false, false, true, true, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(14, {false, false, true, true, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(15, {false, false, true, true, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(16, {false, false, true, true, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(17, {false, true, true, false, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(18, {false, true, true, false, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(19, {false, true, true, false, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(20, {false, true, true, false, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(21, {false, true, true, false, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(22, {false, true, true, false, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(23, {false, true, true, false, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(24, {false, true, true, false, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(25, {false, true, true, true, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(26, {false, true, true, true, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(27, {false, true, true, true, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(28, {false, true, true, true, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(29, {false, true, true, true, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(30, {false, true, true, true, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(31, {false, true, true, true, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(32, {false, true, true, true, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(33, {true, false, false, false, false, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(34, {true, false, false, false, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(35, {true, false, false, false, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(36, {true, false, false, false, true, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(37, {true, false, false, false, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(38, {true, false, false, false, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(39, {true, false, false, true, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(40, {true, false, false, true, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(41, {true, false, false, true, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(42, {true, false, false, true, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(43, {true, false, true, false, false, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(44, {true, false, true, false, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(45, {true, false, true, false, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(46, {true, false, true, false, false, true, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(47, {true, false, true, false, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(48, {true, false, true, false, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(49, {true, false, true, false, true, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(50, {true, false, true, false, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(51, {true, false, true, false, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(52, {true, false, true, false, true, true, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(53, {true, false, true, false, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(54, {true, false, true, false, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(55, {true, false, true, true, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(56, {true, false, true, true, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(57, {true, false, true, true, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(58, {true, false, true, true, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(59, {true, false, true, true, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(60, {true, false, true, true, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(61, {true, false, true, true, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(62, {true, false, true, true, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(63, {true, true, true, false, false, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(64, {true, true, true, false, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(65, {true, true, true, false, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(66, {true, true, true, false, false, true, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(67, {true, true, true, false, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(68, {true, true, true, false, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(69, {true, true, true, false, true, false, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(70, {true, true, true, false, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(71, {true, true, true, false, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(72, {true, true, true, false, true, true, false, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(73, {true, true, true, false, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(74, {true, true, true, false, true, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(75, {true, true, true, true, false, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(76, {true, true, true, true, false, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(77, {true, true, true, true, false, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(78, {true, true, true, true, false, true, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(79, {true, true, true, true, true, false, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(80, {true, true, true, true, true, false, true, true, true}));
+        predicates.insert(std::pair<int, vector<bool>>(81, {true, true, true, true, true, true, true, false, true}));
+        predicates.insert(std::pair<int, vector<bool>>(82, {true, true, true, true, true, true, true, true, true}));
     }
 
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
@@ -67,6 +148,9 @@
     bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11] == (im == predicates[1]))
+            cout << "flags == clustered" << endl;
         if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
             return false;
         return true;

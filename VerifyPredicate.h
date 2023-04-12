@@ -22,6 +22,7 @@ private:
 
 public:
 
+    VerifyPredicate();
     // This function creates a features vector, then manipulates it in parallel object traversal
     // It then evaluates that vector and returns true. 
     bool disjoint(Point2D obj1, Point2D obj2);
