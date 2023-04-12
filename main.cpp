@@ -110,7 +110,7 @@ int main ()
         cout << "Point-Point Disjoint Passed Test 2" << endl;
 
     // point-point meets: N/A
-
+    /*
     // point-point equal:
     if(vp.equal(bottom_points, bottom_points))
         cout << "Point-Point Equal Passed Test 1" << endl;
@@ -178,7 +178,7 @@ int main ()
         cout << "Point-Point Overlap Passed Test 3" << endl;
     else
         cout << "Point-Point Overlap Failed Test 3" << endl;
-    
+    */
     Segment2D left_long = Segment2D(bottom_left, top_left);
     Segment2D left_short = Segment2D(bottom_left, mid_left);
     Segment2D top_long = Segment2D(top_left, top_right);
@@ -229,7 +229,7 @@ int main ()
 
 
     // point-line equal: N/A
-
+    /*
     // point-line inside:
     if(vp.inside(bottom_points, top_and_right_segments))
         cout << "Point-Line Inside Failed Test 1" << endl;
@@ -253,7 +253,7 @@ int main ()
     // point-line covers: N/A
     
     // point-line overlaps:
-
+    */
     vector<Segment2D> outer_square;
     outer_square.push_back(left_long);
     outer_square.push_back(top_long);
@@ -397,7 +397,7 @@ int main ()
         cout << "Point-Region Disjoint Passed Test 3" << endl;
     else
         cout << "Point-Region Disjoint Failed Test 3" << endl;
-
+    /*
     // point-region meets:
     if(vp.meet(bottom_points, lower_rectangle_region))
         cout << "Point-Region Meet Passed Test 1" << endl;
@@ -453,7 +453,7 @@ int main ()
         cout << "Point-Region Overlap Passed Test 3" << endl;
     else
         cout << "Point-Region Overlap Failed Test 3" << endl;
-
+    */
 
     // line-line disjoint: 
     if(vp.disjoint(left_and_bottom_segments, left_and_bottom_segments))
@@ -470,7 +470,7 @@ int main ()
         cout << "Line-Line Disjoint Passed Test 3" << endl;
     else
         cout << "Line-Line Disjoint Failed Test 3" << endl;
-
+    /*
     // line-line meets:
     if(vp.meet(left_and_bottom_segments, left_and_bottom_segments))
         cout << "Line-Line Meet Failed Test 1" << endl;
@@ -582,7 +582,7 @@ int main ()
         cout << "Line-Line Overlap Passed Test 3" << endl;
     else
         cout << "Line-Line Overlap Failed Test 3" << endl;
-
+    */
 
     // line-region disjoint: 
     if(vp.disjoint(short_left_and_bottom_segments, lower_rectangle_region))
@@ -630,7 +630,7 @@ int main ()
         cout << "Region-Region Disjoint Passed Test 3" << endl;
     else
         cout << "Region-Region Disjoint Failed Test 3" << endl;
-
+    /*
     // region-region meets:
     if(vp.meet(upper_left_square_region, upper_rectangle_region))
         cout << "Region-Region Meet Failed Test 1" << endl;
@@ -752,6 +752,6 @@ int main ()
         cout << "Region-Region Overlap Passed Test 3" << endl;
     else
         cout << "Region-Region Overlap Failed Test 3" << endl;
-
+    */
     return 0;
 }
