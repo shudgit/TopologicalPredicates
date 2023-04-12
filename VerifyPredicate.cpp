@@ -10,15 +10,16 @@
     {
         vector<bool> im;
         im.resize(9, false);
-        im[5] = flags[0] || flags[1];
-        im[7] = flags[8] || flags[9];
-        im[3] = flags[2] || flags[3];
+        im[0] = flags[4] || flags[5] || flags[2] || flags[3] || flags[10] || flags[11];
         im[1] = flags[10] || flags[11];
-        im[0] = flags[4] || flags[5];
-        im[4] = flags[4] || flags[5] || flags[6];
-        im[6] = flags[6];
-        im[2] = flags[6];
+        im[2] = flags[6] || flags[0] || flags[1] || flags[2] || flags[3];
+        im[3] = flags[2] || flags[3];
+        im[4] = flags[4] || flags[5] || flags[6] || flags[7];
+        im[5] = flags[0] || flags[1];
+        im[6] = flags[6] || flags[2] || flags[3] || flags[0] || flags[1];
+        im[7] = flags[8] || flags[9];
         im[8] = true;
+        return im;
     }
 
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
@@ -643,6 +644,7 @@
         PlaneSweep sweep;
         ParallelObjT pot(fSegments, gSegments);   // start of parallel object traversal
         AttributedHalfSegment2D next = pot.SelectNext().attrHalfSeg;
+        AttributedHalfSegment2D next2 = pot.SelectNext().attrHalfSeg2;
         AttributedHalfSegment2D last_dp_in_f;
         AttributedHalfSegment2D last_dp_in_g;
 
@@ -651,16 +653,11 @@
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
         {
             if(pot.object == 1)      // if f, set last_dp_in_f
-            {
                 last_dp_in_f = next;
-            }
             else if(pot.object == 2) // if g, set last_dp_in_g
-            {
                 last_dp_in_g = next;
-            }
             else                     // if both, set both
             {
-                AttributedHalfSegment2D next2 = pot.SelectNext().attrHalfSeg2;
                 last_dp_in_f = next;
                 last_dp_in_g = next2;
             }
@@ -704,7 +701,7 @@
                 }
                 if(pot.object == 2 || pot.object == 3)
                 {
-                    if(next.above)
+                    if(next2.above)
                         mn.second += 1;
                     else
                         mn.second -= 1;
