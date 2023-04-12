@@ -1,3 +1,4 @@
+#pragma once
 #include "HalfSegment2D.h"
 #include "SimplePoint2D.h"
 #include "AttributedHalfSegment2D.h"

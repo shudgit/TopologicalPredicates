@@ -11,6 +11,151 @@
 
 using namespace std;
 
+void LineRegionMeetsTest()
+{
+    VerifyPredicate vp;
+
+    SimplePoint2D a1 = SimplePoint2D("0", "2");
+    SimplePoint2D a2 = SimplePoint2D("0", "1");
+    SimplePoint2D a3 = SimplePoint2D("0", "0");
+    SimplePoint2D a4 = SimplePoint2D("1", "1");
+    SimplePoint2D a5 = SimplePoint2D("1", "0");
+    
+    Segment2D topLeft = Segment2D(a1, a2);
+    Segment2D bottomLeft = Segment2D(a2, a3);
+    Segment2D topMiddle = Segment2D(a2, a4);
+    Segment2D bottomMiddle = Segment2D(a3, a5);
+    Segment2D rightSeg = Segment2D(a5, a4);
+
+    vector<Segment2D> segments;
+    segments.push_back(topLeft);
+    segments.push_back(topMiddle);
+
+    Line2D lineObject = Line2D(segments);
+
+    vector<Segment2D> segments2;
+    segments2.push_back(bottomLeft);
+    segments2.push_back(topMiddle);
+    segments2.push_back(bottomMiddle);
+    segments2.push_back(rightSeg);
+
+    Region2D regionObject = Region2D(segments2);
+
+    if (vp.meet(lineObject, regionObject))
+        cout << "Line-Region Meet Passed Test 1" << endl;
+    else
+        cout << "Line-Region Meet Failed Test 1" << endl;
+}
+
+void LineRegionInsideTest()
+{
+    VerifyPredicate vp;
+
+    SimplePoint2D a1 = SimplePoint2D("0", "0");
+    SimplePoint2D a2 = SimplePoint2D("0", "4");
+    SimplePoint2D a3 = SimplePoint2D("4", "4");
+    SimplePoint2D a4 = SimplePoint2D("4", "0");
+
+    Segment2D first = Segment2D(a1, a2);
+    Segment2D second = Segment2D(a2, a3);
+    Segment2D third = Segment2D(a3, a4);
+    Segment2D fourth = Segment2D(a4, a1);
+    
+    vector<Segment2D> segments{first, second, third, fourth};
+    Region2D regionObj = Region2D(segments);
+
+    SimplePoint2D a5 = SimplePoint2D("1", "3");
+    SimplePoint2D a6 = SimplePoint2D("1", "1");
+    SimplePoint2D a7 = SimplePoint2D("2", "1");
+    SimplePoint2D a8 = SimplePoint2D("3", "2");
+
+    Segment2D fifth = Segment2D(a5, a6);
+    Segment2D sixth = Segment2D(a6, a7);
+    Segment2D seventh = Segment2D(a7, a8);
+
+    vector<Segment2D> segments2{fifth, sixth, seventh};
+    Line2D lineObj = Line2D(segments2);
+
+    if (vp.inside(lineObj, regionObj))
+        cout << "Line/Region Inside Passed Test 1" << endl;
+    else
+        cout << "Line/Region Inside Failed Test 1" << endl;
+}
+
+void LineRegionCoveredByTest()
+{
+    VerifyPredicate vp;
+
+    SimplePoint2D a1 = SimplePoint2D("0", "0");
+    SimplePoint2D a2 = SimplePoint2D("0", "4");
+    SimplePoint2D a3 = SimplePoint2D("4", "4");
+    SimplePoint2D a4 = SimplePoint2D("4", "0");
+
+    Segment2D first = Segment2D(a1, a2);
+    Segment2D second = Segment2D(a2, a3);
+    Segment2D third = Segment2D(a3, a4);
+    Segment2D fourth = Segment2D(a4, a1);
+    
+    vector<Segment2D> segments{first, second, third, fourth};
+    Region2D regionObj = Region2D(segments);
+
+    SimplePoint2D a5 = SimplePoint2D("1", "3");
+    SimplePoint2D a6 = SimplePoint2D("1", "1");
+    SimplePoint2D a7 = SimplePoint2D("2", "1");
+    SimplePoint2D a8 = SimplePoint2D("3", "2");
+    SimplePoint2D a9 = SimplePoint2D("0", "3");
+
+    Segment2D fifth = Segment2D(a5, a6);
+    Segment2D sixth = Segment2D(a6, a7);
+    Segment2D seventh = Segment2D(a7, a8);
+    Segment2D eighth = Segment2D(a5, a9);
+
+    vector<Segment2D> segments2{fifth, sixth, seventh, eighth};
+    Line2D lineObj = Line2D(segments2);
+
+    if (vp.covered_by(lineObj, regionObj))
+        cout << "Line/Region Covered By Passed Test 1" << endl;
+    else
+        cout << "Line/Region Covered By Failed Test 1" << endl;
+}
+
+void LineRegionOverlapsTest()
+{
+    VerifyPredicate vp;
+
+    SimplePoint2D a1 = SimplePoint2D("0", "0");
+    SimplePoint2D a2 = SimplePoint2D("0", "4");
+    SimplePoint2D a3 = SimplePoint2D("4", "4");
+    SimplePoint2D a4 = SimplePoint2D("4", "0");
+
+    Segment2D first = Segment2D(a1, a2);
+    Segment2D second = Segment2D(a2, a3);
+    Segment2D third = Segment2D(a3, a4);
+    Segment2D fourth = Segment2D(a4, a1);
+    
+    vector<Segment2D> segments{first, second, third, fourth};
+    Region2D regionObj = Region2D(segments);
+
+    SimplePoint2D a5 = SimplePoint2D("1", "3");
+    SimplePoint2D a6 = SimplePoint2D("1", "1");
+    SimplePoint2D a7 = SimplePoint2D("2", "1");
+    SimplePoint2D a8 = SimplePoint2D("3", "2");
+    SimplePoint2D a9 = SimplePoint2D("-1", "3");
+
+    Segment2D fifth = Segment2D(a5, a6);
+    Segment2D sixth = Segment2D(a6, a7);
+    Segment2D seventh = Segment2D(a7, a8);
+    Segment2D eighth = Segment2D(a5, a9);
+
+    vector<Segment2D> segments2{fifth, sixth, seventh, eighth};
+    Line2D lineObj = Line2D(segments2);
+
+    if (vp.overlap(lineObj, regionObj))
+        cout << "Line/Region Overlaps By Passed Test 1" << endl;
+    else
+        cout << "Line/Region Overlaps By Failed Test 1" << endl;
+}
+
 int main ()
 {
     // iterator testing
@@ -105,12 +250,12 @@ int main ()
         cout << "Point-Point Disjoint Passed Test 2" << endl;
 
     if(vp.disjoint(bottom_and_mid_points, bottom_points))
-        cout << "Point-Point Disjoint Failed Test 2" << endl;
+        cout << "Point-Point Disjoint Failed Test 3" << endl;
     else
-        cout << "Point-Point Disjoint Passed Test 2" << endl;
+        cout << "Point-Point Disjoint Passed Test 3" << endl;
 
     // point-point meets: N/A
-    /*
+    
     // point-point equal:
     if(vp.equal(bottom_points, bottom_points))
         cout << "Point-Point Equal Passed Test 1" << endl;
@@ -165,25 +310,29 @@ int main ()
 
     // point-point overlaps:
     if(vp.overlap(bottom_points, bottom_and_mid_points))
-        cout << "Point-Point Overlap Passed Test 1" << endl;
-    else
         cout << "Point-Point Overlap Failed Test 1" << endl;
+    else
+        cout << "Point-Point Overlap Passed Test 1" << endl;
 
     if(vp.overlap(bottom_points, top_points))
         cout << "Point-Point Overlap Failed Test 2" << endl;
     else
         cout << "Point-Point Overlap Passed Test 2" << endl;
 
-    if(vp.overlap(bottom_and_mid_points, bottom_points))
+    if(vp.overlap(bottom_and_mid_points, top_and_mid_points))
         cout << "Point-Point Overlap Passed Test 3" << endl;
     else
         cout << "Point-Point Overlap Failed Test 3" << endl;
-    */
+    
     Segment2D left_long = Segment2D(bottom_left, top_left);
     Segment2D left_short = Segment2D(bottom_left, mid_left);
     Segment2D top_long = Segment2D(top_left, top_right);
     Segment2D right_long = Segment2D(top_right, bottom_right);
     Segment2D bottom_long = Segment2D(bottom_left, bottom_right);
+
+    vector<Segment2D> top_segs;
+    top_segs.push_back(top_long);
+    Line2D top_segments = Line2D(top_segs);
 
     vector<Segment2D> left_and_bottom_segs;
     left_and_bottom_segs.push_back(left_long);
@@ -210,7 +359,7 @@ int main ()
     Line2D right_segments = Line2D(right_segs);
 
     // point-line disjoint: 
-    if(vp.disjoint(bottom_points, top_and_right_segments))
+    if(vp.disjoint(bottom_points, top_segments))
         cout << "Point-Line Disjoint Passed Test 1" << endl;
     else
         cout << "Point-Line Disjoint Failed Test 1" << endl;
@@ -602,11 +751,17 @@ int main ()
 
     // line-region meets:
 
+    LineRegionMeetsTest();
+
     // line-region equal: N/A
 
     // line-region inside:
 
+    LineRegionInsideTest();
+
     // line-region covered by:
+
+    LineRegionCoveredByTest();
 
     // line-region contains: N/A
 
@@ -614,6 +769,7 @@ int main ()
 
     // line-region overlaps:
 
+    LineRegionOverlapsTest();
 
     // region-region disjoint: 
     if(vp.disjoint(lower_rectangle_region, lower_rectangle_region))

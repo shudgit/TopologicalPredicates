@@ -4,8 +4,22 @@
 #include "SimplePoint2D.h"
 #include "EventPoint.h"
 #include <vector>
-#include <unordered_map>
+#include <map>
 
+    vector<bool> createRegionRegion9IM(vector<bool> flags)
+    {
+        vector<bool> im;
+        im.resize(9, false);
+        im[5] = flags[0] || flags[1];
+        im[7] = flags[8] || flags[9];
+        im[3] = flags[2] || flags[3];
+        im[1] = flags[10] || flags[11];
+        im[0] = flags[4] || flags[5];
+        im[4] = flags[4] || flags[5] || flags[6];
+        im[6] = flags[6];
+        im[2] = flags[6];
+        im[8] = true;
+    }
 
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
     {
@@ -87,7 +101,7 @@
     bool VerifyPredicate::equal(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
-        if(flags[1] && flags[2])
+        if(flags[1] || flags[2])
             return false;
         return true;
     }
@@ -180,9 +194,9 @@
     bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])  // not correct
-            return false;
-        return true;
+        if(!(flags[0] || flags[1] || flags[2] || flags[3] || flags[6]) && flags[7])
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::contains(Point2D obj1, Point2D obj2)
@@ -212,7 +226,10 @@
     }
     bool VerifyPredicate::contains(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        if(!(flags[4] || flags[5] || flags[6] || flags[7] || flags[8] || flags[9] || flags[10] || flags[11]) && flags[0] && flags[1])
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::covers(Point2D obj1, Point2D obj2)
@@ -239,7 +256,11 @@
     }
     bool VerifyPredicate::covers(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if((flags[4] || flags[5]) )
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::overlap(Point2D obj1, Point2D obj2)
@@ -353,9 +374,6 @@
         
         PlaneSweep newSweep;
         ParallelObjT objT(line1Vector, line2Vector);
-
-        std::vector<bool> featureVector;
-        featureVector.resize(9, false);
 
         SimplePoint2D lastDpF;
         SimplePoint2D lastDpG;
@@ -628,8 +646,8 @@
         AttributedHalfSegment2D last_dp_in_f;
         AttributedHalfSegment2D last_dp_in_g;
 
-        unordered_map<pair<int, int>, bool> vf;
-        unordered_map<pair<int, int>, bool> vg;
+        map<pair<int, int>, bool> vf;
+        map<pair<int, int>, bool> vg;
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
         {
             if(pot.object == 1)      // if f, set last_dp_in_f
