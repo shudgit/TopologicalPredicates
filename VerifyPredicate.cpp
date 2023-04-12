@@ -23,6 +23,11 @@
         return im;
     }
 
+    VerifyPredicate::VerifyPredicate()
+    {
+        predicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
+    }
+
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
