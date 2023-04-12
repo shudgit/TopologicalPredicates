@@ -11,7 +11,7 @@ class PlaneSweep {
         SimplePoint2D currentEventPoint;
         std::vector<Segment2D> sweepStatus;
         std::map<Segment2D, bool> attributes;
-        std::map<Segment2D, pair<int, int>> attributes2;
+        std::map<Segment2D, std::pair<int, int>> attributes2;
     public:
         PlaneSweep();
         bool look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfSegs);

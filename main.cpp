@@ -250,12 +250,12 @@ int main ()
         cout << "Point-Point Disjoint Passed Test 2" << endl;
 
     if(vp.disjoint(bottom_and_mid_points, bottom_points))
-        cout << "Point-Point Disjoint Failed Test 2" << endl;
+        cout << "Point-Point Disjoint Failed Test 3" << endl;
     else
-        cout << "Point-Point Disjoint Passed Test 2" << endl;
+        cout << "Point-Point Disjoint Passed Test 3" << endl;
 
     // point-point meets: N/A
-    /*
+    
     // point-point equal:
     if(vp.equal(bottom_points, bottom_points))
         cout << "Point-Point Equal Passed Test 1" << endl;
@@ -323,12 +323,16 @@ int main ()
         cout << "Point-Point Overlap Passed Test 3" << endl;
     else
         cout << "Point-Point Overlap Failed Test 3" << endl;
-    */
+    
     Segment2D left_long = Segment2D(bottom_left, top_left);
     Segment2D left_short = Segment2D(bottom_left, mid_left);
     Segment2D top_long = Segment2D(top_left, top_right);
     Segment2D right_long = Segment2D(top_right, bottom_right);
     Segment2D bottom_long = Segment2D(bottom_left, bottom_right);
+
+    vector<Segment2D> top_segs;
+    top_segs.push_back(top_long);
+    Line2D top_segments = Line2D(top_segs);
 
     vector<Segment2D> left_and_bottom_segs;
     left_and_bottom_segs.push_back(left_long);
@@ -355,7 +359,7 @@ int main ()
     Line2D right_segments = Line2D(right_segs);
 
     // point-line disjoint: 
-    if(vp.disjoint(bottom_points, top_and_right_segments))
+    if(vp.disjoint(bottom_points, top_segments))
         cout << "Point-Line Disjoint Passed Test 1" << endl;
     else
         cout << "Point-Line Disjoint Failed Test 1" << endl;

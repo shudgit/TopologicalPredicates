@@ -10,11 +10,11 @@ struct AttributedHalfSegment2D
 	AttributedHalfSegment2D(const AttributedHalfSegment2D& ahs);
 	AttributedHalfSegment2D(AttributedHalfSegment2D&& ahs);
 	void operator=(const AttributedHalfSegment2D& ahs);
-	bool operator<(const AttributedHalfSegment2D& ahs);
-	bool operator<=(const AttributedHalfSegment2D& ahs);
-	bool operator==(const AttributedHalfSegment2D& ahs);
-	bool operator>=(const AttributedHalfSegment2D& ahs);
-	bool operator>(const AttributedHalfSegment2D& ahs);
-	bool operator!=(const AttributedHalfSegment2D& ahs);
+	bool operator<(const AttributedHalfSegment2D& ahs) const;
+	bool operator<=(const AttributedHalfSegment2D& ahs) const;
+	bool operator==(const AttributedHalfSegment2D& ahs) const;
+	bool operator>=(const AttributedHalfSegment2D& ahs) const;
+	bool operator>(const AttributedHalfSegment2D& ahs) const;
+	bool operator!=(const AttributedHalfSegment2D& ahs) const;
 };
 #endif

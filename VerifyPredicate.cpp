@@ -4,7 +4,7 @@
 #include "SimplePoint2D.h"
 #include "EventPoint.h"
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
@@ -354,9 +354,6 @@
         PlaneSweep newSweep;
         ParallelObjT objT(line1Vector, line2Vector);
 
-        std::vector<bool> featureVector;
-        featureVector.resize(9, false);
-
         SimplePoint2D lastDpF;
         SimplePoint2D lastDpG;
         SimplePoint2D lastBoundPointF;
@@ -628,8 +625,8 @@
         AttributedHalfSegment2D last_dp_in_f;
         AttributedHalfSegment2D last_dp_in_g;
 
-        unordered_map<pair<int, int>, bool> vf;
-        unordered_map<pair<int, int>, bool> vg;
+        map<pair<int, int>, bool> vf;
+        map<pair<int, int>, bool> vg;
         while(pot.status == 0 && !(flags[0] && flags[1] && flags[2] && flags[3] && flags[4] && flags[5] && flags[6] && flags[7] && flags[8] && flags[9] && flags[10] && flags[11]))
         {
             if(pot.object == 1)      // if f, set last_dp_in_f
