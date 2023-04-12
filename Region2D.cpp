@@ -51,7 +51,6 @@ Region2D::Impl::Impl(std::vector<Segment2D> _regionSegments)
 
     this->halfSegments = HalfSegVec;
     setFlags();
-    std::sort(regionSegments.begin(), regionSegments.end());
 }
 
 SimplePoint2D Region2D::Impl::GetDominatePoint(HalfSegment2D inputHalfSegment)
@@ -163,6 +162,7 @@ void Region2D::Impl::setFlags()
         }
 
     }
+    std::sort(regionSegments.begin(), regionSegments.end());
 }
 
 

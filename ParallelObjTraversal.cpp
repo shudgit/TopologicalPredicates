@@ -381,20 +381,23 @@ EventPoint ParallelObjT::PointRegionNext()
             obj1NextPoint = point1Dynamic.front();
         }
     }
-
     AttributedHalfSegment2D obj2NextHalfSeg;
+    std::cout << point1Queue.size() << " " << region2Queue.size() << std::endl;
     if(!region2Queue.empty()) {
+        std::cout << "enters" << std::endl;
         if(region2Dynamic.empty() || region2Queue.front() < region2Dynamic.front()) 
         {
+            std::cout << "enters1" << std::endl;
             obj2NextHalfSeg = region2Queue.front();
         }
         else if (region2Queue.front() > region2Dynamic.front()) 
         {
+            std::cout << "enters2" << std::endl;
             obj2NextHalfSeg = region2Dynamic.front();
         }
     }
-    
-    if(!point1Queue.empty() && (region2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.hs.getDP())) 
+    std::cout << point1Queue.size() << " " << region2Queue.size() << std::endl;
+    if((!point1Queue.empty()) && (region2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.hs.getDP())) 
     {
         if(obj1NextPoint == point1Queue.front())
         {
@@ -421,7 +424,7 @@ EventPoint ParallelObjT::PointRegionNext()
         newEvent.point = obj1NextPoint;
         return newEvent;
     }
-    else if(!region2Queue.empty() &&  (point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.hs.getDP()))
+    else if((!region2Queue.empty()) &&  (point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.hs.getDP()))
     {
         if(obj2NextHalfSeg == region2Queue.front())
         {

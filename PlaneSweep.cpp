@@ -63,11 +63,12 @@ void PlaneSweep::add_left(Segment2D segment)
             sweepStatus.emplace(sweepStatus.begin(), segment);
         else //add halfsegment to sweep status somewhere in the middle
         {
-            std::cout << "else" << std::endl;
+            std::cout << "Plane Sweep :: else" << std::endl;
             int index = 0;
             while((index < sweepStatus.size()) && !CheckLessThan(segment, sweepStatus[index])) //find index
                 index++;
             sweepStatus.emplace(sweepStatus.begin() + index, segment); //emplace at index
+            std::cout << "Plane Sweep :: else exits" << std::endl;
         } 
     }   
 }
@@ -81,7 +82,7 @@ void PlaneSweep::del_right(Segment2D segment)
 
 bool PlaneSweep::pred_exists(Segment2D segment)
 {
-    if(sweepStatus[0] == segment) 
+    if(sweepStatus.empty() || sweepStatus[0] == segment) 
         return false;
     else 
         return true;

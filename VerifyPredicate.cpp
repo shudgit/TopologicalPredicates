@@ -133,9 +133,14 @@
     }
     bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
+        cout << "Line Line Disjoint Began" << endl;
         vector<bool> flags = LineLineAlgorithm(obj1, obj2);
         if(!(flags[0] && flags[1] && flags[3] && flags[4] && flags[7]))
+        {
+            cout << "Line Line Disjoint in if" << endl;
             return true;
+        }
+        cout << "Line Line Disjoint never went in if" << endl;
         return false;
     }
     bool VerifyPredicate::disjoint(Line2D obj1, Region2D obj2)
@@ -492,6 +497,7 @@
 
         
         EventPoint eventPoint = objT.SelectNext();
+        cout << "Line Line reaches eventPoint" << endl;
         while(objT.status != 3 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false || featureVector[3] == false || featureVector[4] == false || featureVector[5] == false || featureVector[6] == false || featureVector[7] == false || featureVector[8] == false))
         {
             if(objT.object == 1)
@@ -642,11 +648,13 @@
             }
             eventPoint = objT.SelectNext();
         }
+        cout << "Line Line Ends" << endl;
     }
 
     //Point || Region
     std::vector<bool> VerifyPredicate::PointRegionAlgorithm(Point2D points, Region2D region)
     {
+        cout << "b" << endl;
         std::vector<SimplePoint2D> pointVector;
         std::vector<AttributedHalfSegment2D> regionVector;
 
@@ -661,15 +669,17 @@
         {
             regionVector.push_back(*ptr);
         }
-
+        
         PlaneSweep newSweep;
         ParallelObjT objT(pointVector, regionVector);
+        cout << "c1" << endl;
         EventPoint eventPoint = objT.SelectNext();
-
+        cout << "c" << endl;
         while(objT.status == 0 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false)) 
         {
             if(objT.object == 1) //object is a point
             {
+                cout << "object 1" << endl;
                 SimplePoint2D point = eventPoint.point;
                 if(newSweep.poi_on_seg(point))
                 {
@@ -696,6 +706,7 @@
             }
             else //object is the region or object is both
             {
+                cout << "object 2 or 3" << endl;
                 //get half segment from event point
                 AttributedHalfSegment2D attrHalfSeg = eventPoint.attrHalfSeg;
                 if(attrHalfSeg.hs.isDominatingPointLeft) 
