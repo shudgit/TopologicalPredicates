@@ -769,8 +769,7 @@ int main ()
 
     // line-region overlaps:
 
-
-
+    LineRegionOverlapsTest();
 
     // region-region disjoint: 
     if(vp.disjoint(lower_rectangle_region, lower_rectangle_region))
