@@ -861,6 +861,7 @@ EventPoint ParallelObjT::RegionRegionNext()
         }
         
         newEvent.attrHalfSeg = obj1NextHalfSeg;
+        newEvent.attrHalfSeg2 = obj2NextHalfSeg;
         return newEvent;
     }
 }
