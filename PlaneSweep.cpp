@@ -89,18 +89,23 @@ bool PlaneSweep::pred_exists(Segment2D segment)
 
 bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
 {
-    SimplePoint2D left = sweepStatus[0].leftEndPoint;
-    SimplePoint2D right = sweepStatus[0].rightEndPoint;
+    if(sweepStatus.empty()) {
+        return false;
+    }
+    else {
+        SimplePoint2D left = sweepStatus[0].leftEndPoint;
+        SimplePoint2D right = sweepStatus[0].rightEndPoint;
 
-    // handle infinite slope
-    if (right.x == left.x)
-        return point.y > left.y;
+        // handle infinite slope
+        if (right.x == left.x)
+            return point.y > left.y;
 
-    Number slope = (right.y - left.y) / (right.x - left.x);
-    Number b = left.y - (slope * left.x);   
-    Number SegY = (point.x * slope) + b;
+        Number slope = (right.y - left.y) / (right.x - left.x);
+        Number b = left.y - (slope * left.x);   
+        Number SegY = (point.x * slope) + b;
 
-    return point.y > SegY;
+        return point.y > SegY;
+    }
 }
 
 Segment2D PlaneSweep::pred_of_p(SimplePoint2D point) 
