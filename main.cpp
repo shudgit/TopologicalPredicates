@@ -165,16 +165,16 @@ int main ()
 
     // point-point overlaps:
     if(vp.overlap(bottom_points, bottom_and_mid_points))
-        cout << "Point-Point Overlap Passed Test 1" << endl;
-    else
         cout << "Point-Point Overlap Failed Test 1" << endl;
+    else
+        cout << "Point-Point Overlap Passed Test 1" << endl;
 
     if(vp.overlap(bottom_points, top_points))
         cout << "Point-Point Overlap Failed Test 2" << endl;
     else
         cout << "Point-Point Overlap Passed Test 2" << endl;
 
-    if(vp.overlap(bottom_and_mid_points, bottom_points))
+    if(vp.overlap(bottom_and_mid_points, top_and_mid_points))
         cout << "Point-Point Overlap Passed Test 3" << endl;
     else
         cout << "Point-Point Overlap Failed Test 3" << endl;

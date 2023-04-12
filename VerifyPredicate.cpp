@@ -87,7 +87,7 @@
     bool VerifyPredicate::equal(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
-        if(flags[1] && flags[2])
+        if(flags[1] || flags[2])
             return false;
         return true;
     }
