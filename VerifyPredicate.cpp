@@ -416,21 +416,21 @@
         vector<bool> flags = LineLineAlgorithm(obj1, obj2);
         if (flags == predicates[predicateNumber])
             return true;
-        return false
+        return false;
     }
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
         if (flags == predicates[predicateNumber])
             return true;
-        return false
+        return false;
     }
     bool VerifyPredicate::verify(Region2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         if (flags == predicates[predicateNumber])
             return true;
-        return false
+        return false;
     }
 
     std::vector<bool> VerifyPredicate::PointPointAlgorithm(Point2D p1, Point2D p2)
