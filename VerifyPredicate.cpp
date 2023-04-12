@@ -5,6 +5,7 @@
 #include "EventPoint.h"
 #include <vector>
 #include <map>
+#include <iostream>
 
     vector<bool> createRegionRegion9IM(vector<bool> flags)
     {
@@ -31,6 +32,7 @@
     }
     bool VerifyPredicate::disjoint(Point2D obj1, Line2D obj2)
     {
+        std::cout << "Point Line Disjoint Began" << std::endl;
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
         if (!(flags[1] && flags[2]))
             return true;
@@ -801,7 +803,6 @@
         Line2D::iterator ptr2;
         vector<SimplePoint2D> obj1V; 
         vector<HalfSegment2D> obj2HV;
-
         // Pushing event points into the vectors.
         for (ptr = obj1.begin(); ptr < obj1.end(); ptr++)
         {
@@ -812,20 +813,20 @@
         {
             obj2HV.push_back(*ptr2);
         }
-
         // Creating parallel object traverssal object
         ParallelObjT pt(obj1V, obj2HV);
         EventPoint eventPoint = pt.SelectNext();
-
         do
         {
 
             // If the current event point we are considering is from the Point2D
             if (pt.object == 1)
             {
+                cout << "object 1" << endl;
                 // We check that this point is contained in the Line2D object
                 if (S.poi_on_seg(eventPoint.point))
                 {
+                    cout << "poi_on_seg checked" << endl;
                     // If it is, then the poi_on_interior flag is flipped
                     features[1] = true;
                 }
@@ -837,17 +838,21 @@
             }
             
             // If the current event point we are considering is from the Line2D
-            else if (pt.object = 2)
+            else if (pt.object == 2)
             {
+                cout << "object 2" << endl;
                 // if this halfsegment is a left dominant halfsegment
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
                     // add it to the planesweep
+                    cout << "add_left" << endl;
                     S.add_left(eventPoint.halfSeg.s);
+                    cout << "add_left end" << endl;
                 }
                 else
                 {
                     // delete it from the planesweep
+                    cout << "del_right" << endl;
                     S.del_right(eventPoint.halfSeg.s);
                 }
 
@@ -855,6 +860,7 @@
                 if (eventPoint.halfSeg.getDP() != last_dp)
                 {
                     // change that
+                    cout << "last_dp changed" << endl;
                     last_dp = eventPoint.halfSeg.getDP();
                 }
 
@@ -862,13 +868,15 @@
                 if (!S.look_ahead(eventPoint.halfSeg, obj2HV))
                 {
                     // the flag bound_point_disjoint is flipped
-                    features[3] == true;
+                    cout << "look_ahead" << endl;
+                    features[3] = true;
                 }
             }
 
             // from both objects
             else
             {
+                cout << "object 3" << endl;
                 // if the halfseg is left dominant
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {

@@ -1,5 +1,6 @@
 #include "PlaneSweep.h"
 #include <algorithm>
+#include <iostream>
 
 //constructor
 PlaneSweep::PlaneSweep() {
@@ -53,24 +54,20 @@ void PlaneSweep::add_left(Segment2D segment)
         if(segment.leftEndPoint == sweepStatus.back().leftEndPoint) //add half segment to sweep status at end
         {
             sweepStatus.push_back(segment);
-            auto itr = sweepStatus.end();
-            segment.findIntersection(*(itr--));
         }
         else if(segment.leftEndPoint.x == sweepStatus.back().leftEndPoint.x && segment.leftEndPoint.y > sweepStatus.back().leftEndPoint.y)
         {
             sweepStatus.push_back(segment);
-            auto itr = sweepStatus.end();
-            segment.findIntersection(*(itr--));
         }
         else if(CheckLessThan(segment, sweepStatus[0])) 
             sweepStatus.emplace(sweepStatus.begin(), segment);
         else //add halfsegment to sweep status somewhere in the middle
         {
+            std::cout << "else" << std::endl;
             int index = 0;
             while((index < sweepStatus.size()) && !CheckLessThan(segment, sweepStatus[index])) //find index
                 index++;
             sweepStatus.emplace(sweepStatus.begin() + index, segment); //emplace at index
-            segment.findIntersection(sweepStatus[index]);
         } 
     }   
 }

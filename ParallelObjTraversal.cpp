@@ -1,4 +1,5 @@
 #include "ParallelObjTraversal.h"
+#include <iostream>
 
 ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePoint2D> obj2) 
 {
@@ -258,9 +259,10 @@ EventPoint ParallelObjT::PointLineNext()
         }
     }
 
-    
-    if(line2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.getDP()) 
+    std::cout << point1Queue.size() << " " << line2Queue.size() << std::endl;
+    if((!point1Queue.empty()) && (line2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.getDP())) 
     {
+        std::cout << "1" << std::endl;
         if(obj1NextPoint == point1Queue.front())
         {
             point1Queue.pop();
@@ -286,8 +288,9 @@ EventPoint ParallelObjT::PointLineNext()
         newEvent.point = obj1NextPoint;
         return newEvent;
     }
-    else if(point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.getDP())
+    else if((!line2Queue.empty()) && (point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.getDP()))
     {
+        std::cout << "2" << std::endl;
         if(obj2NextHalfSeg == line2Queue.front())
         {
             line2Queue.pop();
@@ -313,8 +316,9 @@ EventPoint ParallelObjT::PointLineNext()
         newEvent.halfSeg = obj2NextHalfSeg;
         return newEvent;
     }
-    else
+    else if(!point1Queue.empty() && !line2Queue.empty())
     {
+        std::cout << "3" << std::endl;
         if(obj1NextPoint == point1Queue.front())
         {
             point1Queue.pop();
@@ -345,7 +349,7 @@ EventPoint ParallelObjT::PointLineNext()
             }
         }
 
-            if(line2Queue.empty() && line2Queue.empty()) 
+        if(line2Queue.empty() && line2Queue.empty()) 
         {
             if(status == 0) 
             {
