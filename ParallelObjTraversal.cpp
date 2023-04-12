@@ -129,7 +129,7 @@ EventPoint ParallelObjT::PointPointNext()
     }
 
     
-    if(point2Queue.empty() || obj1NextPoint < obj2NextPoint) 
+    if(!point1Queue.empty() && (point2Queue.empty() || obj1NextPoint < obj2NextPoint)) 
     {
         if(obj1NextPoint == point1Queue.front())
         {
@@ -156,7 +156,7 @@ EventPoint ParallelObjT::PointPointNext()
         newEvent.point = obj1NextPoint;
         return newEvent;
     }
-    else if(point1Queue.empty() || obj1NextPoint > obj2NextPoint)
+    else if(!point2Queue.empty() && (point1Queue.empty() || obj1NextPoint > obj2NextPoint))
     {
         if(obj2NextPoint == point2Queue.front())
         {
@@ -183,7 +183,7 @@ EventPoint ParallelObjT::PointPointNext()
         newEvent.point = obj2NextPoint;
         return newEvent;
     }
-    else
+    else if(!point1Queue.empty() && !point2Queue.empty())
     {
         if(obj1NextPoint == point1Queue.front())
         {
@@ -394,7 +394,7 @@ EventPoint ParallelObjT::PointRegionNext()
         }
     }
     
-    if(region2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.hs.getDP()) 
+    if(!point1Queue.empty() && (region2Queue.empty() || obj1NextPoint < obj2NextHalfSeg.hs.getDP())) 
     {
         if(obj1NextPoint == point1Queue.front())
         {
@@ -421,7 +421,7 @@ EventPoint ParallelObjT::PointRegionNext()
         newEvent.point = obj1NextPoint;
         return newEvent;
     }
-    else if(point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.hs.getDP())
+    else if(!region2Queue.empty() &&  (point1Queue.empty() || obj1NextPoint > obj2NextHalfSeg.hs.getDP()))
     {
         if(obj2NextHalfSeg == region2Queue.front())
         {
@@ -448,7 +448,7 @@ EventPoint ParallelObjT::PointRegionNext()
         newEvent.attrHalfSeg = obj2NextHalfSeg;
         return newEvent;
     }
-    else
+    else if(!point1Queue.empty() && !region2Queue.empty())
     {
         if(obj1NextPoint == point1Queue.front())
         {
@@ -526,7 +526,7 @@ EventPoint ParallelObjT::LineLineNext()
     }
 
     
-    if(line2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg) 
+    if(!line1Queue.empty() && (line2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg)) 
     {
         if(obj1NextHalfSeg == line1Queue.front())
         {
@@ -553,7 +553,7 @@ EventPoint ParallelObjT::LineLineNext()
         newEvent.halfSeg = obj1NextHalfSeg;
         return newEvent;
     }
-    else if(line1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg)
+    else if(!line2Queue.empty() && (line1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg))
     {
         if(obj2NextHalfSeg == line2Queue.front())
         {
@@ -580,7 +580,7 @@ EventPoint ParallelObjT::LineLineNext()
         newEvent.halfSeg = obj2NextHalfSeg;
         return newEvent;
     }
-    else
+    else if(!line1Queue.empty() && !line2Queue.empty())
     {
         if(obj1NextHalfSeg == line1Queue.front())
         {
@@ -657,7 +657,7 @@ EventPoint ParallelObjT::LineRegionNext()
     }
 
     
-    if(region2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg.hs) 
+    if(!line1Queue.empty() && (region2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg.hs)) 
     {
         if(obj1NextHalfSeg == line1Queue.front())
         {
@@ -684,7 +684,7 @@ EventPoint ParallelObjT::LineRegionNext()
         newEvent.halfSeg = obj1NextHalfSeg;
         return newEvent;
     }
-    else if(line1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg.hs)
+    else if(!region2Queue.empty() && (line1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg.hs))
     {
         if(obj2NextHalfSeg == region2Queue.front())
         {
@@ -711,7 +711,7 @@ EventPoint ParallelObjT::LineRegionNext()
         newEvent.attrHalfSeg = obj2NextHalfSeg;
         return newEvent;
     }
-    else
+    else if(!line1Queue.empty() && !region2Queue.empty())
     {
         if(obj1NextHalfSeg == line1Queue.front())
         {
@@ -789,7 +789,7 @@ EventPoint ParallelObjT::RegionRegionNext()
     }
 
     
-    if(region2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg) 
+    if(!region1Queue.empty() && (region2Queue.empty() || obj1NextHalfSeg < obj2NextHalfSeg)) 
     {
         if(obj1NextHalfSeg == region1Queue.front())
         {
@@ -816,7 +816,7 @@ EventPoint ParallelObjT::RegionRegionNext()
         newEvent.attrHalfSeg = obj1NextHalfSeg;
         return newEvent;
     }
-    else if(region1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg)
+    else if(!region2Queue.empty() && (region1Queue.empty() || obj1NextHalfSeg > obj2NextHalfSeg))
     {
         if(obj2NextHalfSeg == region2Queue.front())
         {
@@ -843,7 +843,7 @@ EventPoint ParallelObjT::RegionRegionNext()
         newEvent.attrHalfSeg = obj2NextHalfSeg;
         return newEvent;
     }
-    else
+    else if(!region1Queue.empty() && !region2Queue.empty())
     {
         if(obj1NextHalfSeg == region1Queue.front())
         {
