@@ -375,7 +375,20 @@ int main ()
         cout << "Point-Line Disjoint Failed Test 3" << endl;
 
     // point-line meets:
+    if(vp.meet(bottom_points, top_segments))
+        cout << "Point-Line Meets Failed Test 1" << endl;
+    else
+        cout << "Point-Line Meets Passed Test 1" << endl;
 
+    if(vp.meet(bottom_points, left_and_bottom_segments))
+        cout << "Point-Line Meets Failed Test 2" << endl;
+    else
+        cout << "Point-Line Meets Passed Test 2" << endl;
+
+    if(vp.meet(bottom_points, right_segments))
+        cout << "Point-Line Meets Passed Test 3" << endl;
+    else
+        cout << "Point-Line Meets Failed Test 3" << endl;
 
     // point-line equal: N/A
     /*
@@ -402,6 +415,20 @@ int main ()
     // point-line covers: N/A
     
     // point-line overlaps:
+    if(vp.overlap(bottom_points, top_segments))
+        cout << "Point-Line Overlaps Failed Test 1" << endl;
+    else
+        cout << "Point-Line Overlaps Passed Test 1" << endl;
+
+    if(vp.overlap(bottom_points, left_and_bottom_segments))
+        cout << "Point-Line Overlaps Failed Test 2" << endl;
+    else
+        cout << "Point-Line Overlaps Passed Test 2" << endl;
+
+    if(vp.overlap(bottom_points, right_segments))
+        cout << "Point-Line Overlaps Passed Test 3" << endl;
+    else
+        cout << "Point-Line Overlaps Failed Test 3" << endl;
     */
     vector<Segment2D> outer_square;
     outer_square.push_back(left_long);
