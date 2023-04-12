@@ -642,8 +642,9 @@
             }
             else                     // if both, set both
             {
+                AttributedHalfSegment2D next2 = pot.SelectNext().attrHalfSeg2;
                 last_dp_in_f = next;
-                last_dp_in_g = next;
+                last_dp_in_g = next2;
             }
             if(last_dp_in_f == last_dp_in_g || last_dp_in_f == sweep.look_ahead_2(last_dp_in_g, gSegments) || last_dp_in_g == sweep.look_ahead_2(last_dp_in_f, fSegments))
                 flags[7] = true; // bound_poi_shared
