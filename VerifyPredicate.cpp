@@ -31,7 +31,10 @@
     }
     bool VerifyPredicate::disjoint(Line2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if (!(flags[0] && (flags[1] || flags[3]) && flags[4] && flags[5]))
+            return true;
+        return false;
     }
     bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
@@ -62,7 +65,10 @@
     }
     bool VerifyPredicate::meet(Line2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if ((!flags[0] && (flags[1] || flags[3])) || (!flags[0] && flags[4]) || (!flags[0] && flags[5]))
+            return true;
+        return false;
     }
     bool VerifyPredicate::meet(Region2D obj1, Region2D obj2)
     {
@@ -95,7 +101,7 @@
     }
     bool VerifyPredicate::equal(Line2D obj1, Region2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::equal(Region2D obj1, Region2D obj2)
     {
@@ -129,7 +135,10 @@
     }
     bool VerifyPredicate::inside(Line2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if (flags[0] && !flags[2] && !flags[6])
+            return true;
+        return false;
     }
     bool VerifyPredicate::inside(Region2D obj1, Region2D obj2)
     {
@@ -157,7 +166,10 @@
     }
     bool VerifyPredicate::covered_by(Line2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if ((flags[0] && !flags[2] && !flags[6])||((flags[1] || flags[3]) && !flags[2] && !flags[6])||(flags[4] && !flags[2] && !flags[6])||(flags[5] && !flags[2] && !flags[6]))
+            return true;
+        return false;
     }
     bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
     {
@@ -190,7 +202,7 @@
     }
     bool VerifyPredicate::contains(Line2D obj1, Region2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::contains(Region2D obj1, Region2D obj2)
     {
@@ -217,7 +229,7 @@
     }
     bool VerifyPredicate::covers(Line2D obj1, Region2D obj2)
     {
-
+        return false;
     }
     bool VerifyPredicate::covers(Region2D obj1, Region2D obj2)
     {
@@ -248,7 +260,10 @@
     }
     bool VerifyPredicate::overlap(Line2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
+        if (flags[0] && flags[2])
+            return true;
+        return false;
     }
     bool VerifyPredicate::overlap(Region2D obj1, Region2D obj2)
     {

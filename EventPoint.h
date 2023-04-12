@@ -6,5 +6,6 @@ struct EventPoint {
     SimplePoint2D point;
     HalfSegment2D halfSeg;
     AttributedHalfSegment2D attrHalfSeg;
+    AttributedHalfSegment2D attrHalfSeg2;
     EventPoint();
 };
