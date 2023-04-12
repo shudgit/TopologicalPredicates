@@ -22,10 +22,18 @@ AttributedHalfSegment2D::AttributedHalfSegment2D(AttributedHalfSegment2D&& ahs)
 	this->above = std::move(ahs.above);
 }
 
-void AttributedHalfSegment2D::operator=(const AttributedHalfSegment2D& ahs)
+AttributedHalfSegment2D& AttributedHalfSegment2D::operator=(const AttributedHalfSegment2D& ahs)
 {
 	this->hs.s = ahs.hs.s;
 	this->hs.isDominatingPointLeft = ahs.hs.isDominatingPointLeft;
+	return *this;
+}
+
+AttributedHalfSegment2D& AttributedHalfSegment2D::operator=(AttributedHalfSegment2D&& ahs)
+{
+	this->hs = std::move(ahs.hs);
+	this->above = std::move(ahs.above);
+	return *this;
 }
 
 bool AttributedHalfSegment2D::operator==(const AttributedHalfSegment2D& ahs) const
