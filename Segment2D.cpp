@@ -128,9 +128,30 @@ std::pair<bool, SimplePoint2D> Segment2D::findIntersection_excludeEndpoints(Segm
 
 bool Segment2D::poiOnSeg(SimplePoint2D p)
 {
-	Number dis = (rightEndPoint.x - leftEndPoint.x) * (rightEndPoint.x - leftEndPoint.x) + (rightEndPoint.y - leftEndPoint.y) * (rightEndPoint.y - leftEndPoint.y);
-	Number fh = (rightEndPoint.x - p.x) * (rightEndPoint.x - p.x) + (rightEndPoint.y - p.y) * (p.y - leftEndPoint.y);
-	Number sh = (p.x - leftEndPoint.x) * (p.x - leftEndPoint.x) + (p.y - leftEndPoint.y) * (p.y - leftEndPoint.y);
+    Number x1 = leftEndPoint.x;
+    Number y1 = leftEndPoint.y;
+    Number x2 = rightEndPoint.x;
+    Number y2 = rightEndPoint.y;
+    Number dx = x2 - x1;
+    Number dy = y2 - y1;
+    Number a = dy;
+    Number b = -dx;
+    Number c = dx * y1 - dy * x1;
+    Number x = p.x;
+    Number y = p.y;
+
+    // Check if the point (x, y) lies on the line
+    if (a * x + b * y + c != 0) {
+        return false;
+    }
+
+    // Check if the point (x, y) lies between (x1, y1) and (x2, y2)
+    if ((x1 <= x && x <= x2 || x2 <= x && x <= x1) &&
+        (y1 <= y && y <= y2 || y2 <= y && y <= y1)) {
+        return true;
+    }
+
+    return false;
 	if(fh + sh == dis)
 		return true;
 	return false;
