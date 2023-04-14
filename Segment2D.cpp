@@ -135,13 +135,14 @@ bool Segment2D::poiOnSeg(SimplePoint2D p)
     Number dx = x2 - x1;
     Number dy = y2 - y1;
     Number a = dy;
-    Number b = -dx;
+	Number zero = "0.0";
+    Number b = zero - dx;
     Number c = dx * y1 - dy * x1;
     Number x = p.x;
     Number y = p.y;
 
     // Check if the point (x, y) lies on the line
-    if (a * x + b * y + c != 0) {
+    if (a * x + b * y + c != zero) {
         return false;
     }
 
@@ -152,7 +153,4 @@ bool Segment2D::poiOnSeg(SimplePoint2D p)
     }
 
     return false;
-	if(fh + sh == dis)
-		return true;
-	return false;
 }	

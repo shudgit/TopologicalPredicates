@@ -659,6 +659,7 @@
             eventPoint = objT.SelectNext();
         }
         cout << "Line Line Ends" << endl;
+        return featureVector;
     }
 
     //Point || Region
