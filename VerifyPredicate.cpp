@@ -23,6 +23,7 @@
         return im;
     }
 
+    // Sam and Doug
     VerifyPredicate::VerifyPredicate()
     {
         predicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
@@ -116,6 +117,8 @@
             return false;
         return true;
     }
+
+    // Sam
     bool VerifyPredicate::disjoint(Point2D obj1, Line2D obj2)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -142,6 +145,8 @@
         cout << "Line Line Disjoint never went in if" << endl;
         return false;
     }
+
+    // Sam
     bool VerifyPredicate::disjoint(Line2D obj1, Region2D obj2)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -166,6 +171,8 @@
     {
         return false;
     }
+
+    // Sam
     bool VerifyPredicate::meet(Point2D obj1, Line2D obj2)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -181,6 +188,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::meet(Line2D obj1, Region2D obj2)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -204,7 +213,7 @@
         return true;
     }
 
-    // Point object and Line cannot be equal
+    // Sam
     bool VerifyPredicate::equal(Point2D obj1, Line2D obj2)
     {
        return false;
@@ -217,6 +226,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::equal(Line2D obj1, Region2D obj2)
     {
         return false;
@@ -236,6 +247,8 @@
             return false;
         return true;
     }
+
+    // Sam
     bool VerifyPredicate::inside(Point2D obj1, Line2D obj2)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -251,6 +264,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::inside(Line2D obj1, Region2D obj2)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -267,6 +282,8 @@
     {
         return false;
     }
+
+    // Sam
     bool VerifyPredicate::covered_by(Point2D obj1, Line2D obj2)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -282,6 +299,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::covered_by(Line2D obj1, Region2D obj2)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -305,7 +324,7 @@
         return true;
     }
 
-    // cannot happen because the exterior of a point always intersects the interior of a line
+    // Sam
     bool VerifyPredicate::contains(Point2D obj1, Line2D obj2)
     {
         return false;
@@ -318,6 +337,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::contains(Line2D obj1, Region2D obj2)
     {
         return false;
@@ -335,7 +356,7 @@
         return false;
     }
 
-    // cannot happen for same reasoning as contains
+    // Sam
     bool VerifyPredicate::covers(Point2D obj1, Line2D obj2)
     {
         return false;
@@ -348,6 +369,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::covers(Line2D obj1, Region2D obj2)
     {
         return false;
@@ -368,6 +391,8 @@
             return true;
         return false;
     }
+
+    // Sam
     bool VerifyPredicate::overlap(Point2D obj1, Line2D obj2)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -383,6 +408,8 @@
     {
 
     }
+
+    // Sam
     bool VerifyPredicate::overlap(Line2D obj1, Region2D obj2)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -403,6 +430,8 @@
             return true;
         return false;
     } 
+
+    // Sam
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
@@ -424,6 +453,8 @@
             return true;
         return false;
     }
+
+    // Sam
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
@@ -878,6 +909,7 @@
         return flags;
     }
     
+    // Sam (I think)
     AttributedHalfSegment2D GetAttrHalfSeg(std::vector<AttributedHalfSegment2D> halfSegVec, SimplePoint2D point)
     {
         for(int i = 0; i < halfSegVec.size(); i++)
@@ -899,6 +931,7 @@
         }
     }
 
+    // Sam (I think)
     HalfSegment2D GetHalfSeg(std::vector<HalfSegment2D> halfSegVec, SimplePoint2D point)
     {
         for(int i = 0; i < halfSegVec.size(); i++)
@@ -920,6 +953,7 @@
         }
     }
 
+    // Sam
     std::vector<bool> VerifyPredicate::PointLineAlgorithm(Point2D obj1, Line2D obj2)
     {
         vector<bool> features {false, false, false, false};
@@ -1033,6 +1067,7 @@
         return features;
     }
 
+    // Sam
     std::vector<bool> VerifyPredicate::LineRegionAlgorithm(Line2D obj1, Region2D obj2)
     {
         // 0 seg_inside, 1 seg_shared, 2 seg_outside, 3 poi_shared, 4 bound_inside, 5 bound_shared, 6 bound_disjoint, 7 seg_unshared
@@ -1291,6 +1326,7 @@
         }
     */
 
+   // Sam
     HalfSegment2D VerifyPredicate::findHS(vector<HalfSegment2D> HS, SimplePoint2D point)
     {
         for (int i = 0; i < HS.size(); i++)
