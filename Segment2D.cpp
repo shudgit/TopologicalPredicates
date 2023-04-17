@@ -1,5 +1,6 @@
 #include "Segment2D.h"
 #include <cmath>
+#include <iostream>
 
 Segment2D::Segment2D()		// Created default constructor so that HalfSegment2D works.
 {
@@ -135,24 +136,18 @@ bool Segment2D::poiOnSeg(SimplePoint2D p)
     Number dx = x2 - x1;
     Number dy = y2 - y1;
     Number a = dy;
-    Number b = -dx;
+	Number zero = "0.0";
+    Number b = zero - dx;
     Number c = dx * y1 - dy * x1;
     Number x = p.x;
     Number y = p.y;
 
-    // Check if the point (x, y) lies on the line
-    if (a * x + b * y + c != 0) {
+    if (a * x + b * y + c != zero)
         return false;
-    }
 
-    // Check if the point (x, y) lies between (x1, y1) and (x2, y2)
-    if ((x1 <= x && x <= x2 || x2 <= x && x <= x1) &&
-        (y1 <= y && y <= y2 || y2 <= y && y <= y1)) {
+    if ((x1 <= x && x <= x2 || x2 <= x && x <= x1) && (y1 <= y && y <= y2 || y2 <= y && y <= y1))
         return true;
-    }
 
-    return false;
-	if(fh + sh == dis)
-		return true;
 	return false;
+	
 }	

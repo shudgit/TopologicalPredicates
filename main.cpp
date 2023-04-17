@@ -564,7 +564,7 @@ int main ()
 
     cout << endl << "Point-Region Tests Complete" << endl << endl;
     // line-line disjoint: 
-    /*if(vp.disjoint(left_and_bottom_segments, left_and_bottom_segments))
+    if(vp.disjoint(left_and_bottom_segments, left_and_bottom_segments))
         cout << "Line-Line Disjoint Failed Test 1" << endl;
     else
         cout << "Line-Line Disjoint Passed Test 1" << endl;
@@ -577,7 +577,7 @@ int main ()
     if(vp.disjoint(bottom_segments, top_segments))
         cout << "Line-Line Disjoint Passed Test 3" << endl;
     else
-        cout << "Line-Line Disjoint Failed Test 3" << endl;*/
+        cout << "Line-Line Disjoint Failed Test 3" << endl;
     /*
     // line-line meets:
     if(vp.meet(left_and_bottom_segments, left_and_bottom_segments))

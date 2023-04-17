@@ -1,2 +1,2 @@
 default:
-	g++ *.cpp -o test -lgmp -lgmpxx
+	g++ -Wzero-as-null-pointer-constant *.cpp -o test -lgmp -lgmpxx
