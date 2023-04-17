@@ -120,6 +120,7 @@ Segment2D PlaneSweep::pred_of_p(SimplePoint2D point)
     return returnSeg;
 }
 
+// Sam and Cody (I think we both independently did this)
 bool PlaneSweep::poi_on_seg(SimplePoint2D point) 
 {
     for(int i = 0; i < sweepStatus.size(); i++) 
@@ -145,6 +146,7 @@ bool PlaneSweep::get_pred_attr(SimplePoint2D point)
     return attributes[seg];
 }
 
+// Sam
 bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfSegs)
 {
     for (int i = 0; i < halfSegs.size() - 1; i++)
@@ -160,6 +162,7 @@ bool PlaneSweep::look_ahead(HalfSegment2D half, std::vector<HalfSegment2D> halfS
     return false;
 }
 
+// Sam
 bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
 {
     for (int i = 0; i < segments.size() - 1; i++)

@@ -140,6 +140,7 @@ Point2D origin = Point2D(ll_points);
 vector<Segment2D> shorter_left_and_bottom_segs = {left_short_lower, bottom_short_left};
 Line2D shorter_left_and_bottom_segments = Line2D(shorter_left_and_bottom_segs);
 
+// Sam
 void LineRegionMeetsTest()
 {
     VerifyPredicate vp;
@@ -176,6 +177,7 @@ void LineRegionMeetsTest()
         cout << "Line-Region Meet Failed Test 1" << endl;
 }
 
+// Sam
 void LineRegionInsideTest()
 {
     VerifyPredicate vp;
@@ -211,6 +213,7 @@ void LineRegionInsideTest()
         cout << "Line/Region Inside Failed Test 1" << endl;
 }
 
+// Sam
 void LineRegionCoveredByTest()
 {
     VerifyPredicate vp;
@@ -248,6 +251,7 @@ void LineRegionCoveredByTest()
         cout << "Line/Region Covered By Failed Test 1" << endl;
 }
 
+// Sam
 void LineRegionOverlapsTest()
 {
     VerifyPredicate vp;
@@ -731,7 +735,7 @@ int main ()
     LineRegionOverlapsTest();*/
 
     // region-region disjoint: 
-    /*
+    
     if(vp.disjoint(lower_rectangle_region, lower_rectangle_region))
         cout << "Region-Region Disjoint Failed Test 1" << endl;
     else
@@ -746,7 +750,7 @@ int main ()
         cout << "Region-Region Disjoint Passed Test 3" << endl;
     else
         cout << "Region-Region Disjoint Failed Test 3" << endl;
-    
+    /*
     // region-region meets:
     if(vp.meet(upper_left_square_region, upper_rectangle_region))
         cout << "Region-Region Meet Failed Test 1" << endl;
