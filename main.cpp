@@ -742,9 +742,9 @@ int main ()
         cout << "Region-Region Disjoint Passed Test 1" << endl;
     
     if(vp.disjoint(lower_rectangle_region, upper_rectangle_region))
-        cout << "Region-Region Disjoint Passed Test 2" << endl;
-    else
         cout << "Region-Region Disjoint Failed Test 2" << endl;
+    else
+        cout << "Region-Region Disjoint Passed Test 2" << endl;
 
     if(vp.disjoint(lower_left_square_region, far_square_region))
         cout << "Region-Region Disjoint Passed Test 3" << endl;

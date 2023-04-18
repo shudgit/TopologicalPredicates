@@ -236,16 +236,25 @@ AttributedHalfSegment2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, st
 
 bool PlaneSweep::coincident(Segment2D segment)
 {
+    std::cout << "entered coincident" << std::endl;
     for(int i = 0; i < sweepStatus.size(); ++i)
     {
         if(sweepStatus[i] == segment)               // technically cannot intersect with a segment from its own object
         {
             if(i > 0)                               //check intersect with sweepStatus[i - 1]
-                if(segment.findIntersection_excludeEndpoints(sweepStatus[i - 1]).first)
+                if((segment.findIntersection_excludeEndpoints(sweepStatus[i - 1])).first)
+                {
+                    std::cout << "exited coincident if" << std::endl;
                     return true;
+                }
             else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
-                if(segment.findIntersection_excludeEndpoints(sweepStatus[i + 1]).first)
+                if((segment.findIntersection_excludeEndpoints(sweepStatus[i + 1])).first)
+                {
+                    std::cout << "exited coincident else " << std::endl;
                     return true;
+                }
         }
     }
+    std::cout << "exited coincident end" << std::endl;
+    return false;
 }

@@ -90,22 +90,20 @@ std::pair<bool, SimplePoint2D> Segment2D::findIntersection(Segment2D s)
 	Number y3 = s.leftEndPoint.y;
 	Number x4 = s.rightEndPoint.x;
 	Number y4 = s.rightEndPoint.y;
-
 	Number denominator = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
 	SimplePoint2D empty;
 	Number zero = "0.0";
 	if (denominator == zero)
+	{
 		return std::make_pair(false, empty);
+	}
 	else 
 	{
 		Number ia = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denominator;
 		Number ib = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denominator;
 		Number one = "1.0";
 		if (ia < zero || ia > one || ib < zero || ib > one) 
-		{
-			// The intersection point does not exist in at least one of the segments.
-			return std::make_pair(false, empty);
-		} 
+			return std::make_pair(false, empty);	// The intersection point does not exist in at least one of the segments.
 		else 
 		{
 			Number x = x1 + ia * (x2 - x1);
@@ -124,7 +122,10 @@ std::pair<bool, SimplePoint2D> Segment2D::findIntersection_excludeEndpoints(Segm
 	{
 		if(p.second == leftEndPoint || p.second == rightEndPoint)
 			return std::make_pair(false, p.second);
+		else
+			return p;
 	}
+	return std::make_pair(false, p.second);
 }
 
 bool Segment2D::poiOnSeg(SimplePoint2D p)

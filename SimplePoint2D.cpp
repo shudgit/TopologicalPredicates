@@ -2,8 +2,9 @@
 
 SimplePoint2D::SimplePoint2D()
 {
-	this->x = "0.0";
-	this->y = "0.0";
+	Number one = "1.0";
+	this->x = one;
+	this->y = one;
 }
 
 SimplePoint2D::SimplePoint2D(const SimplePoint2D& p)
