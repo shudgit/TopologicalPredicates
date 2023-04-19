@@ -524,7 +524,7 @@
             {
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
-                    newSweep.add_left(halfSeg.s);
+                    newSweep.add_left(halfSeg.s, objT.object);
                 else
                 {
                     newSweep.del_right(halfSeg.s);
@@ -568,7 +568,7 @@
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
                 {
-                    newSweep.add_left(halfSeg.s);
+                    newSweep.add_left(halfSeg.s, objT.object);
                 }
                 else
                 {
@@ -615,7 +615,7 @@
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
                 {
-                    newSweep.add_left(halfSeg.s);
+                    newSweep.add_left(halfSeg.s, objT.object);
                 }
                 else
                 {
@@ -723,7 +723,7 @@
                 AttributedHalfSegment2D attrHalfSeg = eventPoint.attrHalfSeg;
                 if(attrHalfSeg.hs.isDominatingPointLeft) 
                 {
-                    newSweep.add_left(attrHalfSeg.hs.s);
+                    newSweep.add_left(attrHalfSeg.hs.s, objT.object);
                     newSweep.set_attr(attrHalfSeg.hs.s, attrHalfSeg.above);
                 }
                 else
@@ -816,8 +816,8 @@
             else
             {
                 pair<int, int> mn_pred;
-                sweep.add_left(next.hs.s);
-                if(sweep.coincident(next.hs.s))
+                sweep.add_left(next.hs.s, pot.object);
+                if(sweep.coincident(next.hs.s, pot.region1Dynamic, pot.region2Dynamic))
                     pot.object = 3;
                 if(!sweep.pred_exists(next.hs.s))
                     mn_pred = make_pair(3, 0);       // 3 = *
@@ -977,7 +977,7 @@
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
                     // add it to the planesweep
-                    S.add_left(eventPoint.halfSeg.s);
+                    S.add_left(eventPoint.halfSeg.s, pt.object);
                 }
                 else
                 {
@@ -1007,7 +1007,7 @@
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
                     // add it to the planesweep
-                    S.add_left(eventPoint.halfSeg.s);
+                    S.add_left(eventPoint.halfSeg.s, pt.object);
                 }
                 else
                 {
@@ -1078,7 +1078,7 @@
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
                     // add it to the sweep
-                    S.add_left(eventPoint.halfSeg.s);
+                    S.add_left(eventPoint.halfSeg.s, pt.object);
                 }
                 else
                 {
@@ -1177,7 +1177,7 @@
                 if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
                     // add it to the planesweep
-                    S.add_left(eventPoint.halfSeg.s);
+                    S.add_left(eventPoint.halfSeg.s, pt.object);
                     // set the attr of the segment we added to the planesweep
                     S.set_attr(eventPoint.halfSeg.s, ia);
                 }
@@ -1212,7 +1212,7 @@
                 if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
                     // add the segment to the sweep and set its attr
-                    S.add_left(eventPoint.attrHalfSeg.hs.s);
+                    S.add_left(eventPoint.attrHalfSeg.hs.s, pt.object);
                     S.set_attr(eventPoint.attrHalfSeg.hs.s, ia);
                 }
                 else

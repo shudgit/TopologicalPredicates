@@ -19,8 +19,6 @@ class ParallelObjT
 
     std::queue<AttributedHalfSegment2D> region1Queue;
     std::queue<AttributedHalfSegment2D> region2Queue;
-    std::queue<AttributedHalfSegment2D> region1Dynamic;
-    std::queue<AttributedHalfSegment2D> region2Dynamic;
 
     int object1Type; //0 = point, 1 = line, 2 = region
     int object2Type; //0 = point, 1 = line, 2 = region
@@ -33,6 +31,9 @@ class ParallelObjT
     EventPoint RegionRegionNext();
 
     public:
+    std::queue<AttributedHalfSegment2D> region1Dynamic;
+    std::queue<AttributedHalfSegment2D> region2Dynamic;
+    
     int object = 0; //1 = object 1, 2 = object 2, 3 = both objects
     int status = 0; // 0 = end of none, 1 = end of first, 2 = end of second, 3 = end of both
     ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePoint2D> obj2);

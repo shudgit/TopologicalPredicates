@@ -45,7 +45,7 @@ bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
     return point.y > SegY;
 }
 
-void PlaneSweep::add_left(Segment2D segment)
+void PlaneSweep::add_left(Segment2D segment, int obj)
 {
     if(sweepStatus.empty())
         sweepStatus.push_back(segment); //add half segment to sweep status at beginning
@@ -68,7 +68,8 @@ void PlaneSweep::add_left(Segment2D segment)
                 index++;
             sweepStatus.emplace(sweepStatus.begin() + index, segment); //emplace at index
         } 
-    }   
+    }
+    objects[segment] = obj; 
 }
 
 void PlaneSweep::del_right(Segment2D segment)
@@ -234,9 +235,8 @@ AttributedHalfSegment2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, st
     return ahs;
 }
 
-bool PlaneSweep::coincident(Segment2D segment)
+bool PlaneSweep::coincident_line(Segment2D segment, std::queue<HalfSegment2D> &eventPointsDynamicObj1, std::queue<HalfSegment2D> &eventPointsDynamicObj2)
 {
-    std::cout << "entered coincident" << std::endl;
     for(int i = 0; i < sweepStatus.size(); ++i)
     {
         if(sweepStatus[i] == segment)               // technically cannot intersect with a segment from its own object
@@ -247,20 +247,28 @@ bool PlaneSweep::coincident(Segment2D segment)
                     SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i - 1]).second;
 
                     Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
-                    Segment2D seg2 = Segment2D(segment.leftEndPoint, iPoint);
-                    Segment2D seg3 = Segment2D(iPoint, sweepStatus[i - 1].rightEndPoint);
-                    Segment2D seg4 = Segment2D(sweepStatus[i - 1].leftEndPoint, iPoint);
+                    Segment2D seg2 = Segment2D(iPoint, sweepStatus[i - 1].rightEndPoint);
 
                     HalfSegment2D hs1 = HalfSegment2D(seg1, false);
                     HalfSegment2D hs2 = HalfSegment2D(seg1, true);
                     HalfSegment2D hs3 = HalfSegment2D(seg2, false);
                     HalfSegment2D hs4 = HalfSegment2D(seg2, true);
-                    HalfSegment2D hs5 = HalfSegment2D(seg3, false);
-                    HalfSegment2D hs6 = HalfSegment2D(seg3, true);
-                    HalfSegment2D hs7 = HalfSegment2D(seg4, false);
-                    HalfSegment2D hs8 = HalfSegment2D(seg4, true);
 
-                    std::cout << "exited coincident if" << std::endl;
+                    if(objects[segment] == 1)
+                    {
+                        eventPointsDynamicObj1.push(hs1);
+                        eventPointsDynamicObj1.push(hs2);
+                        eventPointsDynamicObj2.push(hs3);
+                        eventPointsDynamicObj2.push(hs4);
+                    }
+                    else
+                    {
+                        eventPointsDynamicObj2.push(hs1);
+                        eventPointsDynamicObj2.push(hs2);
+                        eventPointsDynamicObj1.push(hs3);
+                        eventPointsDynamicObj1.push(hs4);
+                    }
+
                     return true;
                 }
             else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
@@ -269,24 +277,112 @@ bool PlaneSweep::coincident(Segment2D segment)
                     SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i + 1]).second;
 
                     Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
-                    Segment2D seg2 = Segment2D(segment.leftEndPoint, iPoint);
-                    Segment2D seg3 = Segment2D(iPoint, sweepStatus[i + 1].rightEndPoint);
-                    Segment2D seg4 = Segment2D(sweepStatus[i + 1].leftEndPoint, iPoint);
+                    Segment2D seg2 = Segment2D(iPoint, sweepStatus[i + 1].rightEndPoint);
 
                     HalfSegment2D hs1 = HalfSegment2D(seg1, false);
                     HalfSegment2D hs2 = HalfSegment2D(seg1, true);
                     HalfSegment2D hs3 = HalfSegment2D(seg2, false);
                     HalfSegment2D hs4 = HalfSegment2D(seg2, true);
-                    HalfSegment2D hs5 = HalfSegment2D(seg3, false);
-                    HalfSegment2D hs6 = HalfSegment2D(seg3, true);
-                    HalfSegment2D hs7 = HalfSegment2D(seg4, false);
-                    HalfSegment2D hs8 = HalfSegment2D(seg4, true);
 
-                    std::cout << "exited coincident else " << std::endl;
+                    if(objects[segment] == 1)
+                    {
+                        eventPointsDynamicObj1.push(hs1);
+                        eventPointsDynamicObj1.push(hs2);
+                        eventPointsDynamicObj2.push(hs3);
+                        eventPointsDynamicObj2.push(hs4);
+                    }
+                    else
+                    {
+                        eventPointsDynamicObj2.push(hs1);
+                        eventPointsDynamicObj2.push(hs2);
+                        eventPointsDynamicObj1.push(hs3);
+                        eventPointsDynamicObj1.push(hs4);
+                    }
+
                     return true;
                 }
         }
     }
-    std::cout << "exited coincident end" << std::endl;
+    return false;
+}
+
+bool PlaneSweep::coincident(Segment2D segment, std::queue<AttributedHalfSegment2D> &eventPointsDynamicObj1, std::queue<AttributedHalfSegment2D> &eventPointsDynamicObj2)
+{
+    for(int i = 0; i < sweepStatus.size(); ++i)
+    {
+        if(sweepStatus[i] == segment)               // technically cannot intersect with a segment from its own object
+        {
+            if(i > 0)                               //check intersect with sweepStatus[i - 1]
+                if((segment.findIntersection_excludeEndpoints(sweepStatus[i - 1])).first)
+                {
+                    SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i - 1]).second;
+
+                    Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
+                    Segment2D seg2 = Segment2D(iPoint, sweepStatus[i - 1].rightEndPoint);
+
+                    HalfSegment2D hs1 = HalfSegment2D(seg1, false);
+                    HalfSegment2D hs2 = HalfSegment2D(seg1, true);
+                    HalfSegment2D hs3 = HalfSegment2D(seg2, false);
+                    HalfSegment2D hs4 = HalfSegment2D(seg2, true);
+
+                    AttributedHalfSegment2D ahs1 = AttributedHalfSegment2D(hs1, attributes[segment]);
+                    AttributedHalfSegment2D ahs2 = AttributedHalfSegment2D(hs2, attributes[segment]);
+                    AttributedHalfSegment2D ahs3 = AttributedHalfSegment2D(hs3, attributes[sweepStatus[i - 1]]);
+                    AttributedHalfSegment2D ahs4 = AttributedHalfSegment2D(hs4, attributes[sweepStatus[i - 1]]);
+
+                    if(objects[segment] == 1)
+                    {
+                        eventPointsDynamicObj1.push(ahs1);
+                        eventPointsDynamicObj1.push(ahs2);
+                        eventPointsDynamicObj2.push(ahs3);
+                        eventPointsDynamicObj2.push(ahs4);
+                    }
+                    else
+                    {
+                        eventPointsDynamicObj2.push(ahs1);
+                        eventPointsDynamicObj2.push(ahs2);
+                        eventPointsDynamicObj1.push(ahs3);
+                        eventPointsDynamicObj1.push(ahs4);
+                    }
+
+                    return true;
+                }
+            else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
+                if((segment.findIntersection_excludeEndpoints(sweepStatus[i + 1])).first)
+                {
+                    SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i + 1]).second;
+
+                    Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
+                    Segment2D seg2 = Segment2D(iPoint, sweepStatus[i + 1].rightEndPoint);
+
+                    HalfSegment2D hs1 = HalfSegment2D(seg1, false);
+                    HalfSegment2D hs2 = HalfSegment2D(seg1, true);
+                    HalfSegment2D hs3 = HalfSegment2D(seg2, false);
+                    HalfSegment2D hs4 = HalfSegment2D(seg2, true);
+
+                    AttributedHalfSegment2D ahs1 = AttributedHalfSegment2D(hs1, attributes[segment]);
+                    AttributedHalfSegment2D ahs2 = AttributedHalfSegment2D(hs2, attributes[segment]);
+                    AttributedHalfSegment2D ahs3 = AttributedHalfSegment2D(hs3, attributes[sweepStatus[i + 1]]);
+                    AttributedHalfSegment2D ahs4 = AttributedHalfSegment2D(hs4, attributes[sweepStatus[i + 1]]);
+
+                    if(objects[segment] == 1)
+                    {
+                        eventPointsDynamicObj1.push(ahs1);
+                        eventPointsDynamicObj1.push(ahs2);
+                        eventPointsDynamicObj2.push(ahs3);
+                        eventPointsDynamicObj2.push(ahs4);
+                    }
+                    else
+                    {
+                        eventPointsDynamicObj2.push(ahs1);
+                        eventPointsDynamicObj2.push(ahs2);
+                        eventPointsDynamicObj1.push(ahs3);
+                        eventPointsDynamicObj1.push(ahs4);
+                    }
+                    
+                    return true;
+                }
+        }
+    }
     return false;
 }
