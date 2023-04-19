@@ -23,6 +23,23 @@
         im[8] = true;
         return im;
     }
+    //cody
+    vector<bool> createLineLine9IM(vector<bool> flags)
+    {
+        vector<bool> im;
+        im.resize(9, false);
+        im[0] = flags[0] || flags[1];
+        im[1] = flags[7];
+        im[2] = flags[2];
+        im[3] = flags[3];
+        im[4] = flags[4];
+        im[5] = flags[5];
+        im[6] = flags[6];
+        im[7] = flags[8];
+        im[8] = true;
+        
+        return im;
+    }
 
     // Sam and Douglas
     VerifyPredicate::VerifyPredicate()
@@ -128,20 +145,22 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::disjoint(Point2D obj1, Region2D obj2)
     {
         vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1]))
+        if(flags[2] && !(flags[0] && flags[1]))
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1] && flags[3] && flags[4] && flags[7]))
-            return true;
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for(int i = 1; i < 5; i++) {
+            if(flags == predicates[i])
+                return true;
+        }
         return false;
     }
 
@@ -178,15 +197,25 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::meet(Point2D obj1, Region2D obj2)
     {
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[1] && !(flags[0] && flags[2]))
+            return true;
+        return false;
 
     }
-
+    //cody
     bool VerifyPredicate::meet(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for (int i = 5; i < 33; i++) {
+            if(flags == predicates[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Sam
@@ -221,15 +250,18 @@
     {
        return false;
     }
-
+    //cody
     bool VerifyPredicate::equal(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::equal(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[33] || flags == predicates[36])
+            return true;
+        return false;
     }
 
     // Sam
@@ -265,15 +297,21 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::inside(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(!flags[0] && flags[1])
+            return true;
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::inside(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[34] || flags == predicates[35] || flags == predicates[39] || flags == predicates[40])
+            return true;
+        return false;
     }
 
     // Sam
@@ -309,15 +347,18 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::covered_by(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::covered_by(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[37] || flags == predicates[38] || flags == predicates[41] || flags == predicates[42])
+            return true;
+        return false;
     }
 
     // Sam
@@ -353,13 +394,18 @@
     {
         return false;
     }
+    //cody
     bool VerifyPredicate::contains(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::contains(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[43] || flags == predicates[46] || flags == predicates[63] || flags == predicates[66])
+            return true;
+        return false;
     }
 
     // Sam
@@ -389,15 +435,18 @@
     {
         return false;
     }
-
+    //cody
     bool VerifyPredicate::covers(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::covers(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[49] || flags == predicates[52] || flags == predicates[69] || flags == predicates[72])
+            return true;
+        return false;
     }
 
     // Sam
@@ -433,15 +482,28 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::overlap(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[0] && flags[2])
+            return true;
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::overlap(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[44] || flags == predicates[45] || flags == predicates[47] || flags == predicates[48] || flags == predicates[50] || flags == predicates[51]
+         || flags == predicates[53] || flags == predicates[54] || flags == predicates[55] || flags == predicates[56] || flags == predicates[57] || flags == predicates[58]
+          || flags == predicates[59] || flags == predicates[60] || flags == predicates[61] || flags == predicates[62] || flags == predicates[64] || flags == predicates[65]
+           || flags == predicates[67] || flags == predicates[68] || flags == predicates[70] || flags == predicates[71] || flags == predicates[73] || flags == predicates[74]
+            || flags == predicates[75] || flags == predicates[76] || flags == predicates[77] || flags == predicates[78] || flags == predicates[79] || flags == predicates[80]
+             || flags == predicates[81] || flags == predicates[82]) 
+        {
+            return true;
+        }
+        return false;
     }
 
     // Sam
@@ -487,9 +549,10 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::verify(Line2D obj1, Line2D obj2, int predicateNumber)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
         if (flags == predicates[predicateNumber])
             return true;
         return false;
