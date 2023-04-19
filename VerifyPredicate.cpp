@@ -1134,11 +1134,9 @@
                         // last_bound_in_F is now p
                         last_bound_in_F = p;
 
-                        // We find the Attributed halfsegment version of eventPoint so we can use look_ahead_3
-                        AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
                         // if the last boundary point in F is equal to the last dominating point in G
                         // or the halfsegment exists in G and shares a dominating point with the next one
-                        if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(halfA, obj2HV))
+                        if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(eventPoint.attrHalfSeg, obj2HV))
                         {
                             // bound_shared is true
                             features[5] = true;
@@ -1169,10 +1167,8 @@
                         }
                     }
                 }
-                // same thing as earlier, getting the attrhalfsegment
-                AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
 
-                if (p != last_bound_in_F && (p == last_dp_in_G || S.look_ahead_3(halfA, obj2HV)))
+                if (p != last_bound_in_F && (p == last_dp_in_G || S.look_ahead_3(eventPoint.attrHalfSeg, obj2HV)))
                 {
                     // poi_shared is flipped
                     features[3];
