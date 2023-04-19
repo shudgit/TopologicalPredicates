@@ -135,14 +135,9 @@
     }
     bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
-        cout << "Line Line Disjoint Began" << endl;
         vector<bool> flags = LineLineAlgorithm(obj1, obj2);
         if(!(flags[0] && flags[1] && flags[3] && flags[4] && flags[7]))
-        {
-            cout << "Line Line Disjoint in if" << endl;
             return true;
-        }
-        cout << "Line Line Disjoint never went in if" << endl;
         return false;
     }
 
@@ -156,15 +151,11 @@
     }
     bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
-        cout << "disjoint entered" << endl;
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        cout << flags.size() << endl;
         vector<bool> im = createRegionRegion9IM(flags);
-        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11] == (im == predicates[1]))
-            cout << "flags == clustered" << endl;
-        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
-            return false;
-        return true;
+        if(im == predicates[1])
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::meet(Point2D obj1, Point2D obj2)
@@ -527,35 +518,25 @@
         SimplePoint2D lastBoundPointG;
 
         EventPoint eventPoint = objT.SelectNext();
-        cout << "Line Line reaches eventPoint" << endl;
         while(objT.status != 3 && (featureVector[0] == false || featureVector[1] == false || featureVector[2] == false || featureVector[3] == false || featureVector[4] == false || featureVector[5] == false || featureVector[6] == false || featureVector[7] == false || featureVector[8] == false))
         {
             if(objT.object == 1)
             {
-                cout << "object 1" << endl;
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
-                {
-                    cout << "enters add_Left" << endl;
                     newSweep.add_left(halfSeg.s);
-                    cout << "exits add_Left" << endl;
-                }
                 else
                 {
-                    cout << "enters del_right" << endl;
                     newSweep.del_right(halfSeg.s);
                     featureVector[2] = true; //seg unshared
-                    cout << "exits del_right" << endl;
                 }
 
                 if(halfSeg.getDP() != lastDpF)
                 {
                     lastDpF = halfSeg.getDP();
                 }
-                cout << "before look_ahead" << endl;
                 if(!newSweep.look_ahead(halfSeg, line1Vector))
                 {
-                    cout << "in look_ahead" << endl;
                     lastBoundPointF = halfSeg.getDP();
                     if(lastBoundPointF == lastBoundPointG)
                     {
@@ -570,10 +551,8 @@
                         featureVector[5] = true; //obj1 boundary disjoint
                     }
                 }
-                cout << "before lastBoundPointF" << endl;
                 if(halfSeg.getDP() != lastBoundPointF)
                 {
-                    cout << "in lastBoundPointF" << endl;
                     if(halfSeg.getDP() == lastBoundPointG)
                     {
                         featureVector[7] = true; //obj2 bound on interior
@@ -586,7 +565,6 @@
             }
             else if(objT.object == 2)
             {
-                cout << "object 2" << endl;
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
                 {
@@ -633,7 +611,6 @@
             }
             else
             {
-                cout << "object 3" << endl;
                 featureVector[0] = true;
                 HalfSegment2D halfSeg = eventPoint.halfSeg;
                 if(halfSeg.isDominatingPointLeft)
@@ -678,7 +655,6 @@
                     }
                 }
             }
-            cout << "exits objects" << endl;
             if(objT.status == 1)
             {
                 featureVector[6] = true;
@@ -689,7 +665,6 @@
             }
             eventPoint = objT.SelectNext();
         }
-        cout << "Line Line Ends" << endl;
         return featureVector;
     }
 
@@ -1103,17 +1078,13 @@
                 if (eventPoint.halfSeg.isDominatingPointLeft)
                 {
                     // add it to the sweep
-                    cout << "add_left entered " << endl;
                     S.add_left(eventPoint.halfSeg.s);
-                    cout << "add_left exited " << endl;
                 }
                 else
                 {
-                    cout << "before pred_exists" << endl;
                     // check if there is a predisesor in the plane sweep
                     if (S.pred_exists(eventPoint.halfSeg.s))
                     {
-                        cout << "pred_exists" << endl;
                         // if there is, find the attr values and store them in this pair
                         pair<bool, bool> MpOverNp = S.get_pred_attr_2(eventPoint.halfSeg.s);
 
@@ -1131,7 +1102,6 @@
                     }
                     else
                     {
-                        cout << "not pred_exists" << endl;
                         // seg_outside is true
                         features[2] = true;
                     }
@@ -1140,35 +1110,29 @@
                 }
                 // get the dominating point from the eventPoint.
                 SimplePoint2D p = eventPoint.halfSeg.getDP();
-                cout << "before last_dp_in_F" << endl;
                 // if this dominating point is not the last dp in F
                 if (p != last_dp_in_F)
                 {
-                    cout << "last_dp_in_F changed" << endl;
                     // make it so
                     last_dp_in_F = p;
 
                     // if the current halfseg and the next one in the POT do not share a dp
                     if (!S.look_ahead(eventPoint.halfSeg, obj1HV))
                     {
-                        cout << "look_ahead" << endl;
                         // last_bound_in_F is now p
                         last_bound_in_F = p;
 
                         // We find the Attributed halfsegment version of eventPoint so we can use look_ahead_3
                         AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
-                        cout << "halfA created" << endl;
                         // if the last boundary point in F is equal to the last dominating point in G
                         // or the halfsegment exists in G and shares a dominating point with the next one
                         if ((last_bound_in_F == last_dp_in_G) || S.look_ahead_3(halfA, obj2HV))
                         {
-                            cout << "look_ahead_3" << endl;
                             // bound_shared is true
                             features[5] = true;
                         }
                         else
                         {   
-                            cout << "not look_ahead_3" << endl;
                             // if the current event point has a predecessor in the planesweep
                             if (S.pred_exists(eventPoint.halfSeg.s))
                             {
@@ -1193,7 +1157,6 @@
                         }
                     }
                 }
-                cout << "after last_dp_in_F" << endl;
                 // same thing as earlier, getting the attrhalfsegment
                 AttributedHalfSegment2D halfA = GetAttrHalfSeg(obj2HV, p);
 
@@ -1207,7 +1170,6 @@
             // if the event point is from the region
             else if (pt.object == 2)
             {
-                cout << "object 2" << endl;
                 // ia gets the attribute of the current attrhalfseg
                 bool ia = S.get_attr(eventPoint.attrHalfSeg.hs.s);
 
@@ -1240,7 +1202,6 @@
 
             else
             {
-                cout << "object 3" << endl;
                 // seg_shared is true
                 features[1] = true;
 
@@ -1308,7 +1269,6 @@
             // seg_unshared flipped to true
             features[7] = true;
         }
-        cout << "line region end" <<endl;
         return features;
     }
 
