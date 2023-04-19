@@ -13,6 +13,7 @@ private:
 
     HalfSegment2D findHS(vector<HalfSegment2D> HS, SimplePoint2D point);
     std::unordered_map<int, vector<bool>> predicates;
+    std::unordered_map<int, vector<bool>> pointPointPredicates;
     std::unordered_map<int, vector<bool>> lineRegionPredicates;
     std::unordered_map<int, vector<bool>> pointLinePredicates;
     std::unordered_map<int, vector<bool>> pointRegionPredicates;
