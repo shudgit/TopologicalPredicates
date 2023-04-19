@@ -191,7 +191,8 @@
     bool VerifyPredicate::meet(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[2] || flags[3] || flags[4] || flags[5] || flags[10] || flags[11]) && (flags[6] || flags[7]))
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[2] || im == predicates[3] || im == predicates[4])
             return true;
         return false;
     }
@@ -226,9 +227,10 @@
     bool VerifyPredicate::equal(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
-            return false;
-        return true;
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[5])
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::inside(Point2D obj1, Point2D obj2)
@@ -266,7 +268,11 @@
     }
     bool VerifyPredicate::inside(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[7])
+            return true;
+        return false;
     }
 
     bool VerifyPredicate::covered_by(Point2D obj1, Point2D obj2)
@@ -302,7 +308,8 @@
     bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[0] || flags[1] || flags[2] || flags[3] || flags[6]) && flags[7])
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[6] || im == predicates[8] || im == predicates[9])
             return true;
         return false;
     }
@@ -337,7 +344,8 @@
     bool VerifyPredicate::contains(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[4] || flags[5] || flags[6] || flags[7] || flags[8] || flags[9] || flags[10] || flags[11]) && flags[0] && flags[1])
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[19])
             return true;
         return false;
     }
@@ -370,7 +378,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if((flags[4] || flags[5]) )
+        if(im == predicates[11] || im == predicates[21] || im == predicates[24])
             return true;
         return false;
     }
@@ -410,7 +418,11 @@
     }
     bool VerifyPredicate::overlap(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[10] || im == predicates[12] || im == predicates[13] || im == predicates[14] || im == predicates[15] || im == predicates[16] || im == predicates[17] || im == predicates[18] || im == predicates[20] || im == predicates[22] || im == predicates[23] || im == predicates[25] || im == predicates[26] || im == predicates[27] || im == predicates[28] || im == predicates[29] || im == predicates[30] || im == predicates[31] || im == predicates[32] || im == predicates[33])
+            return true;
+        return false;
     }
 
 
