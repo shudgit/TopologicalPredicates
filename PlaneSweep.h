@@ -27,7 +27,7 @@ class PlaneSweep {
         Segment2D pred_of_p(SimplePoint2D point);
         bool poi_on_seg(SimplePoint2D point);
         bool look_ahead_3(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments);
-        // Region Region
+        // Region Region (Douglas)
         std::pair<int, int> get_attr_2(Segment2D segment);
         void set_attr_2(Segment2D segment, std::pair<int, int> p);
         std::pair<int, int> get_pred_attr_2(Segment2D segment);

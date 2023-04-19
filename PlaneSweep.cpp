@@ -195,16 +195,19 @@ bool PlaneSweep::look_ahead_3(AttributedHalfSegment2D ahs, std::vector<Attribute
 
 // Region Region Functions
 
+// Douglas
 std::pair<int, int> PlaneSweep::get_attr_2(Segment2D segment)
 {
     return attributes2[segment];
 }
 
+// Douglas
 void PlaneSweep::set_attr_2(Segment2D segment, std::pair<int, int> p)
 {
     attributes2[segment] = p;
 }
 
+// Douglas
 std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
 {
     for(int i = 0; i < sweepStatus.size() - 1; ++i)
@@ -213,6 +216,7 @@ std::pair<int, int> PlaneSweep::get_pred_attr_2(Segment2D segment)
     return std::make_pair(0, 0);
 }
 
+// Douglas
 AttributedHalfSegment2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, std::vector<AttributedHalfSegment2D> segments)
 {
 
@@ -235,6 +239,7 @@ AttributedHalfSegment2D PlaneSweep::look_ahead_2(AttributedHalfSegment2D ahs, st
     return ahs;
 }
 
+// Douglas
 bool PlaneSweep::coincident_line(Segment2D segment, std::queue<HalfSegment2D> &eventPointsDynamicObj1, std::queue<HalfSegment2D> &eventPointsDynamicObj2)
 {
     for(int i = 0; i < sweepStatus.size(); ++i)
@@ -306,6 +311,7 @@ bool PlaneSweep::coincident_line(Segment2D segment, std::queue<HalfSegment2D> &e
     return false;
 }
 
+// Douglas
 bool PlaneSweep::coincident(Segment2D segment, std::queue<AttributedHalfSegment2D> &eventPointsDynamicObj1, std::queue<AttributedHalfSegment2D> &eventPointsDynamicObj2)
 {
     for(int i = 0; i < sweepStatus.size(); ++i)
@@ -379,7 +385,7 @@ bool PlaneSweep::coincident(Segment2D segment, std::queue<AttributedHalfSegment2
                         eventPointsDynamicObj1.push(ahs3);
                         eventPointsDynamicObj1.push(ahs4);
                     }
-                    
+
                     return true;
                 }
         }

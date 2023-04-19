@@ -1,3 +1,4 @@
+// Douglas
 #ifndef HALFSEGMENT2D_H
 #define HALFSEGMENT2D_H
 #include "Segment2D.h"

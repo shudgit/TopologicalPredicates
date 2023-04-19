@@ -7,6 +7,7 @@
 #include <map>
 #include <iostream>
 
+    // Douglas
     vector<bool> createRegionRegion9IM(vector<bool> flags)
     {
         vector<bool> im;
@@ -22,8 +23,25 @@
         im[8] = true;
         return im;
     }
+    //cody
+    vector<bool> createLineLine9IM(vector<bool> flags)
+    {
+        vector<bool> im;
+        im.resize(9, false);
+        im[0] = flags[0] || flags[1];
+        im[1] = flags[7];
+        im[2] = flags[2];
+        im[3] = flags[3];
+        im[4] = flags[4];
+        im[5] = flags[5];
+        im[6] = flags[6];
+        im[7] = flags[8];
+        im[8] = true;
+        
+        return im;
+    }
 
-    // Sam and Doug
+    // Sam and Douglas
     VerifyPredicate::VerifyPredicate()
     {
         predicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
@@ -155,6 +173,7 @@
         
     }
 
+    // Douglas
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
@@ -171,18 +190,22 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::disjoint(Point2D obj1, Region2D obj2)
     {
         vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1]))
+        if(flags[2] && !(flags[0] && flags[1]))
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1] && flags[3] && flags[4] && flags[7]))
-            return true;
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for(int i = 1; i < 5; i++) {
+            if(flags == predicates[i])
+                return true;
+        }
         return false;
     }
 
@@ -194,6 +217,8 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::disjoint(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
@@ -203,6 +228,7 @@
         return false;
     }
 
+    // Douglas
     bool VerifyPredicate::meet(Point2D obj1, Point2D obj2)
     {
         return false;
@@ -216,13 +242,25 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::meet(Point2D obj1, Region2D obj2)
     {
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[1] && !(flags[0] && flags[2]))
+            return true;
+        return false;
 
     }
+    //cody
     bool VerifyPredicate::meet(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for (int i = 5; i < 33; i++) {
+            if(flags == predicates[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Sam
@@ -233,10 +271,13 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::meet(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[2] || flags[3] || flags[4] || flags[5] || flags[10] || flags[11]) && (flags[6] || flags[7]))
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[2] || im == predicates[3] || im == predicates[4])
             return true;
         return false;
     }
@@ -254,13 +295,18 @@
     {
        return false;
     }
+    //cody
     bool VerifyPredicate::equal(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::equal(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[33] || flags == predicates[36])
+            return true;
+        return false;
     }
 
     // Sam
@@ -268,14 +314,18 @@
     {
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::equal(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(flags[2] || flags[3] || flags[4] || flags[5] || flags[6] || flags[7] || flags[10] || flags[11])
-            return false;
-        return true;
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[5])
+            return true;
+        return false;
     }
 
+    // Douglas
     bool VerifyPredicate::inside(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
@@ -292,13 +342,21 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::inside(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(!flags[0] && flags[1])
+            return true;
+        return false;
     }
+    //cody
     bool VerifyPredicate::inside(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[34] || flags == predicates[35] || flags == predicates[39] || flags == predicates[40])
+            return true;
+        return false;
     }
 
     // Sam
@@ -309,11 +367,18 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::inside(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[7])
+            return true;
+        return false;
     }
 
+    // Douglas
     bool VerifyPredicate::covered_by(Point2D obj1, Point2D obj2)
     {
         return false;
@@ -327,13 +392,18 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::covered_by(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::covered_by(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[37] || flags == predicates[38] || flags == predicates[41] || flags == predicates[42])
+            return true;
+        return false;
     }
 
     // Sam
@@ -344,14 +414,18 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::covered_by(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[0] || flags[1] || flags[2] || flags[3] || flags[6]) && flags[7])
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[6] || im == predicates[8] || im == predicates[9])
             return true;
         return false;
     }
 
+    // Douglas
     bool VerifyPredicate::contains(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
@@ -365,13 +439,18 @@
     {
         return false;
     }
+    //cody
     bool VerifyPredicate::contains(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::contains(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[43] || flags == predicates[46] || flags == predicates[63] || flags == predicates[66])
+            return true;
+        return false;
     }
 
     // Sam
@@ -379,14 +458,18 @@
     {
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::contains(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
-        if(!(flags[4] || flags[5] || flags[6] || flags[7] || flags[8] || flags[9] || flags[10] || flags[11]) && flags[0] && flags[1])
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[19])
             return true;
         return false;
     }
 
+    // Douglas
     bool VerifyPredicate::covers(Point2D obj1, Point2D obj2)
     {
         return false;
@@ -397,13 +480,18 @@
     {
         return false;
     }
+    //cody
     bool VerifyPredicate::covers(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::covers(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[49] || flags == predicates[52] || flags == predicates[69] || flags == predicates[72])
+            return true;
+        return false;
     }
 
     // Sam
@@ -411,15 +499,18 @@
     {
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::covers(Region2D obj1, Region2D obj2)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if((flags[4] || flags[5]) )
+        if(im == predicates[11] || im == predicates[21] || im == predicates[24])
             return true;
         return false;
     }
 
+    // Douglas
     bool VerifyPredicate::overlap(Point2D obj1, Point2D obj2)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
@@ -436,13 +527,28 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::overlap(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[0] && flags[2])
+            return true;
+        return false;
     }
+    //cody
     bool VerifyPredicate::overlap(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[44] || flags == predicates[45] || flags == predicates[47] || flags == predicates[48] || flags == predicates[50] || flags == predicates[51]
+         || flags == predicates[53] || flags == predicates[54] || flags == predicates[55] || flags == predicates[56] || flags == predicates[57] || flags == predicates[58]
+          || flags == predicates[59] || flags == predicates[60] || flags == predicates[61] || flags == predicates[62] || flags == predicates[64] || flags == predicates[65]
+           || flags == predicates[67] || flags == predicates[68] || flags == predicates[70] || flags == predicates[71] || flags == predicates[73] || flags == predicates[74]
+            || flags == predicates[75] || flags == predicates[76] || flags == predicates[77] || flags == predicates[78] || flags == predicates[79] || flags == predicates[80]
+             || flags == predicates[81] || flags == predicates[82]) 
+        {
+            return true;
+        }
+        return false;
     }
 
     // Sam
@@ -453,12 +559,18 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::overlap(Region2D obj1, Region2D obj2)
     {
-        
+        vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
+        if(im == predicates[10] || im == predicates[12] || im == predicates[13] || im == predicates[14] || im == predicates[15] || im == predicates[16] || im == predicates[17] || im == predicates[18] || im == predicates[20] || im == predicates[22] || im == predicates[23] || im == predicates[25] || im == predicates[26] || im == predicates[27] || im == predicates[28] || im == predicates[29] || im == predicates[30] || im == predicates[31] || im == predicates[32] || im == predicates[33])
+            return true;
+        return false;
     }
 
-
+    // Douglas
     bool VerifyPredicate::verify(Point2D obj1, Point2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
@@ -482,9 +594,10 @@
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::verify(Line2D obj1, Line2D obj2, int predicateNumber)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
         if (flags == predicates[predicateNumber])
             return true;
         return false;
@@ -498,14 +611,18 @@
             return true;
         return false;
     }
+
+    // Douglas
     bool VerifyPredicate::verify(Region2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
+        vector<bool> im = createRegionRegion9IM(flags);
         if (flags == predicates[predicateNumber])
             return true;
         return false;
     }
 
+    // Douglas
     std::vector<bool> VerifyPredicate::PointPointAlgorithm(Point2D p1, Point2D p2)
     {
         std::vector<bool> flags; // poi_shared, poi_disjoint p1, poi_disjoint p2
@@ -793,6 +910,7 @@
         return featureVector;
     }
 
+    // Douglas
     std::vector<bool> VerifyPredicate::RegionRegionAlgorithm(Region2D f, Region2D g)
     {
         std::vector<bool> flags; // 0/1, 1/0, 1/2, 2/1, 0/2, 2/0, 1/1, bound_poi_shared, 0/1g, 1/0g, 1/2g, 2/1g

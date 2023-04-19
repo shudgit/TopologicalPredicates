@@ -1,3 +1,4 @@
+// Douglas
 #ifndef SIMPLEPOINT2D_H
 #define SIMPLEPOINT2D_H
 #include "Number.h"

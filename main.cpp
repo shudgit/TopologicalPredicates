@@ -1,3 +1,4 @@
+// Douglas
 #include "Number.h"
 #include <iostream>
 #include "SimplePoint2D.h"
@@ -288,7 +289,7 @@ void LineRegionOverlapsTest()
     else
         cout << "Line/Region Overlaps By Failed Test 1" << endl;
 }
-
+// Douglas
 int main ()
 {
     // iterator testing
@@ -508,7 +509,7 @@ int main ()
         cout << "Point-Region Disjoint Passed Test 3" << endl;
     else
         cout << "Point-Region Disjoint Failed Test 3" << endl;
-    /*
+    
     // point-region meets:
     if(vp.meet(bottom_points, lower_rectangle_region))
         cout << "Point-Region Meet Passed Test 1" << endl;
@@ -564,9 +565,10 @@ int main ()
         cout << "Point-Region Overlap Passed Test 3" << endl;
     else
         cout << "Point-Region Overlap Failed Test 3" << endl;
-    */
+    
 
     cout << endl << "Point-Region Tests Complete" << endl << endl;
+
     // line-line disjoint: 
     if(vp.disjoint(left_and_bottom_segments, left_and_bottom_segments))
         cout << "Line-Line Disjoint Failed Test 1" << endl;
@@ -583,7 +585,7 @@ int main ()
     else
         cout << "Line-Line Disjoint Failed Test 3" << endl;
     
-    /*
+    
     // line-line meets:
     if(vp.meet(left_and_bottom_segments, left_and_bottom_segments))
         cout << "Line-Line Meet Failed Test 1" << endl;
@@ -696,8 +698,8 @@ int main ()
     else
         cout << "Line-Line Overlap Failed Test 3" << endl;
     
-    */
-
+    
+    /*
     cout << endl;
     cout << "Line-Region Tests below" << endl;
     cout << endl;
