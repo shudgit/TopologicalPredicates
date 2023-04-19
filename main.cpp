@@ -452,7 +452,7 @@ int main ()
         cout << "Point-Line Meets Failed Test 3" << endl;
 
     // point-line equal: N/A
-    /*
+    
     // point-line inside:
     if(vp.inside(bottom_points, top_and_right_segments))
         cout << "Point-Line Inside Failed Test 1" << endl;
@@ -490,7 +490,7 @@ int main ()
         cout << "Point-Line Overlaps Passed Test 3" << endl;
     else
         cout << "Point-Line Overlaps Failed Test 3" << endl;
-    */
+    
     
     cout << endl << "Point-Line Tests Complete" << endl << endl;
 
@@ -699,7 +699,7 @@ int main ()
         cout << "Line-Line Overlap Failed Test 3" << endl;
     
     
-    /*
+    
     cout << endl;
     cout << "Line-Region Tests below" << endl;
     cout << endl;
@@ -758,7 +758,7 @@ int main ()
         cout << "Region-Region Disjoint Passed Test 3" << endl;
     else
         cout << "Region-Region Disjoint Failed Test 3" << endl;
-    /*
+    
     // region-region meets:
     if(vp.meet(upper_left_square_region, upper_rectangle_region))
         cout << "Region-Region Meet Failed Test 1" << endl;
@@ -880,6 +880,6 @@ int main ()
         cout << "Region-Region Overlap Passed Test 3" << endl;
     else
         cout << "Region-Region Overlap Failed Test 3" << endl;
-    */
+    
     return 0;
 }

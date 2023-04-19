@@ -15,6 +15,7 @@ private:
     std::unordered_map<int, vector<bool>> predicates;
     std::unordered_map<int, vector<bool>> lineRegionPredicates;
     std::unordered_map<int, vector<bool>> pointLinePredicates;
+    std::unordered_map<int, vector<bool>> pointRegionPredicates;
     std::vector<bool> PointPointAlgorithm(Point2D p1, Point2D p2);
     std::vector<bool> PointLineAlgorithm(Point2D obj1, Line2D obj2);
     std::vector<bool> PointRegionAlgorithm(Point2D obj1, Region2D obj2);

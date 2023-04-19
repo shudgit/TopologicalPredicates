@@ -186,6 +186,14 @@
         pointLinePredicates.insert(std::pair<int, vector<bool>>(13, {true, true, true, false, false, false, true, false, true}));
         pointLinePredicates.insert(std::pair<int, vector<bool>>(14, {true, true, true, false, false, false, true, true, true}));
 
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, true, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, true, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(4, {true, false, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(6, {true, true, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(7, {true, true, true, false, false, false, true, true, true}));
+
     }
 
     // Douglas
