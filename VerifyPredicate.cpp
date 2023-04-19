@@ -1351,14 +1351,14 @@
                 if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
                     // add it to the planesweep
-                    S.add_left(eventPoint.halfSeg.s, pt.object);
+                    S.add_left(eventPoint.attrHalfSeg.hs.s, pt.object);
                     // set the attr of the segment we added to the planesweep
-                    S.set_attr(eventPoint.halfSeg.s, ia);
+                    S.set_attr(eventPoint.attrHalfSeg.hs.s, ia);
                 }
                 else 
                 {
                     // delete from plansweep
-                    S.del_right(eventPoint.halfSeg.s);
+                    S.del_right(eventPoint.attrHalfSeg.hs.s);
                     // seg_unshared flipped to true
                     features[7] = true;
                 }
