@@ -171,6 +171,21 @@
         lineRegionPredicates.insert(std::pair<int, vector<bool>>(42, {true, true, true, true, true, false, true, true, true}));
         lineRegionPredicates.insert(std::pair<int, vector<bool>>(43, {true, true, true, true, true, true, true, true, true}));
         
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(3, {false, true, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(4, {false, true, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(5, {false, true, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(6, {false, true, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(7, {true, false, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(8, {true, false, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(9, {true, false, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(10, {true, false, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(11, {true, true, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(12, {true, true, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(13, {true, true, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(14, {true, true, true, false, false, false, true, true, true}));
+
     }
 
     // Douglas
@@ -583,7 +598,7 @@
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
-        if (flags[0] == predicates[predicateNumber][3] && flags[1] == predicates[predicateNumber][0] && flags[2] == predicates[predicateNumber][1] && flags[3] == predicates[predicateNumber][7])
+        if (flags[0] == pointLinePredicates[predicateNumber][3] && flags[1] == predicates[predicateNumber][0] && flags[2] == predicates[predicateNumber][1] && flags[3] == predicates[predicateNumber][7])
             return true;
         return false;
     }
