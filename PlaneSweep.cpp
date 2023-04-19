@@ -244,12 +244,44 @@ bool PlaneSweep::coincident(Segment2D segment)
             if(i > 0)                               //check intersect with sweepStatus[i - 1]
                 if((segment.findIntersection_excludeEndpoints(sweepStatus[i - 1])).first)
                 {
+                    SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i - 1]).second;
+
+                    Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
+                    Segment2D seg2 = Segment2D(segment.leftEndPoint, iPoint);
+                    Segment2D seg3 = Segment2D(iPoint, sweepStatus[i - 1].rightEndPoint);
+                    Segment2D seg4 = Segment2D(sweepStatus[i - 1].leftEndPoint, iPoint);
+
+                    HalfSegment2D hs1 = HalfSegment2D(seg1, false);
+                    HalfSegment2D hs2 = HalfSegment2D(seg1, true);
+                    HalfSegment2D hs3 = HalfSegment2D(seg2, false);
+                    HalfSegment2D hs4 = HalfSegment2D(seg2, true);
+                    HalfSegment2D hs5 = HalfSegment2D(seg3, false);
+                    HalfSegment2D hs6 = HalfSegment2D(seg3, true);
+                    HalfSegment2D hs7 = HalfSegment2D(seg4, false);
+                    HalfSegment2D hs8 = HalfSegment2D(seg4, true);
+
                     std::cout << "exited coincident if" << std::endl;
                     return true;
                 }
             else if(i < sweepStatus.size() - 1)     //check intersect with sweepStatus[i + 1]
                 if((segment.findIntersection_excludeEndpoints(sweepStatus[i + 1])).first)
                 {
+                    SimplePoint2D iPoint = segment.findIntersection_excludeEndpoints(sweepStatus[i + 1]).second;
+
+                    Segment2D seg1 = Segment2D(iPoint, segment.rightEndPoint);
+                    Segment2D seg2 = Segment2D(segment.leftEndPoint, iPoint);
+                    Segment2D seg3 = Segment2D(iPoint, sweepStatus[i + 1].rightEndPoint);
+                    Segment2D seg4 = Segment2D(sweepStatus[i + 1].leftEndPoint, iPoint);
+
+                    HalfSegment2D hs1 = HalfSegment2D(seg1, false);
+                    HalfSegment2D hs2 = HalfSegment2D(seg1, true);
+                    HalfSegment2D hs3 = HalfSegment2D(seg2, false);
+                    HalfSegment2D hs4 = HalfSegment2D(seg2, true);
+                    HalfSegment2D hs5 = HalfSegment2D(seg3, false);
+                    HalfSegment2D hs6 = HalfSegment2D(seg3, true);
+                    HalfSegment2D hs7 = HalfSegment2D(seg4, false);
+                    HalfSegment2D hs8 = HalfSegment2D(seg4, true);
+
                     std::cout << "exited coincident else " << std::endl;
                     return true;
                 }
