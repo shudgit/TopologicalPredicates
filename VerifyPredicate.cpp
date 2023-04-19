@@ -108,6 +108,51 @@
         predicates.insert(std::pair<int, vector<bool>>(80, {true, true, true, true, true, false, true, true, true}));
         predicates.insert(std::pair<int, vector<bool>>(81, {true, true, true, true, true, true, true, false, true}));
         predicates.insert(std::pair<int, vector<bool>>(82, {true, true, true, true, true, true, true, true, true}));
+
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, false, true, false, true, false, false, false, false}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(4, {false, false, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(5, {false, true, false, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(6, {false, true, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(7, {false, true, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(8, {false, true, true, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(9, {false, true, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(10, {false, true, true, false, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(11, {false, true, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(12, {false, true, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(13, {false, true, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(14, {true, false, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(15, {true, false, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(16, {true, false, false, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(17, {true, false, false, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(18, {true, false, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(19, {true, false, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(20, {true, false, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(21, {true, false, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(22, {true, false, true, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(23, {true, false, true, true, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(24, {true, false, true, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(25, {true, false, true, true, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(26, {true, true, false, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(27, {true, true, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(28, {true, true, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(29, {true, true, false, true, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(30, {true, true, false, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(31, {true, true, false, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(32, {true, true, true, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(33, {true, true, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(34, {true, true, true, false, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(35, {true, true, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(36, {true, true, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(37, {true, true, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(38, {true, true, true, true, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(39, {true, true, true, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(40, {true, true, true, true, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(41, {true, true, true, true, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(42, {true, true, true, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(43, {true, true, true, true, true, true, true, true, true}));
+        
     }
 
     bool VerifyPredicate::disjoint(Point2D obj1, Point2D obj2)
@@ -449,7 +494,7 @@
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
-        if (flags[0] == predicates[predicateNumber][0] && (flags[1] == predicates[predicateNumber][1] || flags[3] == predicates[predicateNumber][1]) && flags[2] == predicates[predicateNumber][2] && flags[4] == predicates[predicateNumber][3] && flags[5] == predicates[predicateNumber][4] && flags[6] == predicates[predicateNumber][5] && flags[7] == predicates[predicateNumber][7])
+        if (flags[0] == lineRegionPredicates[predicateNumber][0] && (flags[1] == predicates[predicateNumber][1] || flags[3] == predicates[predicateNumber][1]) && flags[2] == predicates[predicateNumber][2] && flags[4] == predicates[predicateNumber][3] && flags[5] == predicates[predicateNumber][4] && flags[6] == predicates[predicateNumber][5] && flags[7] == predicates[predicateNumber][7])
             return true;
         return false;
     }
