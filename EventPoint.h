@@ -3,6 +3,7 @@
 #include "SimplePoint2D.h"
 #include "AttributedHalfSegment2D.h"
 
+//cody
 struct EventPoint {
     SimplePoint2D point;
     HalfSegment2D halfSeg;
