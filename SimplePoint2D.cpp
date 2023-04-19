@@ -1,3 +1,4 @@
+// Douglas
 #include "SimplePoint2D.h"
 
 SimplePoint2D::SimplePoint2D()

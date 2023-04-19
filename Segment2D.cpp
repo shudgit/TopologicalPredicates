@@ -1,3 +1,4 @@
+// Douglas
 #include "Segment2D.h"
 #include <cmath>
 #include <iostream>

@@ -1,3 +1,4 @@
+// Douglas
 #ifndef SEGMENT2D_H
 #define SEGMENT2D_H
 #include "SimplePoint2D.h"

@@ -1,3 +1,4 @@
+// Douglas
 #include "Number.h"
 #include "AttributedHalfSegment2D.h"
 #include <climits>

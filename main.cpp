@@ -1,3 +1,4 @@
+// Douglas
 #include "Number.h"
 #include <iostream>
 #include "SimplePoint2D.h"
@@ -288,7 +289,7 @@ void LineRegionOverlapsTest()
     else
         cout << "Line/Region Overlaps By Failed Test 1" << endl;
 }
-
+// Douglas
 int main ()
 {
     // iterator testing
