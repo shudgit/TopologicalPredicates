@@ -435,7 +435,7 @@
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags[0] == predicates[predicateNumber][3] && flags[1] == predicates[predicateNumber][0] && flags[2] == predicates[predicateNumber][1] && flags[3] == predicates[predicateNumber][7])
             return true;
         return false;
     }
@@ -458,7 +458,7 @@
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags[0] == predicates[predicateNumber][0] && (flags[1] == predicates[predicateNumber][1] || flags[3] == predicates[predicateNumber][1]) && flags[2] == predicates[predicateNumber][2] && flags[4] == predicates[predicateNumber][3] && flags[5] == predicates[predicateNumber][4] flags[6] == predicates[predicateNumber][5] && flags[7] == predicates[predicateNumber][7])
             return true;
         return false;
     }
