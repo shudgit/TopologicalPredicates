@@ -9,8 +9,8 @@ all:
 		PlaneSweep.cpp \
 		main.cpp \
 		Point2D.cpp \
-		Region2D.cpp \ 
-		Segment2D.cpp \ 
+		Region2D.cpp \
+		Segment2D.cpp \
 		SimplePoint2D.cpp
 	g++ AttributedHalfSegment2D.o \
 		EventPoint.o \
@@ -21,8 +21,8 @@ all:
 		PlaneSweep.o \
 		main.o \
 		Point2D.o \
-		Region2D.o \ 
-		Segment2D.o \ 
+		Region2D.o \
+		Segment2D.o \
 		SimplePoint2D.o \
 		../TopologicalPredicates/libTopologicalPredicates.a \
 		-lgmp -lgmpxx \
