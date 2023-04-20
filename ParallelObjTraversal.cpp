@@ -1,6 +1,6 @@
 #include "ParallelObjTraversal.h"
 #include <iostream>
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePoint2D> obj2) 
 {
     object1Type = 0;
@@ -14,7 +14,7 @@ ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<SimplePo
         point2Queue.push(obj2[i]);
     }
 }
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<HalfSegment2D> obj2) 
 {
     object1Type = 0;
@@ -28,7 +28,7 @@ ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<HalfSegm
         line2Queue.push(obj2[i]);
     }
 }
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<AttributedHalfSegment2D> obj2) 
 {
     object1Type = 0;
@@ -42,7 +42,7 @@ ParallelObjT::ParallelObjT(std::vector<SimplePoint2D> obj1, std::vector<Attribut
         region2Queue.push(obj2[i]);
     }
 }
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<HalfSegment2D> obj1, std::vector<HalfSegment2D> obj2) 
 {
     object1Type = 1;
@@ -56,7 +56,7 @@ ParallelObjT::ParallelObjT(std::vector<HalfSegment2D> obj1, std::vector<HalfSegm
         line2Queue.push(obj2[i]);
     }
 }
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<HalfSegment2D> obj1, std::vector<AttributedHalfSegment2D> obj2) 
 {
     object1Type = 1;
@@ -70,7 +70,7 @@ ParallelObjT::ParallelObjT(std::vector<HalfSegment2D> obj1, std::vector<Attribut
         region2Queue.push(obj2[i]);
     }
 }
-
+//cody, sam and douglas
 ParallelObjT::ParallelObjT(std::vector<AttributedHalfSegment2D> obj1, std::vector<AttributedHalfSegment2D> obj2) 
 {
     object1Type = 2;
@@ -84,7 +84,7 @@ ParallelObjT::ParallelObjT(std::vector<AttributedHalfSegment2D> obj1, std::vecto
         region2Queue.push(obj2[i]);
     }
 }
-
+//cody
 EventPoint ParallelObjT::SelectNext() 
 {
     if(object1Type == 0 && object2Type == 0)
@@ -100,7 +100,7 @@ EventPoint ParallelObjT::SelectNext()
     else if(object1Type == 2 && object2Type == 2)
         return RegionRegionNext();
 }
-
+//cody and Douglas
 EventPoint ParallelObjT::PointPointNext() 
 {
     EventPoint newEvent;
@@ -231,7 +231,7 @@ EventPoint ParallelObjT::PointPointNext()
         return newEvent;
     }
 }
-
+//cody
 EventPoint ParallelObjT::PointLineNext()
 {
     EventPoint newEvent;
@@ -362,7 +362,7 @@ EventPoint ParallelObjT::PointLineNext()
         return newEvent;
     }
 }
-
+//cody
 EventPoint ParallelObjT::PointRegionNext() 
 {
     EventPoint newEvent;
@@ -491,7 +491,7 @@ EventPoint ParallelObjT::PointRegionNext()
         return newEvent;
     }
 }
-
+//cody
 EventPoint ParallelObjT::LineLineNext() 
 {
     EventPoint newEvent;
@@ -623,7 +623,7 @@ EventPoint ParallelObjT::LineLineNext()
         return newEvent;
     }
 }
-
+//cody
 EventPoint ParallelObjT::LineRegionNext()
 {
     EventPoint newEvent;
@@ -755,7 +755,7 @@ EventPoint ParallelObjT::LineRegionNext()
         return newEvent;
     }
 }
-
+//cody
 EventPoint ParallelObjT::RegionRegionNext()
 {
     EventPoint newEvent;

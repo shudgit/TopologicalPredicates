@@ -8,7 +8,7 @@ PlaneSweep::PlaneSweep() {
 }
 
 //functions
-
+//cody
 bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg) 
 {
     SimplePoint2D dp = segToAdd.leftEndPoint;
@@ -27,7 +27,7 @@ bool CheckLessThan(Segment2D segToAdd, Segment2D prevSeg)
     return dp.y < halfSegY;
  
 }
-
+//cody
 bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
 {
     SimplePoint2D left = segment.leftEndPoint;
@@ -44,7 +44,7 @@ bool pointGreaterThan(SimplePoint2D point, Segment2D segment)
 
     return point.y > SegY;
 }
-
+//cody
 void PlaneSweep::add_left(Segment2D segment, int obj)
 {
     if(sweepStatus.empty())
@@ -71,14 +71,14 @@ void PlaneSweep::add_left(Segment2D segment, int obj)
     }
     objects[segment] = obj; 
 }
-
+//cody
 void PlaneSweep::del_right(Segment2D segment)
 {
     sweepStatus.erase(find(sweepStatus.begin(), sweepStatus.end(), segment));
     if(attributes.find(segment) != attributes.end())
         attributes.erase(segment);
 }
-
+//cody
 bool PlaneSweep::pred_exists(Segment2D segment)
 {
     if(sweepStatus.empty() || sweepStatus[0] == segment) 
@@ -86,7 +86,7 @@ bool PlaneSweep::pred_exists(Segment2D segment)
     else 
         return true;
 }
-
+//cody
 bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
 {
     if(sweepStatus.empty()) {
@@ -107,7 +107,7 @@ bool PlaneSweep::pred_of_p_exists(SimplePoint2D point)
         return point.y > SegY;
     }
 }
-
+//cody
 Segment2D PlaneSweep::pred_of_p(SimplePoint2D point) 
 {
     Segment2D returnSeg;

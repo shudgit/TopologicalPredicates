@@ -23,6 +23,23 @@
         im[8] = true;
         return im;
     }
+    //cody
+    vector<bool> createLineLine9IM(vector<bool> flags)
+    {
+        vector<bool> im;
+        im.resize(9, false);
+        im[0] = flags[0] || flags[1];
+        im[1] = flags[7];
+        im[2] = flags[2];
+        im[3] = flags[3];
+        im[4] = flags[4];
+        im[5] = flags[5];
+        im[6] = flags[6];
+        im[7] = flags[8];
+        im[8] = true;
+        
+        return im;
+    }
 
     // Sam and Douglas
     VerifyPredicate::VerifyPredicate()
@@ -109,6 +126,79 @@
         predicates.insert(std::pair<int, vector<bool>>(80, {true, true, true, true, true, false, true, true, true}));
         predicates.insert(std::pair<int, vector<bool>>(81, {true, true, true, true, true, true, true, false, true}));
         predicates.insert(std::pair<int, vector<bool>>(82, {true, true, true, true, true, true, true, true, true}));
+
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, false, true, false, true, false, false, false, false}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(4, {false, false, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(5, {false, true, false, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(6, {false, true, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(7, {false, true, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(8, {false, true, true, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(9, {false, true, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(10, {false, true, true, false, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(11, {false, true, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(12, {false, true, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(13, {false, true, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(14, {true, false, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(15, {true, false, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(16, {true, false, false, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(17, {true, false, false, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(18, {true, false, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(19, {true, false, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(20, {true, false, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(21, {true, false, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(22, {true, false, true, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(23, {true, false, true, true, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(24, {true, false, true, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(25, {true, false, true, true, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(26, {true, true, false, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(27, {true, true, false, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(28, {true, true, false, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(29, {true, true, false, true, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(30, {true, true, false, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(31, {true, true, false, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(32, {true, true, true, false, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(33, {true, true, true, false, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(34, {true, true, true, false, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(35, {true, true, true, false, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(36, {true, true, true, false, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(37, {true, true, true, false, true, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(38, {true, true, true, true, false, false, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(39, {true, true, true, true, false, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(40, {true, true, true, true, false, true, true, false, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(41, {true, true, true, true, false, true, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(42, {true, true, true, true, true, false, true, true, true}));
+        lineRegionPredicates.insert(std::pair<int, vector<bool>>(43, {true, true, true, true, true, true, true, true, true}));
+        
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(3, {false, true, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(4, {false, true, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(5, {false, true, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(6, {false, true, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(7, {true, false, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(8, {true, false, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(9, {true, false, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(10, {true, false, true, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(11, {true, true, false, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(12, {true, true, false, false, false, false, true, true, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(13, {true, true, true, false, false, false, true, false, true}));
+        pointLinePredicates.insert(std::pair<int, vector<bool>>(14, {true, true, true, false, false, false, true, true, true}));
+
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, true, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, true, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(4, {true, false, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, true, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(6, {true, true, false, false, false, false, true, true, true}));
+        pointRegionPredicates.insert(std::pair<int, vector<bool>>(7, {true, true, true, false, false, false, true, true, true}));
+
+        pointPointPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, false, true, false, true,}));
+        pointPointPredicates.insert(std::pair<int, vector<bool>>(2, {true, false, false, false, false, false, false, false, true,}));
+        pointPointPredicates.insert(std::pair<int, vector<bool>>(3, {true, false, false, false, false, false, true, false, true,}));
+        pointPointPredicates.insert(std::pair<int, vector<bool>>(4, {true, false, true, false, false, false, false, false, true,}));
+        pointPointPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, true, false, false, false, true, false, true,}));
     }
 
     // Douglas
@@ -128,20 +218,22 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::disjoint(Point2D obj1, Region2D obj2)
     {
         vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1]))
+        if(flags[2] && !(flags[0] && flags[1]))
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::disjoint(Line2D obj1, Line2D obj2)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
-        if(!(flags[0] && flags[1] && flags[3] && flags[4] && flags[7]))
-            return true;
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for(int i = 1; i < 5; i++) {
+            if(flags == predicates[i])
+                return true;
+        }
         return false;
     }
 
@@ -178,15 +270,25 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::meet(Point2D obj1, Region2D obj2)
     {
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[1] && !(flags[0] && flags[2]))
+            return true;
+        return false;
 
     }
-
+    //cody
     bool VerifyPredicate::meet(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        for (int i = 5; i < 33; i++) {
+            if(flags == predicates[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Sam
@@ -221,15 +323,18 @@
     {
        return false;
     }
-
+    //cody
     bool VerifyPredicate::equal(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::equal(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[33] || flags == predicates[36])
+            return true;
+        return false;
     }
 
     // Sam
@@ -265,15 +370,21 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::inside(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(!flags[0] && flags[1])
+            return true;
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::inside(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[34] || flags == predicates[35] || flags == predicates[39] || flags == predicates[40])
+            return true;
+        return false;
     }
 
     // Sam
@@ -309,15 +420,18 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::covered_by(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::covered_by(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[37] || flags == predicates[38] || flags == predicates[41] || flags == predicates[42])
+            return true;
+        return false;
     }
 
     // Sam
@@ -353,13 +467,18 @@
     {
         return false;
     }
+    //cody
     bool VerifyPredicate::contains(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
+    //cody
     bool VerifyPredicate::contains(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[43] || flags == predicates[46] || flags == predicates[63] || flags == predicates[66])
+            return true;
+        return false;
     }
 
     // Sam
@@ -389,15 +508,18 @@
     {
         return false;
     }
-
+    //cody
     bool VerifyPredicate::covers(Point2D obj1, Region2D obj2)
     {
-
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::covers(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[49] || flags == predicates[52] || flags == predicates[69] || flags == predicates[72])
+            return true;
+        return false;
     }
 
     // Sam
@@ -433,15 +555,28 @@
             return true;
         return false;
     }
-
+    //cody
     bool VerifyPredicate::overlap(Point2D obj1, Region2D obj2)
     {
-
+        vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
+        if(flags[0] && flags[2])
+            return true;
+        return false;
     }
-
+    //cody
     bool VerifyPredicate::overlap(Line2D obj1, Line2D obj2)
     {
-
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
+        if(flags == predicates[44] || flags == predicates[45] || flags == predicates[47] || flags == predicates[48] || flags == predicates[50] || flags == predicates[51]
+         || flags == predicates[53] || flags == predicates[54] || flags == predicates[55] || flags == predicates[56] || flags == predicates[57] || flags == predicates[58]
+          || flags == predicates[59] || flags == predicates[60] || flags == predicates[61] || flags == predicates[62] || flags == predicates[64] || flags == predicates[65]
+           || flags == predicates[67] || flags == predicates[68] || flags == predicates[70] || flags == predicates[71] || flags == predicates[73] || flags == predicates[74]
+            || flags == predicates[75] || flags == predicates[76] || flags == predicates[77] || flags == predicates[78] || flags == predicates[79] || flags == predicates[80]
+             || flags == predicates[81] || flags == predicates[82]) 
+        {
+            return true;
+        }
+        return false;
     }
 
     // Sam
@@ -467,7 +602,7 @@
     bool VerifyPredicate::verify(Point2D obj1, Point2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags == pointPointPredicates[predicateNumber])
             return true;
         return false;
     } 
@@ -476,20 +611,21 @@
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
-        if (flags[0] == predicates[predicateNumber][3] && flags[1] == predicates[predicateNumber][0] && flags[2] == predicates[predicateNumber][1] && flags[3] == predicates[predicateNumber][7])
+        if (flags[0] == pointLinePredicates[predicateNumber][3] && flags[1] == pointLinePredicates[predicateNumber][0] && flags[2] == pointLinePredicates[predicateNumber][1] && flags[3] == pointLinePredicates[predicateNumber][7])
             return true;
         return false;
     }
     bool VerifyPredicate::verify(Point2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags == pointRegionPredicates[predicateNumber])
             return true;
         return false;
     }
+    //cody
     bool VerifyPredicate::verify(Line2D obj1, Line2D obj2, int predicateNumber)
     {
-        vector<bool> flags = LineLineAlgorithm(obj1, obj2);
+        vector<bool> flags = createLineLine9IM(LineLineAlgorithm(obj1, obj2));
         if (flags == predicates[predicateNumber])
             return true;
         return false;
@@ -499,7 +635,7 @@
     bool VerifyPredicate::verify(Line2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = LineRegionAlgorithm(obj1, obj2);
-        if (flags[0] == predicates[predicateNumber][0] && (flags[1] == predicates[predicateNumber][1] || flags[3] == predicates[predicateNumber][1]) && flags[2] == predicates[predicateNumber][2] && flags[4] == predicates[predicateNumber][3] && flags[5] == predicates[predicateNumber][4] && flags[6] == predicates[predicateNumber][5] && flags[7] == predicates[predicateNumber][7])
+        if (flags[0] == lineRegionPredicates[predicateNumber][0] && (flags[1] == predicates[predicateNumber][1] || flags[3] == predicates[predicateNumber][1]) && flags[2] == predicates[predicateNumber][2] && flags[4] == predicates[predicateNumber][3] && flags[5] == predicates[predicateNumber][4] && flags[6] == predicates[predicateNumber][5] && flags[7] == predicates[predicateNumber][7])
             return true;
         return false;
     }
@@ -1228,14 +1364,14 @@
                 if (eventPoint.attrHalfSeg.hs.isDominatingPointLeft)
                 {
                     // add it to the planesweep
-                    S.add_left(eventPoint.halfSeg.s, pt.object);
+                    S.add_left(eventPoint.attrHalfSeg.hs.s, pt.object);
                     // set the attr of the segment we added to the planesweep
-                    S.set_attr(eventPoint.halfSeg.s, ia);
+                    S.set_attr(eventPoint.attrHalfSeg.hs.s, ia);
                 }
                 else 
                 {
                     // delete from plansweep
-                    S.del_right(eventPoint.halfSeg.s);
+                    S.del_right(eventPoint.attrHalfSeg.hs.s);
                     // seg_unshared flipped to true
                     features[7] = true;
                 }
