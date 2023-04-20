@@ -870,7 +870,7 @@
             }
             else
             {
-                pair<int, int> mn_pred;
+                pair<int, int> mn_pred;     // get predecessor overlap numbers
                 sweep.add_left(next.hs.s, pot.object);
                 if(sweep.coincident(next.hs.s, pot.region1Dynamic, pot.region2Dynamic))
                     pot.object = 3;
@@ -879,7 +879,7 @@
                 else
                     mn_pred = sweep.get_pred_attr_2(next.hs.s);
                 pair<int, int> mn = make_pair(mn_pred.second, mn_pred.second);
-                if(pot.object == 1 || pot.object == 3)
+                if(pot.object == 1 || pot.object == 3)      // set current overlap numbers depending on what object it is
                 {
                     if(next.above)
                         mn.second += 1;
