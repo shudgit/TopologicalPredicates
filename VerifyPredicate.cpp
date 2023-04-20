@@ -199,6 +199,45 @@
         pointPointPredicates.insert(std::pair<int, vector<bool>>(3, {true, false, false, false, false, false, true, false, true,}));
         pointPointPredicates.insert(std::pair<int, vector<bool>>(4, {true, false, true, false, false, false, false, false, true,}));
         pointPointPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, true, false, false, false, true, false, true,}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, false, true, false, true, true, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(4, {false, false, true, false, true, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, false, false, true, false, false, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(6, {true, false, false, false, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(7, {true, false, false, true, false, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(8, {true, false, false, true, true, false, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(9, {true, false, false, true, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(10, {true, false, true, false, true, false, true, true, true}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(11, {true, false, true, false, true, true, false, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(12, {true, false, true, false, true, true, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(13, {true, false, true, false, true, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(14, {true, false, true, true, false, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(15, {true, false, true, true, true, false, true, false, true}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(16, {true, false, true, true, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(17, {true, false, true, true, true, true, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(18, {true, false, true, true, true, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(19, {true, true, true, false, false, true, false, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(20, {true, true, true, false, false, true, true, true, true}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(21, {true, true, true, false, true, false, false, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(22, {true, true, true, false, true, false, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(23, {true, true, true, false, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(24, {true, true, true, false, true, true, false, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(25, {true, true, true, false, true, true, true, false, true}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(26, {true, true, true, false, true, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(27, {true, true, true, true, false, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(28, {true, true, true, true, false, true, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(29, {true, true, true, true, false, true, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(30, {true, true, true, true, true, false, true, true, true}));
+
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(31, {true, true, true, true, true, false, true, true, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(32, {true, true, true, true, true, true, true, false, true}));
+        regionRegionPredicates.insert(std::pair<int, vector<bool>>(33, {true, true, true, true, true, true, true, true, true}));
     }
 
     // Douglas
@@ -251,7 +290,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[1])
+        if(im == regionRegionPredicates[1])
             return true;
         return false;
     }
@@ -305,7 +344,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[2] || im == predicates[3] || im == predicates[4])
+        if(im == regionRegionPredicates[2] || im == regionRegionPredicates[3] || im == regionRegionPredicates[4])
             return true;
         return false;
     }
@@ -348,7 +387,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[5])
+        if(im == regionRegionPredicates[5])
             return true;
         return false;
     }
@@ -401,7 +440,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[7])
+        if(im == regionRegionPredicates[7])
             return true;
         return false;
     }
@@ -448,7 +487,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[6] || im == predicates[8] || im == predicates[9])
+        if(im == regionRegionPredicates[6] || im == regionRegionPredicates[8] || im == regionRegionPredicates[9])
             return true;
         return false;
     }
@@ -492,7 +531,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[19])
+        if(im == regionRegionPredicates[19])
             return true;
         return false;
     }
@@ -533,7 +572,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[11] || im == predicates[21] || im == predicates[24])
+        if(im == regionRegionPredicates[11] || im == regionRegionPredicates[21] || im == regionRegionPredicates[24])
             return true;
         return false;
     }
@@ -593,7 +632,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if(im == predicates[10] || im == predicates[12] || im == predicates[13] || im == predicates[14] || im == predicates[15] || im == predicates[16] || im == predicates[17] || im == predicates[18] || im == predicates[20] || im == predicates[22] || im == predicates[23] || im == predicates[25] || im == predicates[26] || im == predicates[27] || im == predicates[28] || im == predicates[29] || im == predicates[30] || im == predicates[31] || im == predicates[32] || im == predicates[33])
+        if(im == regionRegionPredicates[10] || im == regionRegionPredicates[12] || im == regionRegionPredicates[13] || im == regionRegionPredicates[14] || im == regionRegionPredicates[15] || im == regionRegionPredicates[16] || im == regionRegionPredicates[17] || im == regionRegionPredicates[18] || im == regionRegionPredicates[20] || im == regionRegionPredicates[22] || im == regionRegionPredicates[23] || im == regionRegionPredicates[25] || im == regionRegionPredicates[26] || im == regionRegionPredicates[27] || im == regionRegionPredicates[28] || im == regionRegionPredicates[29] || im == regionRegionPredicates[30] || im == regionRegionPredicates[31] || im == regionRegionPredicates[32] || im == regionRegionPredicates[33])
             return true;
         return false;
     }
@@ -645,7 +684,7 @@
     {
         vector<bool> flags = RegionRegionAlgorithm(obj1, obj2);
         vector<bool> im = createRegionRegion9IM(flags);
-        if (flags == predicates[predicateNumber])
+        if (flags == regionRegionPredicates[predicateNumber])
             return true;
         return false;
     }
