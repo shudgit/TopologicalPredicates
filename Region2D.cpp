@@ -27,14 +27,14 @@ struct Region2D::Impl {
     bool CheckLessThan(SimplePoint2D dp, HalfSegment2D halfSeg);
 };
 
-
+//cody
 Region2D::Impl::Impl()
 {
     std::vector<AttributedHalfSegment2D> empty;
     this->regionSegments = empty;
 }
 Region2D::Impl::~Impl() {}
-
+//cody
 Region2D::Impl::Impl(std::vector<Segment2D> _regionSegments)
 {
     this->segments = _regionSegments;
@@ -52,7 +52,7 @@ Region2D::Impl::Impl(std::vector<Segment2D> _regionSegments)
     this->halfSegments = HalfSegVec;
     setFlags();
 }
-
+//cody
 SimplePoint2D Region2D::Impl::GetDominatePoint(HalfSegment2D inputHalfSegment)
 {
     Segment2D tempSegment = inputHalfSegment.s;
@@ -64,14 +64,14 @@ SimplePoint2D Region2D::Impl::GetDominatePoint(HalfSegment2D inputHalfSegment)
         return tempSegment.rightEndPoint;
     }
 }
-
+//cody
 HalfSegment2D Region2D::Impl::GetBrotherSeg(HalfSegment2D currentHalfSeg)
 {
     HalfSegment2D brotherSeg  = currentHalfSeg;
     brotherSeg.isDominatingPointLeft = !currentHalfSeg.isDominatingPointLeft;
     return brotherSeg;
 }
-
+//cody
 bool Region2D::Impl::GetAboveFlag(HalfSegment2D currentHalfSeg)
 {
     for(int i = 0; i < regionSegments.size(); i++) {
@@ -81,7 +81,7 @@ bool Region2D::Impl::GetAboveFlag(HalfSegment2D currentHalfSeg)
         }
     }
 }
-
+//cody
 bool Region2D::Impl::CheckLessThan(SimplePoint2D dp, HalfSegment2D halfSeg)
 {
     Segment2D seg = halfSeg.s;
@@ -99,7 +99,7 @@ bool Region2D::Impl::CheckLessThan(SimplePoint2D dp, HalfSegment2D halfSeg)
 
     return dp.y < halfSegY;
 }
-
+//cody
 void Region2D::Impl::setFlags()
 {
     //initializing sweep structures

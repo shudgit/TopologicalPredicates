@@ -199,41 +199,6 @@
         pointPointPredicates.insert(std::pair<int, vector<bool>>(3, {true, false, false, false, false, false, true, false, true,}));
         pointPointPredicates.insert(std::pair<int, vector<bool>>(4, {true, false, true, false, false, false, false, false, true,}));
         pointPointPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, true, false, false, false, true, false, true,}));
-
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(1, {false, false, true, false, false, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(2, {false, false, true, false, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(3, {false, false, true, false, true, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(4, {false, false, true, false, true, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(5, {true, false, false, false, true, false, false, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(6, {true, false, false, false, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(7, {true, false, false, true, false, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(8, {true, false, false, true, true, false, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(9, {true, false, false, true, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(10, {true, false, true, false, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(11, {true, false, true, false, true, true, false, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(12, {true, false, true, false, true, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(13, {true, false, true, false, true, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(14, {true, false, true, true, false, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(15, {true, false, true, true, true, false, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(16, {true, false, true, true, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(17, {true, false, true, true, true, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(18, {true, false, true, true, true, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(19, {true, true, true, false, false, true, false, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(20, {true, true, true, false, false, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(21, {true, true, true, false, true, false, false, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(22, {true, true, true, false, true, false, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(23, {true, true, true, false, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(24, {true, true, true, false, true, true, false, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(25, {true, true, true, false, true, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(26, {true, true, true, false, true, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(27, {true, true, true, true, false, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(28, {true, true, true, true, false, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(29, {true, true, true, true, false, true, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(30, {true, true, true, true, true, false, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(31, {true, true, true, true, true, false, true, true, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(32, {true, true, true, true, true, true, true, false, true}));
-        regionRegionPredicates.insert(std::pair<int, vector<bool>>(33, {true, true, true, true, true, true, true, true, true}));
-
     }
 
     // Douglas
@@ -637,7 +602,7 @@
     bool VerifyPredicate::verify(Point2D obj1, Point2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointPointAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags == pointPointPredicates[predicateNumber])
             return true;
         return false;
     } 
@@ -646,14 +611,14 @@
     bool VerifyPredicate::verify(Point2D obj1, Line2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointLineAlgorithm(obj1, obj2);
-        if (flags[0] == pointLinePredicates[predicateNumber][3] && flags[1] == predicates[predicateNumber][0] && flags[2] == predicates[predicateNumber][1] && flags[3] == predicates[predicateNumber][7])
+        if (flags[0] == pointLinePredicates[predicateNumber][3] && flags[1] == pointLinePredicates[predicateNumber][0] && flags[2] == pointLinePredicates[predicateNumber][1] && flags[3] == pointLinePredicates[predicateNumber][7])
             return true;
         return false;
     }
     bool VerifyPredicate::verify(Point2D obj1, Region2D obj2, int predicateNumber)
     {
         vector<bool> flags = PointRegionAlgorithm(obj1, obj2);
-        if (flags == predicates[predicateNumber])
+        if (flags == pointRegionPredicates[predicateNumber])
             return true;
         return false;
     }
@@ -1041,7 +1006,7 @@
             }
             else
             {
-                pair<int, int> mn_pred;
+                pair<int, int> mn_pred;     // get predecessor overlap numbers
                 sweep.add_left(next.hs.s, pot.object);
                 if(sweep.coincident(next.hs.s, pot.region1Dynamic, pot.region2Dynamic))
                     pot.object = 3;
@@ -1050,7 +1015,7 @@
                 else
                     mn_pred = sweep.get_pred_attr_2(next.hs.s);
                 pair<int, int> mn = make_pair(mn_pred.second, mn_pred.second);
-                if(pot.object == 1 || pot.object == 3)
+                if(pot.object == 1 || pot.object == 3)      // set current overlap numbers depending on what object it is
                 {
                     if(next.above)
                         mn.second += 1;
